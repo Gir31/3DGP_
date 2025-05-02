@@ -10,12 +10,14 @@
 #include <windows.h>
 
 // C의 런타임 헤더 파일입니다.
+#include <iostream>
 #include <stdlib.h>
 #include <malloc.h>
 #include <memory.h>
 #include <tchar.h>
 #include <math.h>
 #include <algorithm>
+#include <array>
 
 #include <Mmsystem.h>
 #pragma comment(lib, "winmm.lib")

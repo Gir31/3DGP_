@@ -1,74 +1,90 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\",
+  "WorkspaceRootPath": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02-01\\GameFramework.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\GameFramework.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|solutionrelative:LabProject02-01\\GameFramework.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{79AA45DC-DBBC-46BE-AA78-CCEB757DB0FE}|LabProject02\\LabProject02.vcxproj|C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02\\GameFramework.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{79AA45DC-DBBC-46BE-AA78-CCEB757DB0FE}|LabProject02\\LabProject02.vcxproj|solutionrelative:LabProject02\\GameFramework.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\StageManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|solutionrelative:LabProject02-01\\StageManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EE18299B-05F9-4236-8D11-55BEA6E6E8FE}|LabProject01\\LabProject.vcxproj|C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject01\\GameFramework.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EE18299B-05F9-4236-8D11-55BEA6E6E8FE}|LabProject01\\LabProject.vcxproj|solutionrelative:LabProject01\\GameFramework.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\StageManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|solutionrelative:LabProject02-01\\StageManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02-01\\GameFramework.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\GameFramework.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|solutionrelative:LabProject02-01\\GameFramework.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{79AA45DC-DBBC-46BE-AA78-CCEB757DB0FE}|LabProject02\\LabProject02.vcxproj|C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02\\GameFramework.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{79AA45DC-DBBC-46BE-AA78-CCEB757DB0FE}|LabProject02\\LabProject02.vcxproj|solutionrelative:LabProject02\\GameFramework.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\LabProject02-01.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|solutionrelative:LabProject02-01\\LabProject02-01.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EE18299B-05F9-4236-8D11-55BEA6E6E8FE}|LabProject01\\LabProject.vcxproj|C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject01\\LabProject01.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EE18299B-05F9-4236-8D11-55BEA6E6E8FE}|LabProject01\\LabProject.vcxproj|solutionrelative:LabProject01\\LabProject01.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EE18299B-05F9-4236-8D11-55BEA6E6E8FE}|LabProject01\\LabProject.vcxproj|C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject01\\GameFramework.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EE18299B-05F9-4236-8D11-55BEA6E6E8FE}|LabProject01\\LabProject.vcxproj|solutionrelative:LabProject01\\GameFramework.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02-01\\Scene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|solutionrelative:LabProject02-01\\Scene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02-01\\Scene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|solutionrelative:LabProject02-01\\Scene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02-01\\3DGP_Text.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|solutionrelative:LabProject02-01\\3DGP_Text.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02-01\\Mesh.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|solutionrelative:LabProject02-01\\Mesh.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02-01\\Mesh.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|solutionrelative:LabProject02-01\\Mesh.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02-01\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|solutionrelative:LabProject02-01\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02-01\\stdafx.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|solutionrelative:LabProject02-01\\stdafx.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02-01\\GraphicsPipeline.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|solutionrelative:LabProject02-01\\GraphicsPipeline.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02-01\\GameObject.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\GameObject.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|solutionrelative:LabProject02-01\\GameObject.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02-01\\GameObject.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\GameObject.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|solutionrelative:LabProject02-01\\GameObject.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\Title.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|solutionrelative:LabProject02-01\\Title.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\Menu.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|solutionrelative:LabProject02-01\\Menu.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\Scene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|solutionrelative:LabProject02-01\\Scene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\Scene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|solutionrelative:LabProject02-01\\Scene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\stdafx.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|solutionrelative:LabProject02-01\\stdafx.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\Mesh.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|solutionrelative:LabProject02-01\\Mesh.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\3DGP_variableMenu.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|solutionrelative:LabProject02-01\\3DGP_variableMenu.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\3DGP_variableTitle.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|solutionrelative:LabProject02-01\\3DGP_variableTitle.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\Mesh.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|solutionrelative:LabProject02-01\\Mesh.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|solutionrelative:LabProject02-01\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\Menu.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|solutionrelative:LabProject02-01\\Menu.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\Camera.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|solutionrelative:LabProject02-01\\Camera.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\Camera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|solutionrelative:LabProject02-01\\Camera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\GraphicsPipeline.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D0DE8074-915D-4349-A052-074A6061DCD9}|LabProject02-01\\LabProject02-01.vcxproj|solutionrelative:LabProject02-01\\GraphicsPipeline.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -78,212 +94,301 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 4,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "LabProject01.cpp",
-              "DocumentMoniker": "C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject01\\LabProject01.cpp",
-              "RelativeDocumentMoniker": "LabProject01\\LabProject01.cpp",
-              "ToolTip": "C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject01\\LabProject01.cpp",
-              "RelativeToolTip": "LabProject01\\LabProject01.cpp",
-              "ViewState": "AQIAAGEAAAAAAAAAAAAswH4AAAAYAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-30T10:24:59.165Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "GameFramework.h",
-              "DocumentMoniker": "C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02\\GameFramework.h",
-              "RelativeDocumentMoniker": "LabProject02\\GameFramework.h",
-              "ToolTip": "C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02\\GameFramework.h",
-              "RelativeToolTip": "LabProject02\\GameFramework.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAACIAAAAOAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-30T10:24:57.027Z"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "GameFramework.h",
-              "DocumentMoniker": "C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02-01\\GameFramework.h",
+              "DocumentMoniker": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\GameFramework.h",
               "RelativeDocumentMoniker": "LabProject02-01\\GameFramework.h",
-              "ToolTip": "C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02-01\\GameFramework.h",
+              "ToolTip": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\GameFramework.h",
               "RelativeToolTip": "LabProject02-01\\GameFramework.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAACMAAAAOAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACEAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-30T10:24:53.979Z"
+              "WhenOpened": "2025-04-30T10:24:53.979Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "GameFramework.h",
-              "DocumentMoniker": "C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject01\\GameFramework.h",
-              "RelativeDocumentMoniker": "LabProject01\\GameFramework.h",
-              "ToolTip": "C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject01\\GameFramework.h",
-              "RelativeToolTip": "LabProject01\\GameFramework.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB8AAAAOAAAA",
+              "DocumentIndex": 11,
+              "Title": "stdafx.h",
+              "DocumentMoniker": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\stdafx.h",
+              "RelativeDocumentMoniker": "LabProject02-01\\stdafx.h",
+              "ToolTip": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\stdafx.h",
+              "RelativeToolTip": "LabProject02-01\\stdafx.h",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAsAAAATAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-30T10:24:51.396Z"
+              "WhenOpened": "2025-05-02T04:53:40.793Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "GameFramework.cpp",
-              "DocumentMoniker": "C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02\\GameFramework.cpp",
-              "RelativeDocumentMoniker": "LabProject02\\GameFramework.cpp",
-              "ToolTip": "C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02\\GameFramework.cpp",
-              "RelativeToolTip": "LabProject02\\GameFramework.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAAAAAA",
+              "DocumentIndex": 10,
+              "Title": "Scene.h",
+              "DocumentMoniker": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\Scene.h",
+              "RelativeDocumentMoniker": "LabProject02-01\\Scene.h",
+              "ToolTip": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\Scene.h",
+              "RelativeToolTip": "LabProject02-01\\Scene.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-05-02T05:35:09.131Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Scene.cpp",
+              "DocumentMoniker": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\Scene.cpp",
+              "RelativeDocumentMoniker": "LabProject02-01\\Scene.cpp",
+              "ToolTip": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\Scene.cpp",
+              "RelativeToolTip": "LabProject02-01\\Scene.cpp",
+              "ViewState": "AQIAALMAAAAAAAAAAAAawM0AAAAiAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-30T10:24:49.629Z"
+              "WhenOpened": "2025-05-02T05:00:26.956Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "GameFramework.cpp",
-              "DocumentMoniker": "C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02-01\\GameFramework.cpp",
+              "DocumentMoniker": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\GameFramework.cpp",
               "RelativeDocumentMoniker": "LabProject02-01\\GameFramework.cpp",
-              "ToolTip": "C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02-01\\GameFramework.cpp",
+              "ToolTip": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\GameFramework.cpp",
               "RelativeToolTip": "LabProject02-01\\GameFramework.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAAAAAA",
+              "ViewState": "AQIAADgAAAAAKlzr1UkdwEkAAABkAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-30T10:24:46.65Z",
+              "WhenOpened": "2025-05-02T06:58:52.335Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "StageManager.cpp",
+              "DocumentMoniker": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\StageManager.cpp",
+              "RelativeDocumentMoniker": "LabProject02-01\\StageManager.cpp",
+              "ToolTip": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\StageManager.cpp",
+              "RelativeToolTip": "LabProject02-01\\StageManager.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-05-02T10:15:32.543Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "FloatingWindowState": {
+        "Id": "7702072c-374c-45c6-8ead-ca034b3ed459",
+        "Display": 0,
+        "X": 955,
+        "Y": 0,
+        "Width": 969,
+        "Height": 1157,
+        "WindowState": 0
+      },
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "StageManager.h",
+              "DocumentMoniker": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\StageManager.h",
+              "RelativeDocumentMoniker": "LabProject02-01\\StageManager.h",
+              "ToolTip": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\StageManager.h",
+              "RelativeToolTip": "LabProject02-01\\StageManager.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAACAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-05-02T10:13:01.909Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "GameObject.cpp",
+              "DocumentMoniker": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\GameObject.cpp",
+              "RelativeDocumentMoniker": "LabProject02-01\\GameObject.cpp",
+              "ToolTip": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\GameObject.cpp",
+              "RelativeToolTip": "LabProject02-01\\GameObject.cpp",
+              "ViewState": "AQIAANsAAAAAAAAAAAAAAP0AAAACAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-05-02T10:09:57.52Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Title.cpp",
+              "DocumentMoniker": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\Title.cpp",
+              "RelativeDocumentMoniker": "LabProject02-01\\Title.cpp",
+              "ToolTip": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\Title.cpp",
+              "RelativeToolTip": "LabProject02-01\\Title.cpp",
+              "ViewState": "AQIAADMAAAAAAAAAAAAEwGEAAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-05-02T07:24:13.013Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Menu.cpp",
+              "DocumentMoniker": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\Menu.cpp",
+              "RelativeDocumentMoniker": "LabProject02-01\\Menu.cpp",
+              "ToolTip": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\Menu.cpp",
+              "RelativeToolTip": "LabProject02-01\\Menu.cpp",
+              "ViewState": "AQIAADAAAAAAAAAAAAAEwF4AAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-05-02T08:01:29.386Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "LabProject02-01.cpp",
+              "DocumentMoniker": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\LabProject02-01.cpp",
+              "RelativeDocumentMoniker": "LabProject02-01\\LabProject02-01.cpp",
+              "ToolTip": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\LabProject02-01.cpp",
+              "RelativeToolTip": "LabProject02-01\\LabProject02-01.cpp",
+              "ViewState": "AQIAAIMAAAAA2uOQbioTwA8AAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-05-02T07:35:48.146Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "GameFramework.cpp",
-              "DocumentMoniker": "C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject01\\GameFramework.cpp",
-              "RelativeDocumentMoniker": "LabProject01\\GameFramework.cpp",
-              "ToolTip": "C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject01\\GameFramework.cpp",
-              "RelativeToolTip": "LabProject01\\GameFramework.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAeAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-30T10:23:52.099Z"
+              "Title": "GameObject.h",
+              "DocumentMoniker": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\GameObject.h",
+              "RelativeDocumentMoniker": "LabProject02-01\\GameObject.h",
+              "ToolTip": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\GameObject.h",
+              "RelativeToolTip": "LabProject02-01\\GameObject.h",
+              "ViewState": "AQIAACoAAAAAAAAAAAAIwFEAAAAXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-05-02T05:37:38.762Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 13,
-              "Title": "stdafx.h",
-              "DocumentMoniker": "C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02-01\\stdafx.h",
-              "RelativeDocumentMoniker": "LabProject02-01\\stdafx.h",
-              "ToolTip": "C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02-01\\stdafx.h",
-              "RelativeToolTip": "LabProject02-01\\stdafx.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAAAAAA",
+              "Title": "3DGP_variableMenu.h",
+              "DocumentMoniker": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\3DGP_variableMenu.h",
+              "RelativeDocumentMoniker": "LabProject02-01\\3DGP_variableMenu.h",
+              "ToolTip": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\3DGP_variableMenu.h",
+              "RelativeToolTip": "LabProject02-01\\3DGP_variableMenu.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAADgAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-30T08:13:48.585Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Mesh.h",
-              "DocumentMoniker": "C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02-01\\Mesh.h",
-              "RelativeDocumentMoniker": "LabProject02-01\\Mesh.h",
-              "ToolTip": "C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02-01\\Mesh.h",
-              "RelativeToolTip": "LabProject02-01\\Mesh.h",
-              "ViewState": "AQIAAFEAAAAAAAAAAAAAAFcAAAACAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-30T05:41:04.687Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "Mesh.cpp",
-              "DocumentMoniker": "C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02-01\\Mesh.cpp",
-              "RelativeDocumentMoniker": "LabProject02-01\\Mesh.cpp",
-              "ToolTip": "C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02-01\\Mesh.cpp",
-              "RelativeToolTip": "LabProject02-01\\Mesh.cpp",
-              "ViewState": "AQIAAK4BAAAAAAAAAAAAAMEBAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-30T05:40:39.562Z"
+              "WhenOpened": "2025-05-02T08:13:02.088Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 12,
-              "Title": "Player.cpp",
-              "DocumentMoniker": "C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02-01\\Player.cpp",
-              "RelativeDocumentMoniker": "LabProject02-01\\Player.cpp",
-              "ToolTip": "C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02-01\\Player.cpp",
-              "RelativeToolTip": "LabProject02-01\\Player.cpp",
-              "ViewState": "AQIAAHsAAAAAAAAAAAAAAIcAAAAnAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-30T05:41:06.348Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Scene.cpp",
-              "DocumentMoniker": "C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02-01\\Scene.cpp",
-              "RelativeDocumentMoniker": "LabProject02-01\\Scene.cpp",
-              "ToolTip": "C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02-01\\Scene.cpp",
-              "RelativeToolTip": "LabProject02-01\\Scene.cpp",
-              "ViewState": "AQIAABUAAAAAAAAAAAAAAA0AAAAZAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-30T05:41:19.139Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "GraphicsPipeline.h",
-              "DocumentMoniker": "C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02-01\\GraphicsPipeline.h",
-              "RelativeDocumentMoniker": "LabProject02-01\\GraphicsPipeline.h",
-              "ToolTip": "C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02-01\\GraphicsPipeline.h",
-              "RelativeToolTip": "LabProject02-01\\GraphicsPipeline.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAAAAAA",
+              "Title": "Mesh.h",
+              "DocumentMoniker": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\Mesh.h",
+              "RelativeDocumentMoniker": "LabProject02-01\\Mesh.h",
+              "ToolTip": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\Mesh.h",
+              "RelativeToolTip": "LabProject02-01\\Mesh.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACwAAAAbAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-30T08:46:46.386Z"
+              "WhenOpened": "2025-05-02T04:34:35.783Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 15,
-              "Title": "GameObject.cpp",
-              "DocumentMoniker": "C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02-01\\GameObject.cpp",
-              "RelativeDocumentMoniker": "LabProject02-01\\GameObject.cpp",
-              "ToolTip": "C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02-01\\GameObject.cpp",
-              "RelativeToolTip": "LabProject02-01\\GameObject.cpp",
-              "ViewState": "AQIAAAsAAAAAAAAAAAAowCIAAAAAAAAA",
+              "Title": "Mesh.cpp",
+              "DocumentMoniker": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\Mesh.cpp",
+              "RelativeDocumentMoniker": "LabProject02-01\\Mesh.cpp",
+              "ToolTip": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\Mesh.cpp",
+              "RelativeToolTip": "LabProject02-01\\Mesh.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-30T05:40:55.349Z"
+              "WhenOpened": "2025-05-01T06:21:43.759Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "3DGP_variableTitle.h",
+              "DocumentMoniker": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\3DGP_variableTitle.h",
+              "RelativeDocumentMoniker": "LabProject02-01\\3DGP_variableTitle.h",
+              "ToolTip": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\3DGP_variableTitle.h",
+              "RelativeToolTip": "LabProject02-01\\3DGP_variableTitle.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAzAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-05-01T06:22:15.708Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 16,
-              "Title": "GameObject.h",
-              "DocumentMoniker": "C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02-01\\GameObject.h",
-              "RelativeDocumentMoniker": "LabProject02-01\\GameObject.h",
-              "ToolTip": "C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02-01\\GameObject.h",
-              "RelativeToolTip": "LabProject02-01\\GameObject.h",
-              "ViewState": "AQIAAAwAAAAAAAAAAAAowCcAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-30T06:15:17.469Z"
+              "Title": "Player.cpp",
+              "DocumentMoniker": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\Player.cpp",
+              "RelativeDocumentMoniker": "LabProject02-01\\Player.cpp",
+              "ToolTip": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\Player.cpp",
+              "RelativeToolTip": "LabProject02-01\\Player.cpp",
+              "ViewState": "AQIAAEUAAAAAAAAAAAAAAF4AAABbAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-05-02T07:49:36.728Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Scene.h",
-              "DocumentMoniker": "C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02-01\\Scene.h",
-              "RelativeDocumentMoniker": "LabProject02-01\\Scene.h",
-              "ToolTip": "C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02-01\\Scene.h",
-              "RelativeToolTip": "LabProject02-01\\Scene.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABkAAAAaAAAA",
+              "DocumentIndex": 17,
+              "Title": "Menu.h",
+              "DocumentMoniker": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\Menu.h",
+              "RelativeDocumentMoniker": "LabProject02-01\\Menu.h",
+              "ToolTip": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\Menu.h",
+              "RelativeToolTip": "LabProject02-01\\Menu.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-30T06:14:58.395Z"
+              "WhenOpened": "2025-05-02T08:00:32.231Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "3DGP_Text.h",
-              "DocumentMoniker": "C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02-01\\3DGP_Text.h",
-              "RelativeDocumentMoniker": "LabProject02-01\\3DGP_Text.h",
-              "ToolTip": "C:\\Users\\82102\\Desktop\\LabProject(Software Renderer) (1)\\LabProject02-01\\3DGP_Text.h",
-              "RelativeToolTip": "LabProject02-01\\3DGP_Text.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAACkAAAAAAAAA",
+              "DocumentIndex": 18,
+              "Title": "Camera.cpp",
+              "DocumentMoniker": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\Camera.cpp",
+              "RelativeDocumentMoniker": "LabProject02-01\\Camera.cpp",
+              "ToolTip": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\Camera.cpp",
+              "RelativeToolTip": "LabProject02-01\\Camera.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-05-02T05:37:33.805Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "Camera.h",
+              "DocumentMoniker": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\Camera.h",
+              "RelativeDocumentMoniker": "LabProject02-01\\Camera.h",
+              "ToolTip": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\Camera.h",
+              "RelativeToolTip": "LabProject02-01\\Camera.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAAQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-30T05:43:23.913Z"
+              "WhenOpened": "2025-05-02T05:37:36.513Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "GraphicsPipeline.h",
+              "DocumentMoniker": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\GraphicsPipeline.h",
+              "RelativeDocumentMoniker": "LabProject02-01\\GraphicsPipeline.h",
+              "ToolTip": "D:\\github_My\\3DGP_\\LabProject(Software Renderer) (1)\\LabProject02-01\\GraphicsPipeline.h",
+              "RelativeToolTip": "LabProject02-01\\GraphicsPipeline.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-05-02T05:35:16.852Z",
+              "EditorCaption": ""
             }
           ]
         }

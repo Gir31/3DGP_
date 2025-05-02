@@ -10,7 +10,7 @@ public:
 	CScene(CPlayer *pPlayer);
 	virtual ~CScene();
 
-private:
+protected:
 	int							m_nObjects = 0;
 	CGameObject					**m_ppObjects = NULL;
 
@@ -39,4 +39,3 @@ public:
 
 	CGameObject* PickObjectPointedByCursor(int xClient, int yClient, CCamera* pCamera);
 };
-

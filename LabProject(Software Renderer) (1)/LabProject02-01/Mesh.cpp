@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Mesh.h"
 #include "GraphicsPipeline.h"
-#include "3DGP_Text.h"
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -447,130 +446,6 @@ CAxisMesh::CAxisMesh(float fWidth, float fHeight, float fDepth) : CMesh(3)
 	pzAxis->SetVertex(0, CVertex(0.0f, 0.0f, -fHalfWidth));
 	pzAxis->SetVertex(1, CVertex(0.0f, 0.0f, +fHalfWidth));
 	SetPolygon(2, pzAxis);
-}
-
-CTitleMesh::CTitleMesh(float fWidth, float fHeight, float fDepth) : CMesh(1206)
-{
-	float fHalfWidth = fWidth * 0.5f;
-	float fHalfHeight = fHeight * 0.5f;
-	float fHalfDepth = fDepth * 0.5f;
-
-	int cnt = 0;
-
-	for (int i = 0; i < 441; ++i) {
-		int cx = i % 63;
-		int cy = i / 63;
-		if (title[cy][cx]) {
-			CPolygon* pFrontFace = new CPolygon(4);
-			pFrontFace->SetVertex(0, CVertex(titleLocationX[cx] - fHalfWidth, titleLocationY[cy] + fHalfHeight, -fHalfDepth));
-			pFrontFace->SetVertex(1, CVertex(titleLocationX[cx] + fHalfWidth, titleLocationY[cy] + fHalfHeight, -fHalfDepth));
-			pFrontFace->SetVertex(2, CVertex(titleLocationX[cx] + fHalfWidth, titleLocationY[cy] - fHalfHeight, -fHalfDepth));
-			pFrontFace->SetVertex(3, CVertex(titleLocationX[cx] - fHalfWidth, titleLocationY[cy] - fHalfHeight, -fHalfDepth));
-			SetPolygon((cnt * 6), pFrontFace);
-
-			CPolygon* pTopFace = new CPolygon(4);
-			pTopFace->SetVertex(0, CVertex(titleLocationX[cx] - fHalfWidth, titleLocationY[cy] + fHalfHeight, +fHalfDepth));
-			pTopFace->SetVertex(1, CVertex(titleLocationX[cx] + fHalfWidth, titleLocationY[cy] + fHalfHeight, +fHalfDepth));
-			pTopFace->SetVertex(2, CVertex(titleLocationX[cx] + fHalfWidth, titleLocationY[cy] + fHalfHeight, -fHalfDepth));
-			pTopFace->SetVertex(3, CVertex(titleLocationX[cx] - fHalfWidth, titleLocationY[cy] + fHalfHeight, -fHalfDepth));
-			SetPolygon((cnt * 6) + 1, pTopFace);
-
-			CPolygon* pBackFace = new CPolygon(4);
-			pBackFace->SetVertex(0, CVertex(titleLocationX[cx] - fHalfWidth, titleLocationY[cy] - fHalfHeight, +fHalfDepth));
-			pBackFace->SetVertex(1, CVertex(titleLocationX[cx] + fHalfWidth, titleLocationY[cy] - fHalfHeight, +fHalfDepth));
-			pBackFace->SetVertex(2, CVertex(titleLocationX[cx] + fHalfWidth, titleLocationY[cy] + fHalfHeight, +fHalfDepth));
-			pBackFace->SetVertex(3, CVertex(titleLocationX[cx] - fHalfWidth, titleLocationY[cy] + fHalfHeight, +fHalfDepth));
-			SetPolygon((cnt * 6) + 2, pBackFace);
-
-			CPolygon* pBottomFace = new CPolygon(4);
-			pBottomFace->SetVertex(0, CVertex(titleLocationX[cx] - fHalfWidth, titleLocationY[cy] - fHalfHeight, -fHalfDepth));
-			pBottomFace->SetVertex(1, CVertex(titleLocationX[cx] + fHalfWidth, titleLocationY[cy] - fHalfHeight, -fHalfDepth));
-			pBottomFace->SetVertex(2, CVertex(titleLocationX[cx] + fHalfWidth, titleLocationY[cy] - fHalfHeight, +fHalfDepth));
-			pBottomFace->SetVertex(3, CVertex(titleLocationX[cx] - fHalfWidth, titleLocationY[cy] - fHalfHeight, +fHalfDepth));
-			SetPolygon((cnt * 6) + 3, pBottomFace);
-
-			CPolygon* pLeftFace = new CPolygon(4);
-			pLeftFace->SetVertex(0, CVertex(titleLocationX[cx] - fHalfWidth, titleLocationY[cy] + fHalfHeight, +fHalfDepth));
-			pLeftFace->SetVertex(1, CVertex(titleLocationX[cx] - fHalfWidth, titleLocationY[cy] + fHalfHeight, -fHalfDepth));
-			pLeftFace->SetVertex(2, CVertex(titleLocationX[cx] - fHalfWidth, titleLocationY[cy] - fHalfHeight, -fHalfDepth));
-			pLeftFace->SetVertex(3, CVertex(titleLocationX[cx] - fHalfWidth, titleLocationY[cy] - fHalfHeight, +fHalfDepth));
-			SetPolygon((cnt * 6) + 4, pLeftFace);
-
-			CPolygon* pRightFace = new CPolygon(4);
-			pRightFace->SetVertex(0, CVertex(titleLocationX[cx] + fHalfWidth, titleLocationY[cy] + fHalfHeight, -fHalfDepth));
-			pRightFace->SetVertex(1, CVertex(titleLocationX[cx] + fHalfWidth, titleLocationY[cy] + fHalfHeight, +fHalfDepth));
-			pRightFace->SetVertex(2, CVertex(titleLocationX[cx] + fHalfWidth, titleLocationY[cy] - fHalfHeight, +fHalfDepth));
-			pRightFace->SetVertex(3, CVertex(titleLocationX[cx] + fHalfWidth, titleLocationY[cy] - fHalfHeight, -fHalfDepth));
-			SetPolygon((cnt * 6) + 5, pRightFace);
-
-			++cnt;
-		}
-	}
-
-	m_xmOOBB = BoundingOrientedBox(XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(fHalfWidth, fHalfHeight, fHalfDepth), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
-
-}
-
-CNameMesh::CNameMesh(float fWidth, float fHeight, float fDepth) : CMesh(510)
-{
-	float fHalfWidth = fWidth * 0.5f;
-	float fHalfHeight = fHeight * 0.5f;
-	float fHalfDepth = fDepth * 0.5f;
-
-	int cnt = 0;
-
-	for (int i = 0; i < 230; ++i) {
-		int cx = i % 23;
-		int cy = i / 23;
-		if (name[cy][cx]) {
-			CPolygon* pFrontFace = new CPolygon(4);
-			pFrontFace->SetVertex(0, CVertex(nameLocationX[cx] - fHalfWidth, nameLocationY[cy] + fHalfHeight, -fHalfDepth));
-			pFrontFace->SetVertex(1, CVertex(nameLocationX[cx] + fHalfWidth, nameLocationY[cy] + fHalfHeight, -fHalfDepth));
-			pFrontFace->SetVertex(2, CVertex(nameLocationX[cx] + fHalfWidth, nameLocationY[cy] - fHalfHeight, -fHalfDepth));
-			pFrontFace->SetVertex(3, CVertex(nameLocationX[cx] - fHalfWidth, nameLocationY[cy] - fHalfHeight, -fHalfDepth));
-			SetPolygon((cnt * 6), pFrontFace);
-
-			CPolygon* pTopFace = new CPolygon(4);
-			pTopFace->SetVertex(0, CVertex(nameLocationX[cx] - fHalfWidth, nameLocationY[cy] + fHalfHeight, +fHalfDepth));
-			pTopFace->SetVertex(1, CVertex(nameLocationX[cx] + fHalfWidth, nameLocationY[cy] + fHalfHeight, +fHalfDepth));
-			pTopFace->SetVertex(2, CVertex(nameLocationX[cx] + fHalfWidth, nameLocationY[cy] + fHalfHeight, -fHalfDepth));
-			pTopFace->SetVertex(3, CVertex(nameLocationX[cx] - fHalfWidth, nameLocationY[cy] + fHalfHeight, -fHalfDepth));
-			SetPolygon((cnt * 6) + 1, pTopFace);
-
-			CPolygon* pBackFace = new CPolygon(4);
-			pBackFace->SetVertex(0, CVertex(nameLocationX[cx] - fHalfWidth, nameLocationY[cy] - fHalfHeight, +fHalfDepth));
-			pBackFace->SetVertex(1, CVertex(nameLocationX[cx] + fHalfWidth, nameLocationY[cy] - fHalfHeight, +fHalfDepth));
-			pBackFace->SetVertex(2, CVertex(nameLocationX[cx] + fHalfWidth, nameLocationY[cy] + fHalfHeight, +fHalfDepth));
-			pBackFace->SetVertex(3, CVertex(nameLocationX[cx] - fHalfWidth, nameLocationY[cy] + fHalfHeight, +fHalfDepth));
-			SetPolygon((cnt * 6) + 2, pBackFace);
-
-			CPolygon* pBottomFace = new CPolygon(4);
-			pBottomFace->SetVertex(0, CVertex(nameLocationX[cx] - fHalfWidth, nameLocationY[cy] - fHalfHeight, -fHalfDepth));
-			pBottomFace->SetVertex(1, CVertex(nameLocationX[cx] + fHalfWidth, nameLocationY[cy] - fHalfHeight, -fHalfDepth));
-			pBottomFace->SetVertex(2, CVertex(nameLocationX[cx] + fHalfWidth, nameLocationY[cy] - fHalfHeight, +fHalfDepth));
-			pBottomFace->SetVertex(3, CVertex(nameLocationX[cx] - fHalfWidth, nameLocationY[cy] - fHalfHeight, +fHalfDepth));
-			SetPolygon((cnt * 6) + 3, pBottomFace);
-
-			CPolygon* pLeftFace = new CPolygon(4);
-			pLeftFace->SetVertex(0, CVertex(nameLocationX[cx] - fHalfWidth, nameLocationY[cy] + fHalfHeight, +fHalfDepth));
-			pLeftFace->SetVertex(1, CVertex(nameLocationX[cx] - fHalfWidth, nameLocationY[cy] + fHalfHeight, -fHalfDepth));
-			pLeftFace->SetVertex(2, CVertex(nameLocationX[cx] - fHalfWidth, nameLocationY[cy] - fHalfHeight, -fHalfDepth));
-			pLeftFace->SetVertex(3, CVertex(nameLocationX[cx] - fHalfWidth, nameLocationY[cy] - fHalfHeight, +fHalfDepth));
-			SetPolygon((cnt * 6) + 4, pLeftFace);
-
-			CPolygon* pRightFace = new CPolygon(4);
-			pRightFace->SetVertex(0, CVertex(nameLocationX[cx] + fHalfWidth, nameLocationY[cy] + fHalfHeight, -fHalfDepth));
-			pRightFace->SetVertex(1, CVertex(nameLocationX[cx] + fHalfWidth, nameLocationY[cy] + fHalfHeight, +fHalfDepth));
-			pRightFace->SetVertex(2, CVertex(nameLocationX[cx] + fHalfWidth, nameLocationY[cy] - fHalfHeight, +fHalfDepth));
-			pRightFace->SetVertex(3, CVertex(nameLocationX[cx] + fHalfWidth, nameLocationY[cy] - fHalfHeight, -fHalfDepth));
-			SetPolygon((cnt * 6) + 5, pRightFace);
-
-			++cnt;
-		}
-	}
-
-	m_xmOOBB = BoundingOrientedBox(XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(fHalfWidth, fHalfHeight, fHalfDepth), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
-
 }
 
 void CAxisMesh::Render(HDC hDCFrameBuffer)

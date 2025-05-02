@@ -4,6 +4,7 @@
 
 #include "stdafx.h"
 #include "GameFramework.h"
+#include "StageManager.h"
 
 void CGameFramework::OnCreate(HINSTANCE hInstance, HWND hMainWnd)
 {
@@ -14,7 +15,9 @@ void CGameFramework::OnCreate(HINSTANCE hInstance, HWND hMainWnd)
 
 	BuildFrameBuffer(); 
 
-	BuildObjects(); 
+	BuildObjects(); // ..
+
+	
 
 	_tcscpy_s(m_pszFrameRate, _T("LabProject ("));
 }
@@ -79,7 +82,7 @@ void CGameFramework::BuildObjects()
 	m_pPlayer->SetCamera(pCamera);
 	m_pPlayer->SetCameraOffset(XMFLOAT3(0.0f, 5.0f, -15.0f));
 
-	m_pScene = new CScene(m_pPlayer);
+	m_pScene = new Title(m_pPlayer);
 	m_pScene->BuildObjects();
 }
 
@@ -104,7 +107,34 @@ void CGameFramework::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM
 	case WM_LBUTTONDOWN:
 		::SetCapture(hWnd);
 		::GetCursorPos(&m_ptOldCursorPos);
-		if (nMessageID == WM_RBUTTONDOWN) m_pLockedObject = m_pScene->PickObjectPointedByCursor(LOWORD(lParam), HIWORD(lParam), m_pPlayer->m_pCamera);
+
+		if (nMessageID == WM_LBUTTONDOWN) { 
+
+			CExplosiveObject* pExplosiveObject = 
+				(CExplosiveObject*)m_pScene->PickObjectPointedByCursor(LOWORD(lParam), HIWORD(lParam), m_pPlayer->m_pCamera); 
+			if(pExplosiveObject)
+				pExplosiveObject->m_bBlowingUp = true; 
+
+			if (typeid(*m_pScene) == typeid(Title)) {
+				OutputDebugStringA("현재 스테이지는 Title 입니다");
+				OutputDebugStringA("\n");
+				m_pScene->ReleaseObjects();
+
+				m_pScene = new Menu(m_pPlayer);
+				m_pScene->BuildObjects();
+			}
+			else if (typeid(*m_pScene) == typeid(Menu)) {
+				OutputDebugStringA("현재 스테이지는 Menu 입니다");
+				OutputDebugStringA("\n");
+				m_pScene->ReleaseObjects();
+
+				m_pScene = new Title(m_pPlayer);
+				m_pScene->BuildObjects();
+			}
+
+			// OnCreate();
+		}
+
 		break;
 	case WM_LBUTTONUP:
 	case WM_RBUTTONUP:
@@ -217,6 +247,7 @@ void CGameFramework::AnimateObjects()
 	if (m_pScene) m_pScene->Animate(fTimeElapsed);
 }
 
+// frame당 찍어낼 함수
 void CGameFramework::FrameAdvance()
 {    
 	m_GameTimer.Tick(60.0f);
@@ -237,3 +268,4 @@ void CGameFramework::FrameAdvance()
 }
 
 
+// 모든 객체를 create때 생성하고 stage를 바꿀때마다 애니메이션되는 객체를 다르게 할까?

@@ -87,16 +87,73 @@ public:
 	virtual void Render(HDC hDCFrameBuffer);
 };
 
-class CTitleMesh : public CMesh
+class CTextMesh : public CMesh
 {
 public:
-	CTitleMesh(float fWidth = 1.0f, float fHeight = 1.0f, float fDepth = 1.0f);
-	virtual ~CTitleMesh() { }
-};
+	template <size_t N1, size_t N2, size_t N3>
 
-class CNameMesh : public CMesh
-{
-public:
-	CNameMesh(float fWidth = 1.0f, float fHeight = 1.0f, float fDepth = 1.0f);
-	virtual ~CNameMesh() { }
+	CTextMesh(float fWidth = 1.0f, float fHeight = 1.0f, float fDepth = 1.0f,
+		std::array<bool, N1> text = true, std::array<float, N2> cx = 0, std::array<float, N3> cy = 0) 
+		: CMesh(count(text.begin(), text.end(), true)*6)
+	{
+		float fHalfWidth = fWidth * 0.5f;
+		float fHalfHeight = fHeight * 0.5f;
+		float fHalfDepth = fDepth * 0.5f;
+
+		int cnt = 0;
+
+		for (int i = 0; i < text.size(); ++i) {
+			int x = i % cx.size();
+			int y = i / cx.size();
+			if (text[i]) {
+				CPolygon* pFrontFace = new CPolygon(4);
+				pFrontFace->SetVertex(0, CVertex(cx[x] - fHalfWidth, cy[y] + fHalfHeight, -fHalfDepth));
+				pFrontFace->SetVertex(1, CVertex(cx[x] + fHalfWidth, cy[y] + fHalfHeight, -fHalfDepth));
+				pFrontFace->SetVertex(2, CVertex(cx[x] + fHalfWidth, cy[y] - fHalfHeight, -fHalfDepth));
+				pFrontFace->SetVertex(3, CVertex(cx[x] - fHalfWidth, cy[y] - fHalfHeight, -fHalfDepth));
+				SetPolygon((cnt * 6), pFrontFace);
+
+				CPolygon* pTopFace = new CPolygon(4);
+				pTopFace->SetVertex(0, CVertex(cx[x] - fHalfWidth, cy[y] + fHalfHeight, +fHalfDepth));
+				pTopFace->SetVertex(1, CVertex(cx[x] + fHalfWidth, cy[y] + fHalfHeight, +fHalfDepth));
+				pTopFace->SetVertex(2, CVertex(cx[x] + fHalfWidth, cy[y] + fHalfHeight, -fHalfDepth));
+				pTopFace->SetVertex(3, CVertex(cx[x] - fHalfWidth, cy[y] + fHalfHeight, -fHalfDepth));
+				SetPolygon((cnt * 6) + 1, pTopFace);
+
+				CPolygon* pBackFace = new CPolygon(4);
+				pBackFace->SetVertex(0, CVertex(cx[x] - fHalfWidth, cy[y] - fHalfHeight, +fHalfDepth));
+				pBackFace->SetVertex(1, CVertex(cx[x] + fHalfWidth, cy[y] - fHalfHeight, +fHalfDepth));
+				pBackFace->SetVertex(2, CVertex(cx[x] + fHalfWidth, cy[y] + fHalfHeight, +fHalfDepth));
+				pBackFace->SetVertex(3, CVertex(cx[x] - fHalfWidth, cy[y] + fHalfHeight, +fHalfDepth));
+				SetPolygon((cnt * 6) + 2, pBackFace);
+
+				CPolygon* pBottomFace = new CPolygon(4);
+				pBottomFace->SetVertex(0, CVertex(cx[x] - fHalfWidth, cy[y] - fHalfHeight, -fHalfDepth));
+				pBottomFace->SetVertex(1, CVertex(cx[x] + fHalfWidth, cy[y] - fHalfHeight, -fHalfDepth));
+				pBottomFace->SetVertex(2, CVertex(cx[x] + fHalfWidth, cy[y] - fHalfHeight, +fHalfDepth));
+				pBottomFace->SetVertex(3, CVertex(cx[x] - fHalfWidth, cy[y] - fHalfHeight, +fHalfDepth));
+				SetPolygon((cnt * 6) + 3, pBottomFace);
+
+				CPolygon* pLeftFace = new CPolygon(4);
+				pLeftFace->SetVertex(0, CVertex(cx[x] - fHalfWidth, cy[y] + fHalfHeight, +fHalfDepth));
+				pLeftFace->SetVertex(1, CVertex(cx[x] - fHalfWidth, cy[y] + fHalfHeight, -fHalfDepth));
+				pLeftFace->SetVertex(2, CVertex(cx[x] - fHalfWidth, cy[y] - fHalfHeight, -fHalfDepth));
+				pLeftFace->SetVertex(3, CVertex(cx[x] - fHalfWidth, cy[y] - fHalfHeight, +fHalfDepth));
+				SetPolygon((cnt * 6) + 4, pLeftFace);
+
+				CPolygon* pRightFace = new CPolygon(4);
+				pRightFace->SetVertex(0, CVertex(cx[x] + fHalfWidth, cy[y] + fHalfHeight, -fHalfDepth));
+				pRightFace->SetVertex(1, CVertex(cx[x] + fHalfWidth, cy[y] + fHalfHeight, +fHalfDepth));
+				pRightFace->SetVertex(2, CVertex(cx[x] + fHalfWidth, cy[y] - fHalfHeight, +fHalfDepth));
+				pRightFace->SetVertex(3, CVertex(cx[x] + fHalfWidth, cy[y] - fHalfHeight, -fHalfDepth));
+				SetPolygon((cnt * 6) + 5, pRightFace);
+
+				++cnt;
+			}
+		}
+
+		m_xmOOBB = BoundingOrientedBox(XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(cx[cx.size() - 1], cy[0], fHalfDepth), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
+
+	}
+	virtual ~CTextMesh() { }
 };

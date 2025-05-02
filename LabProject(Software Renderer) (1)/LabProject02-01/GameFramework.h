@@ -2,6 +2,8 @@
 
 #include "Player.h"
 #include "Scene.h"
+#include "Title.h"
+#include "Menu.h"
 #include "Timer.h"
 
 class CGameFramework

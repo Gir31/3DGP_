@@ -227,6 +227,8 @@ void CExplosiveObject::PrepareExplosion()
 	m_pExplosionMesh = new CCubeMesh(0.5f, 0.5f, 0.5f);
 }
 
+
+// 폭발 애니메이션
 void CExplosiveObject::Animate(float fElapsedTime)
 {
 	if (m_bBlowingUp)
@@ -248,6 +250,8 @@ void CExplosiveObject::Animate(float fElapsedTime)
 		{
 			m_bBlowingUp = false;
 			m_fElapsedTimes = 0.0f;
+
+
 		}
 	}
 	else

@@ -1,17 +1,7 @@
-﻿  Title.cpp
-D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Mesh.h(99,48): warning C4244: '인수': '__int64'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 'Title.cpp'을(를) 컴파일하는 중)
-      D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Mesh.h(99,48):
-      템플릿 인스턴스화 컨텍스트(가장 오래된 인스턴스화 컨텍스트)가
-          D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Title.cpp(20,39):
-          컴파일되는 함수 템플릿 인스턴스화 'CTextMesh::CTextMesh<441,63,7>(float,float,float,std::array<bool,441>,std::array<float,63>,std::array<float,7>)'에 대한 참조를 확인하세요.
-  
-D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Mesh.h(109,10): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 'Title.cpp'을(를) 컴파일하는 중)
-  
+﻿  GameFramework.cpp
   코드를 생성하고 있습니다.
-  1 of 399 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
+  4 of 400 functions ( 1.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    11 functions had inline decision re-evaluated but remain unchanged
+    13 functions had inline decision re-evaluated but remain unchanged
   코드를 생성했습니다.
   LabProject02-01.vcxproj -> D:\github_my\3DGP_\LabProject(Software Renderer) (1)\x64\Release\LabProject02-01.exe

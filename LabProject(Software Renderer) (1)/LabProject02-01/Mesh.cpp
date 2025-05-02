@@ -76,6 +76,25 @@ void CMesh::Render(HDC hDCFrameBuffer)
 		}
 		if (((0.0f <= f3InitialProject.z) && (f3InitialProject.z <= 1.0f)) && ((bInitialInside || bPreviousInside))) ::Draw2DLine(hDCFrameBuffer, f3PreviousProject, f3InitialProject);
 	}
+
+	//for (int j = 0; j < m_nPolygons; j++) {
+	//	int nVertices = m_ppPolygons[j]->m_nVertices;
+	//	CVertex* pVertices = m_ppPolygons[j]->m_pVertices;
+
+	//	POINT points[4]; // 가정: 다각형 꼭짓점 최대 16개
+	//	for (int i = 0; i < nVertices; ++i) {
+	//		XMFLOAT3 proj = CGraphicsPipeline::ScreenTransform(
+	//			CGraphicsPipeline::Project(pVertices[i].m_xmf3Position)
+	//		);
+	//		points[i] = { (LONG)proj.x, (LONG)proj.y };
+	//	}
+
+	//	HBRUSH hBrush = CreateSolidBrush(RGB(0, 0, 0));  // 흰색 면 채우기
+	//	HBRUSH hOldBrush = (HBRUSH)SelectObject(hDCFrameBuffer, hBrush);
+	//	Polygon(hDCFrameBuffer, points, nVertices);  // 면 그리기
+	//	SelectObject(hDCFrameBuffer, hOldBrush);
+	//	DeleteObject(hBrush);
+	//}
 }
 
 BOOL CMesh::RayIntersectionByTriangle(XMVECTOR& xmRayOrigin, XMVECTOR& xmRayDirection, XMVECTOR v0, XMVECTOR v1, XMVECTOR v2, float* pfNearHitDistance)

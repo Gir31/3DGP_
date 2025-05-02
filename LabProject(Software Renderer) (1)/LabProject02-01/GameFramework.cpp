@@ -112,6 +112,7 @@ void CGameFramework::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM
 
 			CExplosiveObject* pExplosiveObject = 
 				(CExplosiveObject*)manager->getCurrStage()->PickObjectPointedByCursor(LOWORD(lParam), HIWORD(lParam), m_pPlayer->m_pCamera); 
+
 			if(pExplosiveObject)
 				pExplosiveObject->m_bBlowingUp = true; 
 

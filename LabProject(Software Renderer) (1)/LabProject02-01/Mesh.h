@@ -93,7 +93,9 @@ public:
 	template <size_t N1, size_t N2, size_t N3>
 
 	CTextMesh(float fWidth = 1.0f, float fHeight = 1.0f, float fDepth = 1.0f,
-		std::array<bool, N1> text = true, std::array<float, N2> cx = 0, std::array<float, N3> cy = 0) 
+		std::array<bool, N1> text = true, 
+		std::array<float, N2> cx = 0, 
+		std::array<float, N3> cy = 0) 
 		: CMesh(count(text.begin(), text.end(), true)*6)
 	{
 		float fHalfWidth = fWidth * 0.5f;
@@ -152,8 +154,10 @@ public:
 			}
 		}
 
-		m_xmOOBB = BoundingOrientedBox(XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(cx[cx.size() - 1], cy[0], fHalfDepth), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
-
+		m_xmOOBB = BoundingOrientedBox(XMFLOAT3(0.0f, 0.0f, 0.0f), 
+			XMFLOAT3(cx[cx.size() - 1], cy[0], fHalfDepth), 
+			XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
 	}
+
 	virtual ~CTextMesh() { }
 };

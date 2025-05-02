@@ -4,7 +4,6 @@
 
 #include "stdafx.h"
 #include "GameFramework.h"
-#include "StageManager.h"
 
 void CGameFramework::OnCreate(HINSTANCE hInstance, HWND hMainWnd)
 {
@@ -15,9 +14,7 @@ void CGameFramework::OnCreate(HINSTANCE hInstance, HWND hMainWnd)
 
 	BuildFrameBuffer(); 
 
-	BuildObjects(); // ..
-
-	
+	BuildObjects();
 
 	_tcscpy_s(m_pszFrameRate, _T("LabProject ("));
 }
@@ -82,16 +79,19 @@ void CGameFramework::BuildObjects()
 	m_pPlayer->SetCamera(pCamera);
 	m_pPlayer->SetCameraOffset(XMFLOAT3(0.0f, 5.0f, -15.0f));
 
-	m_pScene = new Title(m_pPlayer);
-	m_pScene->BuildObjects();
+	manager = new StageManager(new Title(m_pPlayer), new Menu(m_pPlayer), new Title(m_pPlayer), new Menu(m_pPlayer));
+	manager->buildStage();
+
+	/*m_pScene = new Title(m_pPlayer);
+	m_pScene->BuildObjects();*/
 }
 
 void CGameFramework::ReleaseObjects()
 {
-	if (m_pScene)
+	if (manager->getCurrStage())
 	{
-		m_pScene->ReleaseObjects();
-		delete m_pScene;
+		manager->getCurrStage()->ReleaseObjects();
+		delete manager->getCurrStage();
 	}
 
 	if (m_pPlayer) delete m_pPlayer;
@@ -99,7 +99,7 @@ void CGameFramework::ReleaseObjects()
 
 void CGameFramework::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
 {
-	if (m_pScene) m_pScene->OnProcessingMouseMessage(hWnd, nMessageID, wParam, lParam);
+	if (manager->getCurrStage()) manager->getCurrStage()->OnProcessingMouseMessage(hWnd, nMessageID, wParam, lParam);
 
 	switch (nMessageID)
 	{
@@ -111,25 +111,22 @@ void CGameFramework::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM
 		if (nMessageID == WM_LBUTTONDOWN) { 
 
 			CExplosiveObject* pExplosiveObject = 
-				(CExplosiveObject*)m_pScene->PickObjectPointedByCursor(LOWORD(lParam), HIWORD(lParam), m_pPlayer->m_pCamera); 
+				(CExplosiveObject*)manager->getCurrStage()->PickObjectPointedByCursor(LOWORD(lParam), HIWORD(lParam), m_pPlayer->m_pCamera); 
 			if(pExplosiveObject)
 				pExplosiveObject->m_bBlowingUp = true; 
 
-			if (typeid(*m_pScene) == typeid(Title)) {
+
+			if (typeid(*manager->getCurrStage()) == typeid(Title)) {
 				OutputDebugStringA("현재 스테이지는 Title 입니다");
 				OutputDebugStringA("\n");
-				m_pScene->ReleaseObjects();
 
-				m_pScene = new Menu(m_pPlayer);
-				m_pScene->BuildObjects();
+				manager->changeStage(1);
 			}
-			else if (typeid(*m_pScene) == typeid(Menu)) {
+			else if (typeid(*manager->getCurrStage()) == typeid(Menu)) {
 				OutputDebugStringA("현재 스테이지는 Menu 입니다");
 				OutputDebugStringA("\n");
-				m_pScene->ReleaseObjects();
 
-				m_pScene = new Title(m_pPlayer);
-				m_pScene->BuildObjects();
+				manager->changeStage(2);
 			}
 
 			// OnCreate();
@@ -149,7 +146,7 @@ void CGameFramework::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM
 
 void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
 {
-	if (m_pScene) m_pScene->OnProcessingKeyboardMessage(hWnd, nMessageID, wParam, lParam);
+	if (manager->getCurrStage()) manager->getCurrStage()->OnProcessingKeyboardMessage(hWnd, nMessageID, wParam, lParam);
 
 	switch (nMessageID)
 	{
@@ -166,7 +163,7 @@ void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPA
 			m_pLockedObject = NULL;
 			break;
 		default:
-			m_pScene->OnProcessingKeyboardMessage(hWnd, nMessageID, wParam, lParam);
+			manager->getCurrStage()->OnProcessingKeyboardMessage(hWnd, nMessageID, wParam, lParam);
 			break;
 		}
 		break;
@@ -244,7 +241,7 @@ void CGameFramework::AnimateObjects()
 {
 	float fTimeElapsed = m_GameTimer.GetTimeElapsed();
 	if (m_pPlayer) m_pPlayer->Animate(fTimeElapsed);
-	if (m_pScene) m_pScene->Animate(fTimeElapsed);
+	if (manager->getCurrStage()) manager->getCurrStage()->Animate(fTimeElapsed);
 }
 
 // frame당 찍어낼 함수
@@ -259,7 +256,7 @@ void CGameFramework::FrameAdvance()
     ClearFrameBuffer(RGB(255, 255, 255));
 
 	CCamera* pCamera = m_pPlayer->GetCamera();
-	if (m_pScene) m_pScene->Render(m_hDCFrameBuffer, pCamera);
+	if (manager->getCurrStage()) manager->getCurrStage()->Render(m_hDCFrameBuffer, pCamera);
 
 	PresentFrameBuffer();
 

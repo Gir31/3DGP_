@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include "LabProject02-01.h"
 #include "GameFramework.h"
-#include "StageManager.h"
+// #include "StageManager.h"
 
 #define MAX_LOADSTRING 100
 

@@ -1,2 +1,308 @@
-﻿  GameFramework.cpp
-  LabProject02-01.vcxproj -> D:\github_My\3DGP_\LabProject(Software Renderer) (1)\x64\Debug\LabProject02-01.exe
+﻿  LabProject02-01.cpp
+  StageManager.cpp
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Mesh.h(12,15): error C3646: 'm_xmf3Position': 알 수 없는 재정의 지정자입니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Mesh.h(12,30): error C2059: 구문 오류: '='
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Mesh.h(12,58): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Mesh.h(8,14): error C2065: 'm_xmf3Position': 선언되지 않은 식별자입니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Mesh.h(8,31): error C3861: 'XMFLOAT3': 식별자를 찾을 수 없습니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Mesh.h(9,39): error C2065: 'm_xmf3Position': 선언되지 않은 식별자입니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Mesh.h(9,56): error C3861: 'XMFLOAT3': 식별자를 찾을 수 없습니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Mesh.h(23,30): error C2065: 'NULL': 선언되지 않은 식별자입니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Mesh.h(49,24): error C3646: 'm_xmOOBB': 알 수 없는 재정의 지정자입니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Mesh.h(49,33): error C2059: 구문 오류: '='
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Mesh.h(49,56): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Mesh.h(54,22): error C2061: 구문 오류: 식별자 'HDC'
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Mesh.h(56,7): error C3646: 'RayIntersectionByTriangle': 알 수 없는 재정의 지정자입니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Mesh.h(56,32): error C2059: 구문 오류: '('
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Mesh.h(56,146): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Mesh.h(57,27): error C2061: 구문 오류: 식별자 'XMVECTOR'
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Mesh.h(46,32): error C2065: 'NULL': 선언되지 않은 식별자입니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Mesh.h(87,22): error C2061: 구문 오류: 식별자 'HDC'
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Mesh.h(96,8): error C2039: 'array': 'std'의 멤버가 아닙니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+      D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\predefined C++ types (compiler internal)(357,11):
+      'std' 선언을 참조하십시오.
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Mesh.h(96,8): error C2061: 구문 오류: 식별자 'array'
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(30,15): error C3646: 'm_xmf3Position': 알 수 없는 재정의 지정자입니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(30,30): error C2059: 구문 오류: '='
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(30,58): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(31,15): error C3646: 'm_xmf3Right': 알 수 없는 재정의 지정자입니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(31,27): error C2059: 구문 오류: '='
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(31,55): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(32,15): error C3646: 'm_xmf3Up': 알 수 없는 재정의 지정자입니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(32,24): error C2059: 구문 오류: '='
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(32,52): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(33,15): error C3646: 'm_xmf3Look': 알 수 없는 재정의 지정자입니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(33,26): error C2059: 구문 오류: '='
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(33,54): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(40,21): error C3646: 'm_xmFrustumView': 알 수 없는 재정의 지정자입니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(40,37): error C2059: 구문 오류: '='
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(40,56): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(41,21): error C3646: 'm_xmFrustumWorld': 알 수 없는 재정의 지정자입니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(41,38): error C2059: 구문 오류: '='
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(41,57): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(42,17): error C3646: 'm_xmf4x4InverseView': 알 수 없는 재정의 지정자입니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(42,37): error C2059: 구문 오류: '='
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(42,39): error C2653: 'Matrix4x4': 클래스 또는 네임스페이스 이름이 아닙니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(42,60): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(45,17): error C3646: 'm_xmf4x4View': 알 수 없는 재정의 지정자입니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(45,30): error C2059: 구문 오류: '='
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(45,32): error C2653: 'Matrix4x4': 클래스 또는 네임스페이스 이름이 아닙니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(45,53): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(46,17): error C3646: 'm_xmf4x4PerspectiveProject': 알 수 없는 재정의 지정자입니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(46,44): error C2059: 구문 오류: '='
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(46,46): error C2653: 'Matrix4x4': 클래스 또는 네임스페이스 이름이 아닙니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(46,67): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(47,17): error C3646: 'm_xmf4x4ViewPerspectiveProject': 알 수 없는 재정의 지정자입니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(47,48): error C2059: 구문 오류: '='
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(47,50): error C2653: 'Matrix4x4': 클래스 또는 네임스페이스 이름이 아닙니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(47,71): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(49,17): error C3646: 'm_xmf4x4OrthographicProject': 알 수 없는 재정의 지정자입니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(49,45): error C2059: 구문 오류: '='
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(49,47): error C2653: 'Matrix4x4': 클래스 또는 네임스페이스 이름이 아닙니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(49,68): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(50,17): error C3646: 'm_xmf4x4ViewOrthographicProject': 알 수 없는 재정의 지정자입니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(50,49): error C2059: 구문 오류: '='
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(50,51): error C2653: 'Matrix4x4': 클래스 또는 네임스페이스 이름이 아닙니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(50,72): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(62,17): error C2061: 구문 오류: 식별자 'XMFLOAT3'
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(63,17): error C2061: 구문 오류: 식별자 'XMFLOAT3'
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(63,7): error C2535: 'void CCamera::SetLookAt(void)': 멤버 함수를 이미 정의했거나 선언했습니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+      D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(62,7):
+      'CCamera::SetLookAt' 선언을 참조하십시오.
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(65,12): error C2061: 구문 오류: 식별자 'XMFLOAT3'
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(68,32): error C2061: 구문 오류: 식별자 'XMFLOAT3'
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\Camera.h(70,19): error C2061: 구문 오류: 식별자 'BoundingOrientedBox'
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\GameObject.h(16,17): error C3646: 'm_xmf4x4World': 알 수 없는 재정의 지정자입니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\GameObject.h(16,31): error C2059: 구문 오류: '='
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\GameObject.h(16,33): error C2653: 'Matrix4x4': 클래스 또는 네임스페이스 이름이 아닙니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\GameObject.h(16,54): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\GameObject.h(18,24): error C3646: 'm_xmOOBB': 알 수 없는 재정의 지정자입니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\GameObject.h(18,33): error C2059: 구문 오류: '='
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\GameObject.h(18,56): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\GameObject.h(21,13): error C3646: 'm_dwColor': 알 수 없는 재정의 지정자입니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\GameObject.h(21,23): error C2059: 구문 오류: '='
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\GameObject.h(21,39): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\GameObject.h(23,15): error C3646: 'm_xmf3MovingDirection': 알 수 없는 재정의 지정자입니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\GameObject.h(23,37): error C2059: 구문 오류: '='
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\GameObject.h(23,65): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\GameObject.h(27,15): error C3646: 'm_xmf3RotationAxis': 알 수 없는 재정의 지정자입니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\GameObject.h(27,34): error C2059: 구문 오류: '='
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\GameObject.h(27,62): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\GameObject.h(34,16): error C2061: 구문 오류: 식별자 'DWORD'
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\GameObject.h(36,28): error C2061: 구문 오류: 식별자 'XMFLOAT4X4'
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\GameObject.h(39,19): error C2061: 구문 오류: 식별자 'XMFLOAT3'
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\GameObject.h(41,26): error C2061: 구문 오류: 식별자 'XMFLOAT3'
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\GameObject.h(45,23): error C2061: 구문 오류: 식별자 'XMFLOAT3'
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\GameObject.h(51,12): error C2061: 구문 오류: 식별자 'XMFLOAT3'
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\GameObject.h(54,14): error C2061: 구문 오류: 식별자 'XMFLOAT3'
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\GameObject.h(56,11): error C3646: 'GetPosition': 알 수 없는 재정의 지정자입니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\GameObject.h(56,22): error C2059: 구문 오류: '('
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\GameObject.h(56,24): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\GameObject.h(57,11): error C3646: 'GetLook': 알 수 없는 재정의 지정자입니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\GameObject.h(57,18): error C2059: 구문 오류: '('
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\GameObject.h(57,20): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\GameObject.h(58,11): error C3646: 'GetUp': 알 수 없는 재정의 지정자입니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\GameObject.h(58,16): error C2059: 구문 오류: '('
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+D:\github_my\3DGP_\LabProject(Software Renderer) (1)\LabProject02-01\GameObject.h(58,16): error C1003: 오류 수가 100개를 초과했습니다. 컴파일을 중지합니다.
+  (소스 파일 'StageManager.cpp'을(를) 컴파일하는 중)
+  
+  Timer.cpp
+  코드를 생성하고 있습니다...

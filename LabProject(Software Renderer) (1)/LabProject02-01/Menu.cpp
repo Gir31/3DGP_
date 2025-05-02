@@ -17,7 +17,7 @@ void Menu::BuildObjects()
 {
 	CExplosiveObject::PrepareExplosion();
 
-	std::array<CTextMesh*, 5> pMenuMesh;
+	std::array<CMesh*, 5> pMenuMesh; 
 
 	pMenuMesh[0] = new CTextMesh(1.0f, 1.0f, 1.0f, tutorialText, LocationX, LocationY);
 	pMenuMesh[1] = new CTextMesh(1.0f, 1.0f, 1.0f, level1Text, LocationX, LocationY);
@@ -41,6 +41,8 @@ void Menu::BuildObjects()
 		m_ppObjects[i]->SetRotationSpeed(0.0f);
 		m_ppObjects[i]->SetMovingDirection(XMFLOAT3(0.0f, 0.0f, 0.0f));
 		m_ppObjects[i]->SetMovingSpeed(0.0f);
+
+		pMenuMesh[i]->Release();
 	}
 
 

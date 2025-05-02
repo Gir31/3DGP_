@@ -68,3 +68,13 @@ public:
 	virtual void Render(HDC hDCFrameBuffer, CCamera* pCamera);
 };
 
+class GameCursor : public CPlayer
+{
+public:
+	GameCursor();
+	virtual ~GameCursor() {}
+
+	virtual void OnUpdateTransform();
+	virtual void Animate(float fElapsedTime);
+	virtual void Render(HDC hDCFrameBuffer, CCamera* pCamera);
+};

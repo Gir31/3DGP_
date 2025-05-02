@@ -4,13 +4,21 @@
 class StageManager
 {
 private:
-	bool ready = false;
-	CScene* currStage;
+	std::array<CScene*, 4> stageArr{};
 
+	int currStage = 0;
+
+	bool ready = true;
 public:
-	StageManager(CScene* stage);
-	~StageManager(){}
+	StageManager(CScene* stage1, CScene* stage2, CScene* stage3, CScene* stage4);
+	~StageManager();
+	 
+	void buildStage();
+	void releaseStage();
+	void changeStage(int nextStage);
 
-	void set(CScene* stage);
+	void show();
+
+	CScene* getCurrStage();
 };
 

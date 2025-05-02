@@ -4,6 +4,7 @@
 #include "Scene.h"
 #include "Title.h"
 #include "Menu.h"
+#include "StageManager.h"
 #include "Timer.h"
 
 class CGameFramework
@@ -27,6 +28,8 @@ private:
 	CPlayer*					m_pPlayer = NULL;
 	CScene*						m_pScene = NULL;
 	CGameObject*				m_pLockedObject = NULL;
+
+	StageManager*				manager = NULL;
 
 	CGameTimer					m_GameTimer;
 

@@ -214,3 +214,25 @@ void CAirplanePlayer::FireBullet(CGameObject* pLockedObject)
 		}
 	}
 }
+
+GameCursor::GameCursor()
+{
+
+}
+
+void GameCursor::Animate(float fElapsedTime)
+{
+	GameCursor::Animate(fElapsedTime);
+}
+
+void GameCursor::OnUpdateTransform()
+{
+	GameCursor::OnUpdateTransform();
+
+	m_xmf4x4World = Matrix4x4::Multiply(XMMatrixRotationRollPitchYaw(XMConvertToRadians(90.0f), 0.0f, 0.0f), m_xmf4x4World);
+}
+
+void GameCursor::Render(HDC hDCFrameBuffer, CCamera* pCamera)
+{
+	GameCursor::Render(hDCFrameBuffer, pCamera);
+}

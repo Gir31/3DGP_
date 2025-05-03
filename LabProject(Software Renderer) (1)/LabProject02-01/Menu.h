@@ -20,5 +20,7 @@ public:
 
 	void OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam) override;
 	void OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam) override;
+
+	virtual bool IsCameraMovable() const override { return false; }
 };
 

@@ -248,6 +248,12 @@ void CGameFramework::ProcessInput()
 		if (dwDirection) m_pPlayer->Move(dwDirection, 0.15f);
 	}
 
+	if (manager->getCurrStage() && !manager->getCurrStage()->IsCameraMovable())
+	{
+		// 현재 씬이 Title/Menu라면 → 카메라 회전 및 줌 입력 무시
+		return; // 이 시점에서 ProcessInput() 함수 자체 종료
+	}
+
 	//==[변경]================
 	// 마우스가 클릭 시라면 이걸 사용
 	if (GetCapture() == m_hWnd)

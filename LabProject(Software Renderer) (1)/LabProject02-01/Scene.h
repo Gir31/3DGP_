@@ -38,4 +38,6 @@ public:
 	virtual void OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam);
 
 	CGameObject* PickObjectPointedByCursor(int xClient, int yClient, CCamera* pCamera);
+
+	virtual bool IsCameraMovable() const { return true; }
 };

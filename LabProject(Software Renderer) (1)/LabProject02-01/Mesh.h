@@ -94,6 +94,9 @@ public:
 class CTextMesh : public CMesh
 {
 public:
+	bool m_bHovered = false;
+	float m_fScale = 1.0f; // 기본 크기
+
 	template <size_t N1, size_t N2, size_t N3>
 
 	CTextMesh(float fWidth = 1.0f, float fHeight = 1.0f, float fDepth = 1.0f, int target = 0,

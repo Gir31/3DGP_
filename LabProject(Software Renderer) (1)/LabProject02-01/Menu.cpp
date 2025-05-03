@@ -36,7 +36,7 @@ void Menu::BuildObjects()
 
 		m_ppObjects[i]->SetColor(RGB(0, 0, 0));
 
-		m_ppObjects[i]->SetPosition(0.0f, 10.0f + (i * -10.f), 50.f);
+		m_ppObjects[i]->SetPosition(0.0f, 20.0f + (i * -10.f), 50.f);
 
 		m_ppObjects[i]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
 		m_ppObjects[i]->SetRotationSpeed(0.0f);
@@ -44,6 +44,15 @@ void Menu::BuildObjects()
 		m_ppObjects[i]->SetMovingSpeed(0.0f);
 
 		pMenuMesh[i]->Release();
+	}
+
+	if (m_pPlayer)
+	{
+		m_pPlayer->m_fCameraYaw = 0.0f;
+		m_pPlayer->m_fCameraPitch = 0.0f;
+
+		m_pPlayer->m_pCamera->Update(m_pPlayer, m_pPlayer->m_xmf3Position, 0.0f);
+		m_pPlayer->m_pCamera->GenerateViewMatrix();
 	}
 
 
@@ -124,7 +133,7 @@ void Menu::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 
 	for (int i = 0; i < m_nObjects; i++) m_ppObjects[i]->Render(hDCFrameBuffer, pCamera);
 
-	if (m_pPlayer) m_pPlayer->Render(hDCFrameBuffer, pCamera);
+	// if (m_pPlayer) m_pPlayer->Render(hDCFrameBuffer, pCamera);
 
 	//UI
 #ifdef _WITH_DRAW_AXIS

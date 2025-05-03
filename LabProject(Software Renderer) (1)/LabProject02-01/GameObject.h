@@ -90,7 +90,7 @@ public:
 
 	virtual void Animate(float fElapsedTime);
 	virtual void Render(HDC hDCFrameBuffer, CCamera* pCamera);
-
+	int getTargetStage();
 public:
 	static CMesh*				m_pExplosionMesh;
 	static XMFLOAT3				m_pxmf3SphereVectors[EXPLOSION_DEBRISES];

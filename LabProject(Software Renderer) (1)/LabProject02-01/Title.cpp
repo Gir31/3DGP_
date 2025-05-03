@@ -17,8 +17,8 @@ void Title::BuildObjects()
 {
 	CExplosiveObject::PrepareExplosion();
 
-	CTextMesh* pTitleMesh = new CTextMesh(1.0f, 1.0f, 1.0f, title, titleLocationX, titleLocationY);
-	CTextMesh* pNameMesh = new CTextMesh(1.0f, 1.0f, 1.0f, name, nameLocationX, nameLocationY);
+	CTextMesh* pTitleMesh = new CTextMesh(1.0f, 1.0f, 1.0f, 0, title, titleLocationX, titleLocationY);
+	CTextMesh* pNameMesh = new CTextMesh(1.0f, 1.0f, 1.0f, 1, name, nameLocationX, nameLocationY);
 
 	m_nObjects = 2;
 	m_ppObjects = new CGameObject * [m_nObjects];

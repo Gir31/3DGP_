@@ -19,11 +19,11 @@ void Menu::BuildObjects()
 
 	std::array<CMesh*, 5> pMenuMesh; 
 
-	pMenuMesh[0] = new CTextMesh(1.0f, 1.0f, 1.0f, tutorialText, LocationX, LocationY);
-	pMenuMesh[1] = new CTextMesh(1.0f, 1.0f, 1.0f, level1Text, LocationX, LocationY);
-	pMenuMesh[2] = new CTextMesh(1.0f, 1.0f, 1.0f, level2Text, LocationX, LocationY);
-	pMenuMesh[3] = new CTextMesh(1.0f, 1.0f, 1.0f, startText, LocationX, LocationY);
-	pMenuMesh[4] = new CTextMesh(1.0f, 1.0f, 1.0f, endText, LocationX, LocationY);
+	pMenuMesh[0] = new CTextMesh(1.0f, 1.0f, 1.0f, 1, tutorialText, LocationX, LocationY);
+	pMenuMesh[1] = new CTextMesh(1.0f, 1.0f, 1.0f, 2, level1Text, LocationX, LocationY);
+	pMenuMesh[2] = new CTextMesh(1.0f, 1.0f, 1.0f, 3, level2Text, LocationX, LocationY);
+	pMenuMesh[3] = new CTextMesh(1.0f, 1.0f, 1.0f, 2, startText, LocationX, LocationY);
+	pMenuMesh[4] = new CTextMesh(1.0f, 1.0f, 1.0f, 1, endText, LocationX, LocationY);
 
 	m_nObjects = 5;
 

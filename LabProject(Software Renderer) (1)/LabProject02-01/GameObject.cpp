@@ -220,6 +220,11 @@ CExplosiveObject::~CExplosiveObject()
 {
 }
 
+int CExplosiveObject::getTargetStage()
+{
+	return m_pMesh->getTargetStage();
+}
+
 void CExplosiveObject::PrepareExplosion()
 {
 	for (int i = 0; i < EXPLOSION_DEBRISES; i++) XMStoreFloat3(&m_pxmf3SphereVectors[i], ::RandomUnitVectorOnSphere());
@@ -363,4 +368,3 @@ void CAxisObject::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 
 	m_pMesh->Render(hDCFrameBuffer);
 }
-

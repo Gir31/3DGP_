@@ -44,6 +44,7 @@ public:
 protected:
 	int							m_nPolygons = 0;
 	CPolygon					**m_ppPolygons = NULL;
+	int							targetStage;
 
 public:
 	BoundingOrientedBox			m_xmOOBB = BoundingOrientedBox();
@@ -55,6 +56,8 @@ public:
 
 	BOOL RayIntersectionByTriangle(XMVECTOR& xmRayOrigin, XMVECTOR& xmRayDirection, XMVECTOR v0, XMVECTOR v1, XMVECTOR v2, float* pfNearHitDistance);
 	int CheckRayIntersection(XMVECTOR& xmvPickRayOrigin, XMVECTOR& xmvPickRayDirection, float* pfNearHitDistance);
+
+	int getTargetStage();
 };
 
 class CCubeMesh : public CMesh
@@ -92,7 +95,7 @@ class CTextMesh : public CMesh
 public:
 	template <size_t N1, size_t N2, size_t N3>
 
-	CTextMesh(float fWidth = 1.0f, float fHeight = 1.0f, float fDepth = 1.0f,
+	CTextMesh(float fWidth = 1.0f, float fHeight = 1.0f, float fDepth = 1.0f, int target = 0,
 		std::array<bool, N1> text = true, 
 		std::array<float, N2> cx = 0, 
 		std::array<float, N3> cy = 0) 
@@ -103,6 +106,8 @@ public:
 		float fHalfDepth = fDepth * 0.5f;
 
 		int cnt = 0;
+
+		targetStage = target;
 
 		for (int i = 0; i < text.size(); ++i) {
 			int x = i % cx.size();

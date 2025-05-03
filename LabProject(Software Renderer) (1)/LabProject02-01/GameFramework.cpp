@@ -109,28 +109,17 @@ void CGameFramework::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM
 		::GetCursorPos(&m_ptOldCursorPos);
 
 		if (nMessageID == WM_LBUTTONDOWN) { 
-
 			CExplosiveObject* pExplosiveObject = 
 				(CExplosiveObject*)manager->getCurrStage()->PickObjectPointedByCursor(LOWORD(lParam), HIWORD(lParam), m_pPlayer->m_pCamera); 
 
-			if(pExplosiveObject)
-				pExplosiveObject->m_bBlowingUp = true; 
-
-
-			if (typeid(*manager->getCurrStage()) == typeid(Title)) {
-				OutputDebugStringA("현재 스테이지는 Title 입니다");
-				OutputDebugStringA("\n");
-
-				manager->changeStage(1);
+			if (pExplosiveObject) {
+				pExplosiveObject->m_bBlowingUp = true;
+				if (pExplosiveObject->getTargetStage() != manager->getCurrLevel()) {
+					manager->setReady(true);
+					manager->setNextLevel(pExplosiveObject->getTargetStage());
+				}
+				//manager->changeStage(pExplosiveObject->getTargetStage());
 			}
-			else if (typeid(*manager->getCurrStage()) == typeid(Menu)) {
-				OutputDebugStringA("현재 스테이지는 Menu 입니다");
-				OutputDebugStringA("\n");
-
-				manager->changeStage(2);
-			}
-
-			// OnCreate();
 		}
 
 		break;
@@ -241,8 +230,10 @@ void CGameFramework::ProcessInput()
 void CGameFramework::AnimateObjects()
 {
 	float fTimeElapsed = m_GameTimer.GetTimeElapsed();
+
 	if (m_pPlayer) m_pPlayer->Animate(fTimeElapsed);
 	if (manager->getCurrStage()) manager->getCurrStage()->Animate(fTimeElapsed);
+	if (manager->getReady()) manager->waitTime(fTimeElapsed);
 }
 
 // frame당 찍어낼 함수
@@ -264,6 +255,3 @@ void CGameFramework::FrameAdvance()
 	m_GameTimer.GetFrameRate(m_pszFrameRate + 12, 37);
 	::SetWindowText(m_hWnd, m_pszFrameRate);
 }
-
-
-// 모든 객체를 create때 생성하고 stage를 바꿀때마다 애니메이션되는 객체를 다르게 할까?

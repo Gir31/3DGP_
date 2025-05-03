@@ -493,3 +493,8 @@ void CAxisMesh::Render(HDC hDCFrameBuffer)
 	::SelectObject(hDCFrameBuffer, hOldPen);
 	::DeleteObject(hPen);
 }
+
+int CMesh::getTargetStage()
+{
+	return targetStage; 
+}

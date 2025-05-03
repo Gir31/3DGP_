@@ -11,24 +11,56 @@ StageManager::StageManager(CScene* stage1, CScene* stage2, CScene* stage3, CScen
 } 
 
 
+void StageManager::setReady(bool rflag)
+{
+	ready = rflag;
+}
+
+void StageManager::setNextLevel(int level)
+{
+	nextLevel = level;
+}
+
+bool StageManager::getReady()
+{
+	return ready;
+}
+
+int StageManager::getCurrLevel()
+{
+	return currLevel;
+}
 
 void StageManager::buildStage()
 { 
-	stageArr[currStage]->BuildObjects();  
+	stageArr[currLevel]->BuildObjects();  
 }
 
 void StageManager::releaseStage()
 {
-	stageArr[currStage]->ReleaseObjects();
+	stageArr[currLevel]->ReleaseObjects();
 }
 
-void StageManager::changeStage(int nextStage)
+void StageManager::changeStage(int level)
 {
-	if (ready) {
-		stageArr[currStage]->ReleaseObjects();
-		currStage = nextStage;
+	if (change) {
+		stageArr[currLevel]->ReleaseObjects();
+		currLevel = level;
 
-		stageArr[currStage]->BuildObjects();
+		stageArr[currLevel]->BuildObjects();
+	}
+}
+
+void StageManager::waitTime(float fElapsedTime)
+{
+	elapsedTime += fElapsedTime;
+
+	if (elapsedTime > 2.f) {
+		elapsedTime = 0.f;
+		ready = false;
+		change = true;
+
+		changeStage(nextLevel);
 	}
 }
 
@@ -43,5 +75,5 @@ void StageManager::show()
 
 CScene* StageManager::getCurrStage()
 {
-	return stageArr[currStage]; 
+	return stageArr[currLevel]; 
 }

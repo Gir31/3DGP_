@@ -131,25 +131,6 @@ void CGameFramework::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM
 		break;
 	case WM_MOUSEMOVE:
 	{
-		// 1. 현재 커서 위치
-		POINT ptCursorPos;
-		GetCursorPos(&ptCursorPos);
-
-		// 2. 화면 중앙 위치 계산
-		RECT rc;
-		GetClientRect(hWnd, &rc);
-		POINT ptCenter = { (rc.right - rc.left) / 2, (rc.bottom - rc.top) / 2 };
-		ClientToScreen(hWnd, &ptCenter); // 윈도우 기준 → 스크린 좌표
-
-		// 3. 이동량 계산
-		int dx = ptCursorPos.x - ptCenter.x;
-		int dy = ptCursorPos.y - ptCenter.y;
-
-		if (m_pPlayer && (dx != 0 || dy != 0))
-				m_pPlayer->UpdateRotationByMouse(dx, dy);
-
-		// 4. 커서를 다시 중앙에 고정
-		SetCursorPos(ptCenter.x, ptCenter.y);
 		break;
 	}
 	default:
@@ -175,6 +156,43 @@ void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPA
 			((CAirplanePlayer*)m_pPlayer)->FireBullet(m_pLockedObject);
 			m_pLockedObject = NULL;
 			break;
+		//==[추가]==========
+		case 'C': // 자유시점 카메라 토글
+			m_pPlayer->m_bOrbitMode = !m_pPlayer->m_bOrbitMode;
+
+			if (m_pPlayer->m_bOrbitMode)
+			{
+				// 자유 시점 진입 시 → 현재 yaw/pitch 저장
+				m_pPlayer->m_fSavedYaw = m_pPlayer->m_fCameraYaw;
+				m_pPlayer->m_fSavedPitch = m_pPlayer->m_fCameraPitch;
+			}
+			else
+			{
+				// == TPS 시점 복귀 시 ==
+				m_pPlayer->m_fCameraYaw = m_pPlayer->m_fSavedYaw;
+				m_pPlayer->m_fCameraPitch = std::clamp(m_pPlayer->m_fSavedPitch, -89.0f, 89.0f);
+
+				// 플레이어 방향을 카메라 yaw에 맞춰 강제 세팅
+				float yawRad = XMConvertToRadians(m_pPlayer->m_fCameraYaw);
+
+				// 카메라의 반대 방향으로 Look 벡터 설정
+				m_pPlayer->m_xmf3Look.x = -sinf(yawRad);
+				m_pPlayer->m_xmf3Look.y = 0.0f;
+				m_pPlayer->m_xmf3Look.z = cosf(yawRad);
+				m_pPlayer->m_xmf3Look = Vector3::Normalize(m_pPlayer->m_xmf3Look);
+
+				// Right 벡터는 Look 기준으로 다시 계산
+				m_pPlayer->m_xmf3Right = Vector3::CrossProduct(XMFLOAT3(0.0f, 1.0f, 0.0f), m_pPlayer->m_xmf3Look);
+				m_pPlayer->m_xmf3Right = Vector3::Normalize(m_pPlayer->m_xmf3Right);
+
+
+				// 카메라도 즉시 갱신
+				m_pPlayer->m_pCamera->Update(m_pPlayer, m_pPlayer->m_xmf3Position, 0.0f);
+				m_pPlayer->m_pCamera->GenerateViewMatrix();
+			}
+
+			break;
+		//==================
 		default:
 			manager->getCurrStage()->OnProcessingKeyboardMessage(hWnd, nMessageID, wParam, lParam);
 			break;
@@ -230,6 +248,8 @@ void CGameFramework::ProcessInput()
 		if (dwDirection) m_pPlayer->Move(dwDirection, 0.15f);
 	}
 
+	//==[변경]================
+	// 마우스가 클릭 시라면 이걸 사용
 	if (GetCapture() == m_hWnd)
 	{
 		SetCursor(NULL);
@@ -240,12 +260,34 @@ void CGameFramework::ProcessInput()
 		SetCursorPos(m_ptOldCursorPos.x, m_ptOldCursorPos.y);
 		if (cxMouseDelta || cyMouseDelta)
 		{
-			if (pKeyBuffer[VK_RBUTTON] & 0xF0)
+			//==[변경]==========================
+			/*if (pKeyBuffer[VK_RBUTTON] & 0xF0)
 				m_pPlayer->Rotate(cyMouseDelta, 0.0f, -cxMouseDelta);
 			else
-				m_pPlayer->Rotate(cyMouseDelta, cxMouseDelta, 0.0f);
+				m_pPlayer->Rotate(cyMouseDelta, cxMouseDelta, 0.0f);*/
+			//==================================
+
+			//==[추가]==========================
+			if (m_pPlayer->m_bOrbitMode) { 
+				m_pPlayer->m_fCameraYaw -= cxMouseDelta;
+				m_pPlayer->m_fCameraPitch += cyMouseDelta;
+
+				if (m_pPlayer->m_fCameraPitch > 89.0f) m_pPlayer->m_fCameraPitch = 89.0f;
+				if (m_pPlayer->m_fCameraPitch < -89.0f) m_pPlayer->m_fCameraPitch = -89.0f;
+			}
+			else {
+				m_pPlayer->m_fCameraYaw -= cxMouseDelta;
+				m_pPlayer->m_fCameraPitch += cyMouseDelta;
+
+				if (m_pPlayer->m_fCameraPitch > 89.0f) m_pPlayer->m_fCameraPitch = 89.0f;
+				if (m_pPlayer->m_fCameraPitch < -89.0f) m_pPlayer->m_fCameraPitch = -89.0f;
+
+				m_pPlayer->Rotate(0.0f, cxMouseDelta, 0.0f);
+			}
+			//==================================
 		}
-	}
+	 }
+	//======================
 
 	m_pPlayer->Update(m_GameTimer.GetTimeElapsed());
 }

@@ -7,10 +7,10 @@
 //
 void CViewport::SetViewport(int nLeft, int nTop, int nWidth, int nHeight)
 {
-	m_nLeft = nLeft; 
-	m_nTop = nTop; 
-	m_nWidth = nWidth; 
-	m_nHeight = nHeight; 
+	m_nLeft = nLeft;
+	m_nTop = nTop;
+	m_nWidth = nWidth;
+	m_nHeight = nHeight;
 }
 
 CCamera::CCamera()
@@ -125,14 +125,9 @@ void CCamera::Rotate(float fPitch, float fYaw, float fRoll)
 	}
 }
 
-void CCamera::SetPosition(XMFLOAT3 xmf3Position)
-{
-	m_xmf3Position = xmf3Position;
-}
-
 void CCamera::Update(CPlayer* pPlayer, XMFLOAT3& xmf3LookAt, float fTimeElapsed)
 {
-	/*XMFLOAT4X4 mtxRotate = Matrix4x4::Identity();
+	XMFLOAT4X4 mtxRotate = Matrix4x4::Identity();
 	mtxRotate._11 = pPlayer->m_xmf3Right.x; mtxRotate._21 = pPlayer->m_xmf3Up.x; mtxRotate._31 = pPlayer->m_xmf3Look.x;
 	mtxRotate._12 = pPlayer->m_xmf3Right.y; mtxRotate._22 = pPlayer->m_xmf3Up.y; mtxRotate._32 = pPlayer->m_xmf3Look.y;
 	mtxRotate._13 = pPlayer->m_xmf3Right.z; mtxRotate._23 = pPlayer->m_xmf3Up.z; mtxRotate._33 = pPlayer->m_xmf3Look.z;
@@ -147,51 +142,40 @@ void CCamera::Update(CPlayer* pPlayer, XMFLOAT3& xmf3LookAt, float fTimeElapsed)
 	float fDistance = fLength * fTimeLagScale;
 	if (fDistance > fLength) fDistance = fLength;
 	if (fLength < 0.01f) fDistance = fLength;
-	if (fDistance > 0)
+
+	//==[삭제]==================
+	/*if (fDistance > 0)
 	{
 		m_xmf3Position = Vector3::Add(m_xmf3Position, xmf3Direction, fDistance);
 		SetLookAt(pPlayer->m_xmf3Position, pPlayer->m_xmf3Up);
 	}*/
+	//==========================
 
-	// 1. 등 방향 = 플레이어의 현재 Look 방향
-	XMVECTOR vLook = XMLoadFloat3(&pPlayer->m_xmf3Look);
-	vLook = XMVector3Normalize(vLook);
+	//==[추가]==================
+	if (!pPlayer->m_bOrbitMode) // 기본 TPS 카메라
+	{
+		float yawRad = XMConvertToRadians(pPlayer->m_fCameraYaw);
+		float pitchRad = XMConvertToRadians(pPlayer->m_fCameraPitch);
 
-	// 2. 카메라는 등 뒤에 위치해야 하므로 반대 방향으로 distance 만큼
-	float distance = pPlayer->m_fCameraDistance;
-	XMVECTOR vOffset = XMVectorScale(vLook, -distance);  // 뒤쪽으로 이동
+		float x = pPlayer->m_xmf3Position.x + pPlayer->m_fCameraDistance * cosf(pitchRad) * sinf(yawRad);
+		float y = pPlayer->m_xmf3Position.y + pPlayer->m_fCameraDistance * sinf(pitchRad);
+		float z = pPlayer->m_xmf3Position.z - pPlayer->m_fCameraDistance * cosf(pitchRad) * cosf(yawRad);
 
-	// 3. 최종 위치 = 플레이어 위치 + 오프셋
-	XMVECTOR vPlayer = XMLoadFloat3(&xmf3LookAt);
-	XMVECTOR vCamera = XMVectorAdd(vPlayer, vOffset);
-	XMStoreFloat3(&m_xmf3Position, vCamera);
+		m_xmf3Position = XMFLOAT3(x, y, z);
+		SetLookAt(pPlayer->m_xmf3Position, pPlayer->m_xmf3Up);
+	}
+	else
+	{
+		// 자유시점 (Orbit View)
+		float yawRad = XMConvertToRadians(pPlayer->m_fCameraYaw);
+		float pitchRad = XMConvertToRadians(pPlayer->m_fCameraPitch);
 
-	// 4. 카메라는 항상 플레이어를 바라본다
-	SetLookAt(xmf3LookAt, pPlayer->m_xmf3Up);
+		float x = pPlayer->m_xmf3Position.x + pPlayer->m_fCameraDistance * cosf(pitchRad) * sinf(yawRad);
+		float y = pPlayer->m_xmf3Position.y + pPlayer->m_fCameraDistance * sinf(pitchRad);
+		float z = pPlayer->m_xmf3Position.z - pPlayer->m_fCameraDistance * cosf(pitchRad) * cosf(yawRad);
 
-}
-
-void CCamera::RevolutionPlayer(float fx, float fy)
-{
-	m_fYawAngle += fx;
-	m_fPitchAngle += fy;
-
-	if (m_fPitchAngle > 89.0f) m_fPitchAngle = 89.0f;
-	if (m_fPitchAngle < -89.0f) m_fPitchAngle = -89.0f;
-}
-
-void CCamera::UpdateTPSCamera(XMFLOAT3& targetP, float radius)
-{
-	float yawRad = XMConvertToRadians(m_fYawAngle);
-	float pitchRad = XMConvertToRadians(m_fPitchAngle);
-
-	float x = radius * cosf(pitchRad) * sinf(yawRad);
-	float y = radius * sinf(pitchRad);
-	float z = radius * cosf(pitchRad) * cosf(yawRad);
-
-	XMFLOAT3 offset = XMFLOAT3(x, y, z);
-	m_xmf3Position = Vector3::Add(targetP, offset);
-
-	SetLookAt(m_xmf3Position, targetP, XMFLOAT3(0.0f, 1.0f, 0.0f));
-	GenerateViewMatrix();
+		m_xmf3Position = XMFLOAT3(x, y, z);
+		SetLookAt(pPlayer->m_xmf3Position, pPlayer->m_xmf3Up);
+	}
+	//==========================
 }

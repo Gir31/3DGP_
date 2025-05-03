@@ -75,7 +75,7 @@ public:
 
 	void SetPosition(XMFLOAT3 xmf3Position);
 
-	void RevolutionPlayer(float fx, float fy);
-	void UpdateTPSCamera(XMFLOAT3& targetP, float radius);
+	const XMFLOAT3* GetPosition() const { return &m_xmf3Position; }
+
 };
 

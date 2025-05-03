@@ -28,6 +28,25 @@ void CPlayer::SetCameraOffset(XMFLOAT3& xmf3CameraOffset)
 
 void CPlayer::Move(DWORD dwDirection, float fDistance)
 {
+	if (m_bOrbitMode)
+	{
+		// 카메라 yaw 기준으로 look 방향 맞춰줌
+		float yaw = XMConvertToRadians(m_fCameraYaw);
+
+		// look 벡터 갱신
+		m_xmf3Look.x = -sinf(yaw);
+		m_xmf3Look.y = 0.0f;
+		m_xmf3Look.z = cosf(yaw);
+		m_xmf3Look = Vector3::Normalize(m_xmf3Look);
+
+		// right 벡터도 갱신
+		m_xmf3Right = Vector3::CrossProduct(XMFLOAT3(0.0f, 1.0f, 0.0f), m_xmf3Look);
+		m_xmf3Right = Vector3::Normalize(m_xmf3Right);
+
+		m_fSavedYaw = m_fCameraYaw;
+		m_fSavedPitch = m_fCameraPitch;
+	}
+
 	if (dwDirection)
 	{
 		XMFLOAT3 xmf3Shift = XMFLOAT3(0, 0, 0);
@@ -99,18 +118,14 @@ void CPlayer::Update(float fTimeElapsed)
 {
 	Move(m_xmf3Velocity, false);
 
-	m_pCamera->UpdateTPSCamera(m_xmf3Position, 10.0f);
-		
-
+	m_pCamera->Update(this, m_xmf3Position, fTimeElapsed);
+	m_pCamera->GenerateViewMatrix();
 
 	XMFLOAT3 xmf3Deceleration = Vector3::Normalize(Vector3::ScalarProduct(m_xmf3Velocity, -1.0f));
 	float fLength = Vector3::Length(m_xmf3Velocity);
 	float fDeceleration = m_fFriction * fTimeElapsed;
 	if (fDeceleration > fLength) fDeceleration = fLength;
 	m_xmf3Velocity = Vector3::Add(m_xmf3Velocity, xmf3Deceleration, fDeceleration);
-
-	m_pCamera->Update(this, m_xmf3Position, fTimeElapsed);
-	m_pCamera->GenerateViewMatrix();
 }
 
 void CPlayer::Animate(float fElapsedTime)
@@ -131,30 +146,6 @@ void CPlayer::OnUpdateTransform()
 void CPlayer::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 {
 	CGameObject::Render(hDCFrameBuffer, pCamera);
-}
-
-void CPlayer::UpdateRotationByMouse(int dx, int dy)
-{
-	float sensitivity = 0.2f;
-	m_fYaw += dx * sensitivity;
-	m_fPitch += dy * sensitivity;
-
-	if (m_fPitch > 89.0f) m_fPitch = 89.0f;
-	if (m_fPitch < -89.0f) m_fPitch = -89.0f;
-
-	// 여기서 Look, Right, Up 갱신
-	XMMATRIX rot = XMMatrixRotationRollPitchYaw(XMConvertToRadians(m_fPitch), XMConvertToRadians(m_fYaw), 0);
-	XMVECTOR vDefaultLook = XMVectorSet(0, 0, 1, 0);
-	XMVECTOR vLook = XMVector3TransformNormal(vDefaultLook, rot);
-	vLook = XMVector3Normalize(vLook);
-	XMStoreFloat3(&m_xmf3Look, vLook);
-
-	// Right와 Up도 재계산
-	XMVECTOR vUp = XMVectorSet(0, 1, 0, 0);
-	XMVECTOR vRight = XMVector3Normalize(XMVector3Cross(vUp, vLook));
-	vUp = XMVector3Normalize(XMVector3Cross(vLook, vRight));
-	XMStoreFloat3(&m_xmf3Right, vRight);
-	XMStoreFloat3(&m_xmf3Up, vUp);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////

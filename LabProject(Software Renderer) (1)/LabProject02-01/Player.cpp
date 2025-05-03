@@ -99,14 +99,18 @@ void CPlayer::Update(float fTimeElapsed)
 {
 	Move(m_xmf3Velocity, false);
 
-	m_pCamera->Update(this, m_xmf3Position, fTimeElapsed);
-	m_pCamera->GenerateViewMatrix();
+	m_pCamera->UpdateTPSCamera(m_xmf3Position, 10.0f);
+		
+
 
 	XMFLOAT3 xmf3Deceleration = Vector3::Normalize(Vector3::ScalarProduct(m_xmf3Velocity, -1.0f));
 	float fLength = Vector3::Length(m_xmf3Velocity);
 	float fDeceleration = m_fFriction * fTimeElapsed;
 	if (fDeceleration > fLength) fDeceleration = fLength;
 	m_xmf3Velocity = Vector3::Add(m_xmf3Velocity, xmf3Deceleration, fDeceleration);
+
+	m_pCamera->Update(this, m_xmf3Position, fTimeElapsed);
+	m_pCamera->GenerateViewMatrix();
 }
 
 void CPlayer::Animate(float fElapsedTime)
@@ -127,6 +131,30 @@ void CPlayer::OnUpdateTransform()
 void CPlayer::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 {
 	CGameObject::Render(hDCFrameBuffer, pCamera);
+}
+
+void CPlayer::UpdateRotationByMouse(int dx, int dy)
+{
+	float sensitivity = 0.2f;
+	m_fYaw += dx * sensitivity;
+	m_fPitch += dy * sensitivity;
+
+	if (m_fPitch > 89.0f) m_fPitch = 89.0f;
+	if (m_fPitch < -89.0f) m_fPitch = -89.0f;
+
+	// 여기서 Look, Right, Up 갱신
+	XMMATRIX rot = XMMatrixRotationRollPitchYaw(XMConvertToRadians(m_fPitch), XMConvertToRadians(m_fYaw), 0);
+	XMVECTOR vDefaultLook = XMVectorSet(0, 0, 1, 0);
+	XMVECTOR vLook = XMVector3TransformNormal(vDefaultLook, rot);
+	vLook = XMVector3Normalize(vLook);
+	XMStoreFloat3(&m_xmf3Look, vLook);
+
+	// Right와 Up도 재계산
+	XMVECTOR vUp = XMVectorSet(0, 1, 0, 0);
+	XMVECTOR vRight = XMVector3Normalize(XMVector3Cross(vUp, vLook));
+	vUp = XMVector3Normalize(XMVector3Cross(vLook, vRight));
+	XMStoreFloat3(&m_xmf3Right, vRight);
+	XMStoreFloat3(&m_xmf3Up, vUp);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -213,26 +241,4 @@ void CAirplanePlayer::FireBullet(CGameObject* pLockedObject)
 			pBulletObject->SetColor(RGB(0, 0, 255));
 		}
 	}
-}
-
-GameCursor::GameCursor()
-{
-
-}
-
-void GameCursor::Animate(float fElapsedTime)
-{
-	GameCursor::Animate(fElapsedTime);
-}
-
-void GameCursor::OnUpdateTransform()
-{
-	GameCursor::OnUpdateTransform();
-
-	m_xmf4x4World = Matrix4x4::Multiply(XMMatrixRotationRollPitchYaw(XMConvertToRadians(90.0f), 0.0f, 0.0f), m_xmf4x4World);
-}
-
-void GameCursor::Render(HDC hDCFrameBuffer, CCamera* pCamera)
-{
-	GameCursor::Render(hDCFrameBuffer, pCamera);
 }

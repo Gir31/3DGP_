@@ -41,6 +41,10 @@ private:
 	BoundingFrustum				m_xmFrustumWorld = BoundingFrustum();
 	XMFLOAT4X4					m_xmf4x4InverseView = Matrix4x4::Identity();
 
+	float m_fYawAngle = 0.0f;
+	float m_fPitchAngle = 15.0f; // 아래에서 위로 약간 내려다보는 각도
+
+
 public:
 	XMFLOAT4X4					m_xmf4x4View = Matrix4x4::Identity();
 	XMFLOAT4X4					m_xmf4x4PerspectiveProject = Matrix4x4::Identity();
@@ -68,4 +72,10 @@ public:
 	void Update(CPlayer* pPlayer, XMFLOAT3& xmf3LookAt, float fTimeElapsed = 0.016f);
 
 	bool IsInFrustum(BoundingOrientedBox& xmBoundingBox);
+
+	void SetPosition(XMFLOAT3 xmf3Position);
+
+	void RevolutionPlayer(float fx, float fy);
+	void UpdateTPSCamera(XMFLOAT3& targetP, float radius);
 };
+

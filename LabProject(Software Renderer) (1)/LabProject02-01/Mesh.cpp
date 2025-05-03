@@ -41,6 +41,11 @@ CMesh::~CMesh()
 	}
 }
 
+int CMesh::getTargetStage()
+{
+	return targetStage;
+}
+
 void CMesh::SetPolygon(int nIndex, CPolygon *pPolygon)
 {
 	if ((0 <= nIndex) && (nIndex < m_nPolygons)) m_ppPolygons[nIndex] = pPolygon;
@@ -56,7 +61,7 @@ void Draw2DLine(HDC hDCFrameBuffer, XMFLOAT3& f3PreviousProject, XMFLOAT3& f3Cur
 
 void CMesh::Render(HDC hDCFrameBuffer)
 {
-	XMFLOAT3 f3InitialProject, f3PreviousProject;
+	/*XMFLOAT3 f3InitialProject, f3PreviousProject;
 	bool bPreviousInside = false, bInitialInside = false, bCurrentInside = false, bIntersectInside = false;
 
 	for (int j = 0; j < m_nPolygons; j++)
@@ -75,26 +80,37 @@ void CMesh::Render(HDC hDCFrameBuffer)
 			bPreviousInside = bCurrentInside;
 		}
 		if (((0.0f <= f3InitialProject.z) && (f3InitialProject.z <= 1.0f)) && ((bInitialInside || bPreviousInside))) ::Draw2DLine(hDCFrameBuffer, f3PreviousProject, f3InitialProject);
+	}*/
+
+	for (int j = 0; j < m_nPolygons; j++) {
+		int nVertices = m_ppPolygons[j]->m_nVertices;
+		CVertex* pVertices = m_ppPolygons[j]->m_pVertices;
+
+		POINT points[16]; // 꼭짓점 최대 16개로 확장
+		for (int i = 0; i < nVertices; ++i) {
+			XMFLOAT3 proj = CGraphicsPipeline::ScreenTransform(
+				CGraphicsPipeline::Project(pVertices[i].m_xmf3Position)
+			);
+			points[i] = { (LONG)proj.x, (LONG)proj.y };
+		}
+
+		// 펜: 선 색깔 (예: 검정)
+		HPEN hPen = CreatePen(PS_SOLID, 1, RGB(meshColor[0], meshColor[1], meshColor[2])); // 선 색
+		HPEN hOldPen = (HPEN)SelectObject(hDCFrameBuffer, hPen);
+
+		// 브러시: 면 색깔
+		HBRUSH hBrush = CreateSolidBrush(RGB(meshColor[0], meshColor[1], meshColor[2]));
+		HBRUSH hOldBrush = (HBRUSH)SelectObject(hDCFrameBuffer, hBrush);
+
+		Polygon(hDCFrameBuffer, points, nVertices); // 면 + 선 그리기
+
+		// 복원 및 정리
+		SelectObject(hDCFrameBuffer, hOldBrush);
+		DeleteObject(hBrush);
+		SelectObject(hDCFrameBuffer, hOldPen);
+		DeleteObject(hPen);
 	}
 
-	//for (int j = 0; j < m_nPolygons; j++) {
-	//	int nVertices = m_ppPolygons[j]->m_nVertices;
-	//	CVertex* pVertices = m_ppPolygons[j]->m_pVertices;
-
-	//	POINT points[4]; // 가정: 다각형 꼭짓점 최대 16개
-	//	for (int i = 0; i < nVertices; ++i) {
-	//		XMFLOAT3 proj = CGraphicsPipeline::ScreenTransform(
-	//			CGraphicsPipeline::Project(pVertices[i].m_xmf3Position)
-	//		);
-	//		points[i] = { (LONG)proj.x, (LONG)proj.y };
-	//	}
-
-	//	HBRUSH hBrush = CreateSolidBrush(RGB(0, 0, 0));  // 흰색 면 채우기
-	//	HBRUSH hOldBrush = (HBRUSH)SelectObject(hDCFrameBuffer, hBrush);
-	//	Polygon(hDCFrameBuffer, points, nVertices);  // 면 그리기
-	//	SelectObject(hDCFrameBuffer, hOldBrush);
-	//	DeleteObject(hBrush);
-	//}
 }
 
 BOOL CMesh::RayIntersectionByTriangle(XMVECTOR& xmRayOrigin, XMVECTOR& xmRayDirection, XMVECTOR v0, XMVECTOR v1, XMVECTOR v2, float* pfNearHitDistance)
@@ -494,7 +510,57 @@ void CAxisMesh::Render(HDC hDCFrameBuffer)
 	::DeleteObject(hPen);
 }
 
-int CMesh::getTargetStage()
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+CLandMesh::CLandMesh(float fWidth, float fHeight, float fDepth, std::array<COLORREF, 3> color) : CMesh(6)
 {
-	return targetStage; 
+	float fHalfWidth = fWidth * 0.5f;
+	float fHalfHeight = fHeight * 0.5f;
+	float fHalfDepth = fDepth * 0.5f;
+
+	meshColor = color;
+
+	CPolygon* pFrontFace = new CPolygon(4);
+	pFrontFace->SetVertex(0, CVertex(-fHalfWidth, +fHalfHeight, -fHalfDepth));
+	pFrontFace->SetVertex(1, CVertex(+fHalfWidth, +fHalfHeight, -fHalfDepth));
+	pFrontFace->SetVertex(2, CVertex(+fHalfWidth, -fHalfHeight, -fHalfDepth));
+	pFrontFace->SetVertex(3, CVertex(-fHalfWidth, -fHalfHeight, -fHalfDepth));
+	SetPolygon(0, pFrontFace);
+
+	CPolygon* pTopFace = new CPolygon(4);
+	pTopFace->SetVertex(0, CVertex(-fHalfWidth, +fHalfHeight, +fHalfDepth));
+	pTopFace->SetVertex(1, CVertex(+fHalfWidth, +fHalfHeight, +fHalfDepth));
+	pTopFace->SetVertex(2, CVertex(+fHalfWidth, +fHalfHeight, -fHalfDepth));
+	pTopFace->SetVertex(3, CVertex(-fHalfWidth, +fHalfHeight, -fHalfDepth));
+	SetPolygon(1, pTopFace);
+
+	CPolygon* pBackFace = new CPolygon(4);
+	pBackFace->SetVertex(0, CVertex(-fHalfWidth, -fHalfHeight, +fHalfDepth));
+	pBackFace->SetVertex(1, CVertex(+fHalfWidth, -fHalfHeight, +fHalfDepth));
+	pBackFace->SetVertex(2, CVertex(+fHalfWidth, +fHalfHeight, +fHalfDepth));
+	pBackFace->SetVertex(3, CVertex(-fHalfWidth, +fHalfHeight, +fHalfDepth));
+	SetPolygon(2, pBackFace);
+
+	CPolygon* pBottomFace = new CPolygon(4);
+	pBottomFace->SetVertex(0, CVertex(-fHalfWidth, -fHalfHeight, -fHalfDepth));
+	pBottomFace->SetVertex(1, CVertex(+fHalfWidth, -fHalfHeight, -fHalfDepth));
+	pBottomFace->SetVertex(2, CVertex(+fHalfWidth, -fHalfHeight, +fHalfDepth));
+	pBottomFace->SetVertex(3, CVertex(-fHalfWidth, -fHalfHeight, +fHalfDepth));
+	SetPolygon(3, pBottomFace);
+
+	CPolygon* pLeftFace = new CPolygon(4);
+	pLeftFace->SetVertex(0, CVertex(-fHalfWidth, +fHalfHeight, +fHalfDepth));
+	pLeftFace->SetVertex(1, CVertex(-fHalfWidth, +fHalfHeight, -fHalfDepth));
+	pLeftFace->SetVertex(2, CVertex(-fHalfWidth, -fHalfHeight, -fHalfDepth));
+	pLeftFace->SetVertex(3, CVertex(-fHalfWidth, -fHalfHeight, +fHalfDepth));
+	SetPolygon(4, pLeftFace);
+
+	CPolygon* pRightFace = new CPolygon(4);
+	pRightFace->SetVertex(0, CVertex(+fHalfWidth, +fHalfHeight, -fHalfDepth));
+	pRightFace->SetVertex(1, CVertex(+fHalfWidth, +fHalfHeight, +fHalfDepth));
+	pRightFace->SetVertex(2, CVertex(+fHalfWidth, -fHalfHeight, +fHalfDepth));
+	pRightFace->SetVertex(3, CVertex(+fHalfWidth, -fHalfHeight, -fHalfDepth));
+	SetPolygon(5, pRightFace);
+
+	m_xmOOBB = BoundingOrientedBox(XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(fHalfWidth, fHalfHeight, fHalfDepth), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
 }

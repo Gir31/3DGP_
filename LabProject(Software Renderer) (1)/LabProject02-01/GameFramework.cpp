@@ -16,12 +16,15 @@ void CGameFramework::OnCreate(HINSTANCE hInstance, HWND hMainWnd)
 
 	BuildObjects();
 
+
+
 	_tcscpy_s(m_pszFrameRate, _T("LabProject ("));
 }
 
 void CGameFramework::OnDestroy()
 {
 	ReleaseObjects();
+
 
 	if (m_hBitmapFrameBuffer) ::DeleteObject(m_hBitmapFrameBuffer);
 	if (m_hDCFrameBuffer) ::DeleteDC(m_hDCFrameBuffer);
@@ -79,11 +82,8 @@ void CGameFramework::BuildObjects()
 	m_pPlayer->SetCamera(pCamera);
 	m_pPlayer->SetCameraOffset(XMFLOAT3(0.0f, 5.0f, -15.0f));
 
-	manager = new StageManager(new Title(m_pPlayer), new Menu(m_pPlayer), new Title(m_pPlayer), new Menu(m_pPlayer));
+	manager = new StageManager(new Title(m_pPlayer), new Menu(m_pPlayer), new Stage1(m_pPlayer), new Stage2(m_pPlayer));
 	manager->buildStage();
-
-	/*m_pScene = new Title(m_pPlayer);
-	m_pScene->BuildObjects();*/
 }
 
 void CGameFramework::ReleaseObjects()
@@ -104,6 +104,7 @@ void CGameFramework::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM
 	switch (nMessageID)
 	{
 	case WM_RBUTTONDOWN:
+		break;
 	case WM_LBUTTONDOWN:
 		::SetCapture(hWnd);
 		::GetCursorPos(&m_ptOldCursorPos);
@@ -121,14 +122,36 @@ void CGameFramework::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM
 				//manager->changeStage(pExplosiveObject->getTargetStage());
 			}
 		}
-
 		break;
 	case WM_LBUTTONUP:
+		::ReleaseCapture();
+		break;
 	case WM_RBUTTONUP:
 		::ReleaseCapture();
 		break;
 	case WM_MOUSEMOVE:
+	{
+		// 1. 현재 커서 위치
+		POINT ptCursorPos;
+		GetCursorPos(&ptCursorPos);
+
+		// 2. 화면 중앙 위치 계산
+		RECT rc;
+		GetClientRect(hWnd, &rc);
+		POINT ptCenter = { (rc.right - rc.left) / 2, (rc.bottom - rc.top) / 2 };
+		ClientToScreen(hWnd, &ptCenter); // 윈도우 기준 → 스크린 좌표
+
+		// 3. 이동량 계산
+		int dx = ptCursorPos.x - ptCenter.x;
+		int dy = ptCursorPos.y - ptCenter.y;
+
+		if (m_pPlayer && (dx != 0 || dy != 0))
+				m_pPlayer->UpdateRotationByMouse(dx, dy);
+
+		// 4. 커서를 다시 중앙에 고정
+		SetCursorPos(ptCenter.x, ptCenter.y);
 		break;
+	}
 	default:
 		break;
 	}

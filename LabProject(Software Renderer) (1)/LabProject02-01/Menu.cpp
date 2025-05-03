@@ -18,12 +18,13 @@ void Menu::BuildObjects()
 	CExplosiveObject::PrepareExplosion();
 
 	std::array<CMesh*, 5> pMenuMesh; 
+	std::array<COLORREF, 3> color{ 0, 0, 0 };
 
-	pMenuMesh[0] = new CTextMesh(1.0f, 1.0f, 1.0f, 1, tutorialText, LocationX, LocationY);
-	pMenuMesh[1] = new CTextMesh(1.0f, 1.0f, 1.0f, 2, level1Text, LocationX, LocationY);
-	pMenuMesh[2] = new CTextMesh(1.0f, 1.0f, 1.0f, 3, level2Text, LocationX, LocationY);
-	pMenuMesh[3] = new CTextMesh(1.0f, 1.0f, 1.0f, 2, startText, LocationX, LocationY);
-	pMenuMesh[4] = new CTextMesh(1.0f, 1.0f, 1.0f, 1, endText, LocationX, LocationY);
+	pMenuMesh[0] = new CTextMesh(1.0f, 1.0f, 1.0f, 1, color, tutorialText, LocationX, LocationY);
+	pMenuMesh[1] = new CTextMesh(1.0f, 1.0f, 1.0f, 2, color, level1Text, LocationX, LocationY);
+	pMenuMesh[2] = new CTextMesh(1.0f, 1.0f, 1.0f, 3, color, level2Text, LocationX, LocationY);
+	pMenuMesh[3] = new CTextMesh(1.0f, 1.0f, 1.0f, 2, color, startText, LocationX, LocationY);
+	pMenuMesh[4] = new CTextMesh(1.0f, 1.0f, 1.0f, 1, color, endText, LocationX, LocationY);
 
 	m_nObjects = 5;
 
@@ -110,9 +111,9 @@ void Menu::Animate(float fElapsedTime)
 {
 	for (int i = 0; i < m_nObjects; i++) m_ppObjects[i]->Animate(fElapsedTime);
 
-	CheckObjectByObjectCollisions();
+	//CheckObjectByObjectCollisions();
 
-	CheckObjectByBulletCollisions();
+	//CheckObjectByBulletCollisions();
 }
 
 void Menu::Render(HDC hDCFrameBuffer, CCamera* pCamera)

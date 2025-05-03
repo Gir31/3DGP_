@@ -20,9 +20,12 @@ public:
 
 	float						m_fFriction = 125.0f;
 
-	float           			m_fPitch = 0.0f;
+	float           			m_fPitch = 15.0f;  // 살짝 위에서 내려다보게
 	float           			m_fYaw = 0.0f;
 	float           			m_fRoll = 0.0f;
+
+	float m_fCameraDistance = 20.0f;
+	bool m_bOrbitView = false; // 자유 공전 모드 여부
 
 	CCamera*					m_pCamera = NULL;
 
@@ -48,6 +51,8 @@ public:
 
 	void SetCamera(CCamera* pCamera) { m_pCamera = pCamera; }
 	CCamera* GetCamera() { return(m_pCamera); }
+
+	void UpdateRotationByMouse(int dx, int dy);
 };
 
 #define BULLETS					50
@@ -62,17 +67,6 @@ public:
 	CBulletObject*				m_ppBullets[BULLETS];
 
 	void FireBullet(CGameObject* pLockedObject);
-
-	virtual void OnUpdateTransform();
-	virtual void Animate(float fElapsedTime);
-	virtual void Render(HDC hDCFrameBuffer, CCamera* pCamera);
-};
-
-class GameCursor : public CPlayer
-{
-public:
-	GameCursor();
-	virtual ~GameCursor() {}
 
 	virtual void OnUpdateTransform();
 	virtual void Animate(float fElapsedTime);

@@ -45,6 +45,7 @@ protected:
 	int							m_nPolygons = 0;
 	CPolygon					**m_ppPolygons = NULL;
 	int							targetStage;
+	std::array<COLORREF, 3>		meshColor{0, 0, 0};
 
 public:
 	BoundingOrientedBox			m_xmOOBB = BoundingOrientedBox();
@@ -96,6 +97,7 @@ public:
 	template <size_t N1, size_t N2, size_t N3>
 
 	CTextMesh(float fWidth = 1.0f, float fHeight = 1.0f, float fDepth = 1.0f, int target = 0,
+		std::array<COLORREF, 3> color = 0,
 		std::array<bool, N1> text = true, 
 		std::array<float, N2> cx = 0, 
 		std::array<float, N3> cy = 0) 
@@ -104,6 +106,10 @@ public:
 		float fHalfWidth = fWidth * 0.5f;
 		float fHalfHeight = fHeight * 0.5f;
 		float fHalfDepth = fDepth * 0.5f;
+
+		meshColor[0] = color[0];
+		meshColor[1] = color[1];
+		meshColor[2] = color[2];
 
 		int cnt = 0;
 
@@ -165,4 +171,12 @@ public:
 	}
 
 	virtual ~CTextMesh() { }
+};
+
+class CLandMesh : public CMesh
+{
+public:
+	CLandMesh(float fWidth = 100.f, float fHeight = 1.f, float fDepth = 100.f, std::array<COLORREF, 3> color = {55, 200, 55});
+
+	virtual ~CLandMesh() {}
 };

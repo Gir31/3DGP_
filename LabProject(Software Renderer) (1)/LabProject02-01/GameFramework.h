@@ -4,6 +4,8 @@
 #include "Scene.h"
 #include "Title.h"
 #include "Menu.h"
+#include "Stage1.h"
+#include "Stage2.h"
 #include "StageManager.h"
 #include "Timer.h"
 
@@ -26,7 +28,8 @@ private:
     HBITMAP						m_hBitmapSelect = NULL;
 
 	CPlayer*					m_pPlayer = NULL;
-	CScene*						m_pScene = NULL;
+	CPlayer*					m_mCursor = NULL;
+	//CScene*						m_pScene = NULL;
 	CGameObject*				m_pLockedObject = NULL;
 
 	StageManager*				manager = NULL;
@@ -36,6 +39,7 @@ private:
 	POINT						m_ptOldCursorPos;
 
 	_TCHAR						m_pszFrameRate[50];
+
 
 public:
 	void OnCreate(HINSTANCE hInstance, HWND hMainWnd);

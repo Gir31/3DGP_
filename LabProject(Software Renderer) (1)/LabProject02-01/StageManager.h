@@ -9,7 +9,7 @@ private:
 	int currLevel = 0;
 	int nextLevel = 0;
 
-	bool ready = true;
+	bool ready = false;
 	bool change = false;
 
 	float elapsedTime = 0.f;

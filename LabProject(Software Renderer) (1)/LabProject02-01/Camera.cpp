@@ -56,9 +56,9 @@ void CCamera::SetLookAt(XMFLOAT3& xmf3Position, XMFLOAT3& xmf3LookAt, XMFLOAT3& 
 void CCamera::SetLookAt(XMFLOAT3& xmf3LookAt, XMFLOAT3& xmf3Up)
 {
 	XMFLOAT4X4 xmf4x4View = Matrix4x4::LookAtLH(m_xmf3Position, xmf3LookAt, xmf3Up);
-	//m_xmf3Right = Vector3::Normalize(XMFLOAT3(xmf4x4View._11, xmf4x4View._21, xmf4x4View._31));
-	//m_xmf3Up = Vector3::Normalize(XMFLOAT3(xmf4x4View._12, xmf4x4View._22, xmf4x4View._32));
-	//m_xmf3Look = Vector3::Normalize(XMFLOAT3(xmf4x4View._13, xmf4x4View._23, xmf4x4View._33));
+	m_xmf3Right = Vector3::Normalize(XMFLOAT3(xmf4x4View._11, xmf4x4View._21, xmf4x4View._31));
+	m_xmf3Up = Vector3::Normalize(XMFLOAT3(xmf4x4View._12, xmf4x4View._22, xmf4x4View._32));
+	m_xmf3Look = Vector3::Normalize(XMFLOAT3(xmf4x4View._13, xmf4x4View._23, xmf4x4View._33));
 }
 
 void CCamera::SetViewport(int nLeft, int nTop, int nWidth, int nHeight)
@@ -125,9 +125,14 @@ void CCamera::Rotate(float fPitch, float fYaw, float fRoll)
 	}
 }
 
+void CCamera::SetPosition(XMFLOAT3 xmf3Position)
+{
+	m_xmf3Position = xmf3Position;
+}
+
 void CCamera::Update(CPlayer* pPlayer, XMFLOAT3& xmf3LookAt, float fTimeElapsed)
 {
-	XMFLOAT4X4 mtxRotate = Matrix4x4::Identity();
+	/*XMFLOAT4X4 mtxRotate = Matrix4x4::Identity();
 	mtxRotate._11 = pPlayer->m_xmf3Right.x; mtxRotate._21 = pPlayer->m_xmf3Up.x; mtxRotate._31 = pPlayer->m_xmf3Look.x;
 	mtxRotate._12 = pPlayer->m_xmf3Right.y; mtxRotate._22 = pPlayer->m_xmf3Up.y; mtxRotate._32 = pPlayer->m_xmf3Look.y;
 	mtxRotate._13 = pPlayer->m_xmf3Right.z; mtxRotate._23 = pPlayer->m_xmf3Up.z; mtxRotate._33 = pPlayer->m_xmf3Look.z;
@@ -146,5 +151,47 @@ void CCamera::Update(CPlayer* pPlayer, XMFLOAT3& xmf3LookAt, float fTimeElapsed)
 	{
 		m_xmf3Position = Vector3::Add(m_xmf3Position, xmf3Direction, fDistance);
 		SetLookAt(pPlayer->m_xmf3Position, pPlayer->m_xmf3Up);
-	}
+	}*/
+
+	// 1. 등 방향 = 플레이어의 현재 Look 방향
+	XMVECTOR vLook = XMLoadFloat3(&pPlayer->m_xmf3Look);
+	vLook = XMVector3Normalize(vLook);
+
+	// 2. 카메라는 등 뒤에 위치해야 하므로 반대 방향으로 distance 만큼
+	float distance = pPlayer->m_fCameraDistance;
+	XMVECTOR vOffset = XMVectorScale(vLook, -distance);  // 뒤쪽으로 이동
+
+	// 3. 최종 위치 = 플레이어 위치 + 오프셋
+	XMVECTOR vPlayer = XMLoadFloat3(&xmf3LookAt);
+	XMVECTOR vCamera = XMVectorAdd(vPlayer, vOffset);
+	XMStoreFloat3(&m_xmf3Position, vCamera);
+
+	// 4. 카메라는 항상 플레이어를 바라본다
+	SetLookAt(xmf3LookAt, pPlayer->m_xmf3Up);
+
+}
+
+void CCamera::RevolutionPlayer(float fx, float fy)
+{
+	m_fYawAngle += fx;
+	m_fPitchAngle += fy;
+
+	if (m_fPitchAngle > 89.0f) m_fPitchAngle = 89.0f;
+	if (m_fPitchAngle < -89.0f) m_fPitchAngle = -89.0f;
+}
+
+void CCamera::UpdateTPSCamera(XMFLOAT3& targetP, float radius)
+{
+	float yawRad = XMConvertToRadians(m_fYawAngle);
+	float pitchRad = XMConvertToRadians(m_fPitchAngle);
+
+	float x = radius * cosf(pitchRad) * sinf(yawRad);
+	float y = radius * sinf(pitchRad);
+	float z = radius * cosf(pitchRad) * cosf(yawRad);
+
+	XMFLOAT3 offset = XMFLOAT3(x, y, z);
+	m_xmf3Position = Vector3::Add(targetP, offset);
+
+	SetLookAt(m_xmf3Position, targetP, XMFLOAT3(0.0f, 1.0f, 0.0f));
+	GenerateViewMatrix();
 }

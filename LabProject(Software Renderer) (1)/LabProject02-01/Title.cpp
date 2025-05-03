@@ -17,8 +17,10 @@ void Title::BuildObjects()
 {
 	CExplosiveObject::PrepareExplosion();
 
-	CTextMesh* pTitleMesh = new CTextMesh(1.0f, 1.0f, 1.0f, 0, title, titleLocationX, titleLocationY);
-	CTextMesh* pNameMesh = new CTextMesh(1.0f, 1.0f, 1.0f, 1, name, nameLocationX, nameLocationY);
+	std::array<COLORREF, 3> color{0, 0, 0};
+
+	CTextMesh* pTitleMesh = new CTextMesh(1.0f, 1.0f, 1.0f, 0, color, title, titleLocationX, titleLocationY);
+	CTextMesh* pNameMesh = new CTextMesh(1.0f, 1.0f, 1.0f, 1, color, name, nameLocationX, nameLocationY);
 
 	m_nObjects = 2;
 	m_ppObjects = new CGameObject * [m_nObjects];
@@ -115,9 +117,9 @@ void Title::Animate(float fElapsedTime)
 {
 	for (int i = 0; i < m_nObjects; i++) m_ppObjects[i]->Animate(fElapsedTime);
 
-	CheckObjectByObjectCollisions();
+	//CheckObjectByObjectCollisions();
 
-	CheckObjectByBulletCollisions();
+	//CheckObjectByBulletCollisions();
 }
 
 void Title::Render(HDC hDCFrameBuffer, CCamera* pCamera)
@@ -128,7 +130,7 @@ void Title::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 
 	for (int i = 0; i < m_nObjects; i++) m_ppObjects[i]->Render(hDCFrameBuffer, pCamera);
 
-	if (m_pPlayer) m_pPlayer->Render(hDCFrameBuffer, pCamera);
+	//if (m_pPlayer) m_pPlayer->Render(hDCFrameBuffer, pCamera);
 
 	//UI
 #ifdef _WITH_DRAW_AXIS

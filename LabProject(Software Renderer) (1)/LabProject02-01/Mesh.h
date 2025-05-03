@@ -16,11 +16,12 @@ class CPolygon
 {
 public:
 	CPolygon() { }
-	CPolygon(int nVertices);
+	CPolygon(int nVertices, COLORREF color);
 	~CPolygon();
 
 	int							m_nVertices = 0;
 	CVertex						*m_pVertices = NULL;
+	COLORREF					polygonColor = RGB(0, 0, 0); // 기본값: 흰색
 
 	void SetVertex(int nIndex, CVertex& vertex);
 };
@@ -45,7 +46,6 @@ protected:
 	int							m_nPolygons = 0;
 	CPolygon					**m_ppPolygons = NULL;
 	int							targetStage;
-	std::array<COLORREF, 3>		meshColor{0, 0, 0};
 
 public:
 	BoundingOrientedBox			m_xmOOBB = BoundingOrientedBox();
@@ -94,13 +94,10 @@ public:
 class CTextMesh : public CMesh
 {
 public:
-	bool m_bHovered = false;
-	float m_fScale = 1.0f; // 기본 크기
-
 	template <size_t N1, size_t N2, size_t N3>
 
 	CTextMesh(float fWidth = 1.0f, float fHeight = 1.0f, float fDepth = 1.0f, int target = 0,
-		std::array<COLORREF, 3> color = 0,
+		COLORREF color = RGB(0, 0, 0),
 		std::array<bool, N1> text = true, 
 		std::array<float, N2> cx = 0, 
 		std::array<float, N3> cy = 0) 
@@ -110,10 +107,6 @@ public:
 		float fHalfHeight = fHeight * 0.5f;
 		float fHalfDepth = fDepth * 0.5f;
 
-		meshColor[0] = color[0];
-		meshColor[1] = color[1];
-		meshColor[2] = color[2];
-
 		int cnt = 0;
 
 		targetStage = target;
@@ -122,42 +115,42 @@ public:
 			int x = i % cx.size();
 			int y = i / cx.size();
 			if (text[i]) {
-				CPolygon* pFrontFace = new CPolygon(4);
+				CPolygon* pFrontFace = new CPolygon(4, color);
 				pFrontFace->SetVertex(0, CVertex(cx[x] - fHalfWidth, cy[y] + fHalfHeight, -fHalfDepth));
 				pFrontFace->SetVertex(1, CVertex(cx[x] + fHalfWidth, cy[y] + fHalfHeight, -fHalfDepth));
 				pFrontFace->SetVertex(2, CVertex(cx[x] + fHalfWidth, cy[y] - fHalfHeight, -fHalfDepth));
 				pFrontFace->SetVertex(3, CVertex(cx[x] - fHalfWidth, cy[y] - fHalfHeight, -fHalfDepth));
 				SetPolygon((cnt * 6), pFrontFace);
 
-				CPolygon* pTopFace = new CPolygon(4);
+				CPolygon* pTopFace = new CPolygon(4, color);
 				pTopFace->SetVertex(0, CVertex(cx[x] - fHalfWidth, cy[y] + fHalfHeight, +fHalfDepth));
 				pTopFace->SetVertex(1, CVertex(cx[x] + fHalfWidth, cy[y] + fHalfHeight, +fHalfDepth));
 				pTopFace->SetVertex(2, CVertex(cx[x] + fHalfWidth, cy[y] + fHalfHeight, -fHalfDepth));
 				pTopFace->SetVertex(3, CVertex(cx[x] - fHalfWidth, cy[y] + fHalfHeight, -fHalfDepth));
 				SetPolygon((cnt * 6) + 1, pTopFace);
 
-				CPolygon* pBackFace = new CPolygon(4);
+				CPolygon* pBackFace = new CPolygon(4, color);
 				pBackFace->SetVertex(0, CVertex(cx[x] - fHalfWidth, cy[y] - fHalfHeight, +fHalfDepth));
 				pBackFace->SetVertex(1, CVertex(cx[x] + fHalfWidth, cy[y] - fHalfHeight, +fHalfDepth));
 				pBackFace->SetVertex(2, CVertex(cx[x] + fHalfWidth, cy[y] + fHalfHeight, +fHalfDepth));
 				pBackFace->SetVertex(3, CVertex(cx[x] - fHalfWidth, cy[y] + fHalfHeight, +fHalfDepth));
 				SetPolygon((cnt * 6) + 2, pBackFace);
 
-				CPolygon* pBottomFace = new CPolygon(4);
+				CPolygon* pBottomFace = new CPolygon(4, color);
 				pBottomFace->SetVertex(0, CVertex(cx[x] - fHalfWidth, cy[y] - fHalfHeight, -fHalfDepth));
 				pBottomFace->SetVertex(1, CVertex(cx[x] + fHalfWidth, cy[y] - fHalfHeight, -fHalfDepth));
 				pBottomFace->SetVertex(2, CVertex(cx[x] + fHalfWidth, cy[y] - fHalfHeight, +fHalfDepth));
 				pBottomFace->SetVertex(3, CVertex(cx[x] - fHalfWidth, cy[y] - fHalfHeight, +fHalfDepth));
 				SetPolygon((cnt * 6) + 3, pBottomFace);
 
-				CPolygon* pLeftFace = new CPolygon(4);
+				CPolygon* pLeftFace = new CPolygon(4, color);
 				pLeftFace->SetVertex(0, CVertex(cx[x] - fHalfWidth, cy[y] + fHalfHeight, +fHalfDepth));
 				pLeftFace->SetVertex(1, CVertex(cx[x] - fHalfWidth, cy[y] + fHalfHeight, -fHalfDepth));
 				pLeftFace->SetVertex(2, CVertex(cx[x] - fHalfWidth, cy[y] - fHalfHeight, -fHalfDepth));
 				pLeftFace->SetVertex(3, CVertex(cx[x] - fHalfWidth, cy[y] - fHalfHeight, +fHalfDepth));
 				SetPolygon((cnt * 6) + 4, pLeftFace);
 
-				CPolygon* pRightFace = new CPolygon(4);
+				CPolygon* pRightFace = new CPolygon(4, color);
 				pRightFace->SetVertex(0, CVertex(cx[x] + fHalfWidth, cy[y] + fHalfHeight, -fHalfDepth));
 				pRightFace->SetVertex(1, CVertex(cx[x] + fHalfWidth, cy[y] + fHalfHeight, +fHalfDepth));
 				pRightFace->SetVertex(2, CVertex(cx[x] + fHalfWidth, cy[y] - fHalfHeight, +fHalfDepth));
@@ -182,4 +175,11 @@ public:
 	CLandMesh(float fWidth = 100.f, float fHeight = 1.f, float fDepth = 100.f, std::array<COLORREF, 3> color = {55, 200, 55});
 
 	virtual ~CLandMesh() {}
+};
+
+class CCartMesh : public CMesh
+{
+public:
+	CCartMesh();
+	virtual ~CCartMesh();
 };

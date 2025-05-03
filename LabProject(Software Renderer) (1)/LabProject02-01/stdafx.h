@@ -18,6 +18,7 @@
 #include <math.h>
 #include <algorithm>
 #include <array>
+#include <vector>
 
 #include <Mmsystem.h>
 #pragma comment(lib, "winmm.lib")

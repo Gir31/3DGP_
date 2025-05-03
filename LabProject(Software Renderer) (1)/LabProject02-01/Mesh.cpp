@@ -5,10 +5,12 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-CPolygon::CPolygon(int nVertices)
+CPolygon::CPolygon(int nVertices, COLORREF color)
 {
 	m_nVertices = nVertices;
 	m_pVertices = new CVertex[nVertices];
+
+	polygonColor = color;
 }
 
 CPolygon::~CPolygon()
@@ -48,7 +50,9 @@ int CMesh::getTargetStage()
 
 void CMesh::SetPolygon(int nIndex, CPolygon *pPolygon)
 {
-	if ((0 <= nIndex) && (nIndex < m_nPolygons)) m_ppPolygons[nIndex] = pPolygon;
+	if ((0 <= nIndex) && (nIndex < m_nPolygons)) {
+		m_ppPolygons[nIndex] = pPolygon;
+	}
 }
 
 void Draw2DLine(HDC hDCFrameBuffer, XMFLOAT3& f3PreviousProject, XMFLOAT3& f3CurrentProject)
@@ -95,11 +99,11 @@ void CMesh::Render(HDC hDCFrameBuffer)
 		}
 
 		// 펜: 선 색깔 (예: 검정)
-		HPEN hPen = CreatePen(PS_SOLID, 1, RGB(meshColor[0], meshColor[1], meshColor[2])); // 선 색
+		HPEN hPen = CreatePen(PS_SOLID, 1, m_ppPolygons[j]->polygonColor); // 선 색
 		HPEN hOldPen = (HPEN)SelectObject(hDCFrameBuffer, hPen);
 
 		// 브러시: 면 색깔
-		HBRUSH hBrush = CreateSolidBrush(RGB(meshColor[0], meshColor[1], meshColor[2]));
+		HBRUSH hBrush = CreateSolidBrush(m_ppPolygons[j]->polygonColor);
 		HBRUSH hOldBrush = (HBRUSH)SelectObject(hDCFrameBuffer, hBrush);
 
 		Polygon(hDCFrameBuffer, points, nVertices); // 면 + 선 그리기
@@ -169,42 +173,42 @@ CCubeMesh::CCubeMesh(float fWidth, float fHeight, float fDepth) : CMesh(6)
 	float fHalfHeight = fHeight * 0.5f;
 	float fHalfDepth = fDepth * 0.5f;
 
-	CPolygon *pFrontFace = new CPolygon(4);
+	CPolygon *pFrontFace = new CPolygon(4, RGB(0, 0, 0));
 	pFrontFace->SetVertex(0, CVertex(-fHalfWidth, +fHalfHeight, -fHalfDepth));
 	pFrontFace->SetVertex(1, CVertex(+fHalfWidth, +fHalfHeight, -fHalfDepth));
 	pFrontFace->SetVertex(2, CVertex(+fHalfWidth, -fHalfHeight, -fHalfDepth));
 	pFrontFace->SetVertex(3, CVertex(-fHalfWidth, -fHalfHeight, -fHalfDepth));
 	SetPolygon(0, pFrontFace);
 
-	CPolygon *pTopFace = new CPolygon(4);
+	CPolygon *pTopFace = new CPolygon(4, RGB(0, 0, 0));
 	pTopFace->SetVertex(0, CVertex(-fHalfWidth, +fHalfHeight, +fHalfDepth));
 	pTopFace->SetVertex(1, CVertex(+fHalfWidth, +fHalfHeight, +fHalfDepth));
 	pTopFace->SetVertex(2, CVertex(+fHalfWidth, +fHalfHeight, -fHalfDepth));
 	pTopFace->SetVertex(3, CVertex(-fHalfWidth, +fHalfHeight, -fHalfDepth));
 	SetPolygon(1, pTopFace);
 
-	CPolygon *pBackFace = new CPolygon(4);
+	CPolygon *pBackFace = new CPolygon(4, RGB(0, 0, 0));
 	pBackFace->SetVertex(0, CVertex(-fHalfWidth, -fHalfHeight, +fHalfDepth));
 	pBackFace->SetVertex(1, CVertex(+fHalfWidth, -fHalfHeight, +fHalfDepth));
 	pBackFace->SetVertex(2, CVertex(+fHalfWidth, +fHalfHeight, +fHalfDepth));
 	pBackFace->SetVertex(3, CVertex(-fHalfWidth, +fHalfHeight, +fHalfDepth));
 	SetPolygon(2, pBackFace);
 
-	CPolygon *pBottomFace = new CPolygon(4);
+	CPolygon *pBottomFace = new CPolygon(4, RGB(0, 0, 0));
 	pBottomFace->SetVertex(0, CVertex(-fHalfWidth, -fHalfHeight, -fHalfDepth));
 	pBottomFace->SetVertex(1, CVertex(+fHalfWidth, -fHalfHeight, -fHalfDepth));
 	pBottomFace->SetVertex(2, CVertex(+fHalfWidth, -fHalfHeight, +fHalfDepth));
 	pBottomFace->SetVertex(3, CVertex(-fHalfWidth, -fHalfHeight, +fHalfDepth));
 	SetPolygon(3, pBottomFace);
 
-	CPolygon *pLeftFace = new CPolygon(4);
+	CPolygon *pLeftFace = new CPolygon(4, RGB(0, 0, 0));
 	pLeftFace->SetVertex(0, CVertex(-fHalfWidth, +fHalfHeight, +fHalfDepth));
 	pLeftFace->SetVertex(1, CVertex(-fHalfWidth, +fHalfHeight, -fHalfDepth));
 	pLeftFace->SetVertex(2, CVertex(-fHalfWidth, -fHalfHeight, -fHalfDepth));
 	pLeftFace->SetVertex(3, CVertex(-fHalfWidth, -fHalfHeight, +fHalfDepth));
 	SetPolygon(4, pLeftFace);
 
-	CPolygon *pRightFace = new CPolygon(4);
+	CPolygon *pRightFace = new CPolygon(4, RGB(0, 0, 0));
 	pRightFace->SetVertex(0, CVertex(+fHalfWidth, +fHalfHeight, -fHalfDepth));
 	pRightFace->SetVertex(1, CVertex(+fHalfWidth, +fHalfHeight, +fHalfDepth));
 	pRightFace->SetVertex(2, CVertex(+fHalfWidth, -fHalfHeight, +fHalfDepth));
@@ -231,7 +235,7 @@ CWallMesh::CWallMesh(float fWidth, float fHeight, float fDepth, int nSubRects) :
 	{
 		for (int j = 0; j < nSubRects; j++)
 		{
-			pLeftFace = new CPolygon(4);
+			pLeftFace = new CPolygon(4, RGB(0, 0, 0));
 			pLeftFace->SetVertex(0, CVertex(-fHalfWidth, -fHalfHeight + (i * fCellHeight), -fHalfDepth + (j * fCellDepth)));
 			pLeftFace->SetVertex(1, CVertex(-fHalfWidth, -fHalfHeight + ((i + 1) * fCellHeight), -fHalfDepth + (j * fCellDepth)));
 			pLeftFace->SetVertex(2, CVertex(-fHalfWidth, -fHalfHeight + ((i + 1) * fCellHeight), -fHalfDepth + ((j + 1) * fCellDepth)));
@@ -245,7 +249,7 @@ CWallMesh::CWallMesh(float fWidth, float fHeight, float fDepth, int nSubRects) :
 	{
 		for (int j = 0; j < nSubRects; j++)
 		{
-			pRightFace = new CPolygon(4);
+			pRightFace = new CPolygon(4, RGB(0, 0, 0));
 			pRightFace->SetVertex(0, CVertex(+fHalfWidth, -fHalfHeight + (i * fCellHeight), -fHalfDepth + (j * fCellDepth)));
 			pRightFace->SetVertex(1, CVertex(+fHalfWidth, -fHalfHeight + ((i + 1) * fCellHeight), -fHalfDepth + (j * fCellDepth)));
 			pRightFace->SetVertex(2, CVertex(+fHalfWidth, -fHalfHeight + ((i + 1) * fCellHeight), -fHalfDepth + ((j + 1) * fCellDepth)));
@@ -259,7 +263,7 @@ CWallMesh::CWallMesh(float fWidth, float fHeight, float fDepth, int nSubRects) :
 	{
 		for (int j = 0; j < nSubRects; j++)
 		{
-			pTopFace = new CPolygon(4);
+			pTopFace = new CPolygon(4, RGB(0, 0, 0));
 			pTopFace->SetVertex(0, CVertex(-fHalfWidth + (i * fCellWidth), +fHalfHeight, -fHalfDepth + (j * fCellDepth)));
 			pTopFace->SetVertex(1, CVertex(-fHalfWidth + ((i + 1) * fCellWidth), +fHalfHeight, -fHalfDepth + (j * fCellDepth)));
 			pTopFace->SetVertex(2, CVertex(-fHalfWidth + ((i + 1) * fCellWidth), +fHalfHeight, -fHalfDepth + ((j + 1) * fCellDepth)));
@@ -273,7 +277,7 @@ CWallMesh::CWallMesh(float fWidth, float fHeight, float fDepth, int nSubRects) :
 	{
 		for (int j = 0; j < nSubRects; j++)
 		{
-			pBottomFace = new CPolygon(4);
+			pBottomFace = new CPolygon(4, RGB(0, 0, 0));
 			pBottomFace->SetVertex(0, CVertex(-fHalfWidth + (i * fCellWidth), -fHalfHeight, -fHalfDepth + (j * fCellDepth)));
 			pBottomFace->SetVertex(1, CVertex(-fHalfWidth + ((i + 1) * fCellWidth), -fHalfHeight, -fHalfDepth + (j * fCellDepth)));
 			pBottomFace->SetVertex(2, CVertex(-fHalfWidth + ((i + 1) * fCellWidth), -fHalfHeight, -fHalfDepth + ((j + 1) * fCellDepth)));
@@ -282,14 +286,14 @@ CWallMesh::CWallMesh(float fWidth, float fHeight, float fDepth, int nSubRects) :
 		}
 	}
 
-	CPolygon* pFrontFace = new CPolygon(4);
+	CPolygon* pFrontFace = new CPolygon(4, RGB(0, 0, 0));
 	pFrontFace->SetVertex(0, CVertex(-fHalfWidth, +fHalfHeight, -fHalfDepth));
 	pFrontFace->SetVertex(1, CVertex(+fHalfWidth, +fHalfHeight, -fHalfDepth));
 	pFrontFace->SetVertex(2, CVertex(+fHalfWidth, -fHalfHeight, -fHalfDepth));
 	pFrontFace->SetVertex(3, CVertex(-fHalfWidth, -fHalfHeight, -fHalfDepth));
 	SetPolygon(k++, pFrontFace);
 
-	CPolygon* pBackFace = new CPolygon(4);
+	CPolygon* pBackFace = new CPolygon(4, RGB(0, 0, 0));
 	pBackFace->SetVertex(0, CVertex(-fHalfWidth, -fHalfHeight, +fHalfDepth));
 	pBackFace->SetVertex(1, CVertex(+fHalfWidth, -fHalfHeight, +fHalfDepth));
 	pBackFace->SetVertex(2, CVertex(+fHalfWidth, +fHalfHeight, +fHalfDepth));
@@ -309,150 +313,150 @@ CAirplaneMesh::CAirplaneMesh(float fWidth, float fHeight, float fDepth) : CMesh(
 	int i = 0;
 
 	//Upper Plane
-	CPolygon *pFace = new CPolygon(3);
+	CPolygon *pFace = new CPolygon(3, RGB(0, 0, 0));
 	pFace->SetVertex(0, CVertex(0.0f, +(fy + y3), -fz));
 	pFace->SetVertex(1, CVertex(+x1, -y1, -fz));
 	pFace->SetVertex(2, CVertex(0.0f, 0.0f, -fz));
 	SetPolygon(i++, pFace);
 
-	pFace = new CPolygon(3);
+	pFace = new CPolygon(3, RGB(0, 0, 0));
 	pFace->SetVertex(0, CVertex(0.0f, +(fy + y3), -fz));
 	pFace->SetVertex(1, CVertex(0.0f, 0.0f, -fz));
 	pFace->SetVertex(2, CVertex(-x1, -y1, -fz));
 	SetPolygon(i++, pFace);
 
-	pFace = new CPolygon(3);
+	pFace = new CPolygon(3, RGB(0, 0, 0));
 	pFace->SetVertex(0, CVertex(+x2, +y2, -fz));
 	pFace->SetVertex(1, CVertex(+fx, -y3, -fz));
 	pFace->SetVertex(2, CVertex(+x1, -y1, -fz));
 	SetPolygon(i++, pFace);
 
-	pFace = new CPolygon(3);
+	pFace = new CPolygon(3, RGB(0, 0, 0));
 	pFace->SetVertex(0, CVertex(-x2, +y2, -fz));
 	pFace->SetVertex(1, CVertex(-x1, -y1, -fz));
 	pFace->SetVertex(2, CVertex(-fx, -y3, -fz));
 	SetPolygon(i++, pFace);
 
 	//Lower Plane
-	pFace = new CPolygon(3);
+	pFace = new CPolygon(3, RGB(0, 0, 0));
 	pFace->SetVertex(0, CVertex(0.0f, +(fy + y3), +fz));
 	pFace->SetVertex(1, CVertex(0.0f, 0.0f, +fz));
-	pFace->SetVertex(2, CVertex(+x1, -y1, +fz));
+	pFace->SetVertex(2, CVertex(+x1, -y1, +fz));pFace = new CPolygon(3, RGB(0, 0, 0));
 	SetPolygon(i++, pFace);
 
-	pFace = new CPolygon(3);
+	pFace = new CPolygon(3, RGB(0, 0, 0));
 	pFace->SetVertex(0, CVertex(0.0f, +(fy + y3), +fz));
 	pFace->SetVertex(1, CVertex(-x1, -y1, +fz));
 	pFace->SetVertex(2, CVertex(0.0f, 0.0f, +fz));
 	SetPolygon(i++, pFace);
 
-	pFace = new CPolygon(3);
+	pFace = new CPolygon(3, RGB(0, 0, 0));
 	pFace->SetVertex(0, CVertex(+x2, +y2, +fz));
 	pFace->SetVertex(1, CVertex(+x1, -y1, +fz));
 	pFace->SetVertex(2, CVertex(+fx, -y3, +fz));
 	SetPolygon(i++, pFace);
 
-	pFace = new CPolygon(3);
+	pFace = new CPolygon(3, RGB(0, 0, 0));
 	pFace->SetVertex(0, CVertex(-x2, +y2, +fz));
 	pFace->SetVertex(1, CVertex(-fx, -y3, +fz));
 	pFace->SetVertex(2, CVertex(-x1, -y1, +fz));
 	SetPolygon(i++, pFace);
 
 	//Right Plane
-	pFace = new CPolygon(3);
+	pFace = new CPolygon(3, RGB(0, 0, 0));
 	pFace->SetVertex(0, CVertex(0.0f, +(fy + y3), -fz));
 	pFace->SetVertex(1, CVertex(0.0f, +(fy + y3), +fz));
 	pFace->SetVertex(2, CVertex(+x2, +y2, -fz));
 	SetPolygon(i++, pFace);
 
-	pFace = new CPolygon(3);
+	pFace = new CPolygon(3, RGB(0, 0, 0));
 	pFace->SetVertex(0, CVertex(+x2, +y2, -fz));
 	pFace->SetVertex(1, CVertex(0.0f, +(fy + y3), +fz));
 	pFace->SetVertex(2, CVertex(+x2, +y2, +fz));
 	SetPolygon(i++, pFace);
 
-	pFace = new CPolygon(3);
+	pFace = new CPolygon(3, RGB(0, 0, 0));
 	pFace->SetVertex(0, CVertex(+x2, +y2, -fz));
 	pFace->SetVertex(1, CVertex(+x2, +y2, +fz));
 	pFace->SetVertex(2, CVertex(+fx, -y3, -fz));
 	SetPolygon(i++, pFace);
 
-	pFace = new CPolygon(3);
+	pFace = new CPolygon(3, RGB(0, 0, 0));
 	pFace->SetVertex(0, CVertex(+fx, -y3, -fz));
 	pFace->SetVertex(1, CVertex(+x2, +y2, +fz));
 	pFace->SetVertex(2, CVertex(+fx, -y3, +fz));
 	SetPolygon(i++, pFace);
 
 	//Back/Right Plane
-	pFace = new CPolygon(3);
+	pFace = new CPolygon(3, RGB(0, 0, 0));
 	pFace->SetVertex(0, CVertex(+x1, -y1, -fz));
 	pFace->SetVertex(1, CVertex(+fx, -y3, -fz));
 	pFace->SetVertex(2, CVertex(+fx, -y3, +fz));
 	SetPolygon(i++, pFace);
 
-	pFace = new CPolygon(3);
+	pFace = new CPolygon(3, RGB(0, 0, 0));
 	pFace->SetVertex(0, CVertex(+x1, -y1, -fz));
 	pFace->SetVertex(1, CVertex(+fx, -y3, +fz));
 	pFace->SetVertex(2, CVertex(+x1, -y1, +fz));
 	SetPolygon(i++, pFace);
 
-	pFace = new CPolygon(3);
+	pFace = new CPolygon(3, RGB(0, 0, 0));
 	pFace->SetVertex(0, CVertex(0.0f, 0.0f, -fz));
 	pFace->SetVertex(1, CVertex(+x1, -y1, -fz));
 	pFace->SetVertex(2, CVertex(+x1, -y1, +fz));
 	SetPolygon(i++, pFace);
 
-	pFace = new CPolygon(3);
+	pFace = new CPolygon(3, RGB(0, 0, 0));
 	pFace->SetVertex(0, CVertex(0.0f, 0.0f, -fz));
 	pFace->SetVertex(1, CVertex(+x1, -y1, +fz));
 	pFace->SetVertex(2, CVertex(0.0f, 0.0f, +fz));
 	SetPolygon(i++, pFace);
 
 	//Left Plane
-	pFace = new CPolygon(3);
+	pFace = new CPolygon(3, RGB(0, 0, 0));
 	pFace->SetVertex(0, CVertex(0.0f, +(fy + y3), +fz));
 	pFace->SetVertex(1, CVertex(0.0f, +(fy + y3), -fz));
 	pFace->SetVertex(2, CVertex(-x2, +y2, -fz));
 	SetPolygon(i++, pFace);
 
-	pFace = new CPolygon(3);
+	pFace = new CPolygon(3, RGB(0, 0, 0));
 	pFace->SetVertex(0, CVertex(0.0f, +(fy + y3), +fz));
 	pFace->SetVertex(1, CVertex(-x2, +y2, -fz));
 	pFace->SetVertex(2, CVertex(-x2, +y2, +fz));
 	SetPolygon(i++, pFace);
 
-	pFace = new CPolygon(3);
+	pFace = new CPolygon(3, RGB(0, 0, 0));
 	pFace->SetVertex(0, CVertex(-x2, +y2, +fz));
 	pFace->SetVertex(1, CVertex(-x2, +y2, -fz));
 	pFace->SetVertex(2, CVertex(-fx, -y3, -fz));
 	SetPolygon(i++, pFace);
 
-	pFace = new CPolygon(3);
+	pFace = new CPolygon(3, RGB(0, 0, 0));
 	pFace->SetVertex(0, CVertex(-x2, +y2, +fz));
 	pFace->SetVertex(1, CVertex(-fx, -y3, -fz));
 	pFace->SetVertex(2, CVertex(-fx, -y3, +fz));
 	SetPolygon(i++, pFace);
 
 	//Back/Left Plane
-	pFace = new CPolygon(3);
+	pFace = new CPolygon(3, RGB(0, 0, 0));
 	pFace->SetVertex(0, CVertex(0.0f, 0.0f, -fz));
 	pFace->SetVertex(1, CVertex(0.0f, 0.0f, +fz));
 	pFace->SetVertex(2, CVertex(-x1, -y1, +fz));
 	SetPolygon(i++, pFace);
 
-	pFace = new CPolygon(3);
+	pFace = new CPolygon(3, RGB(0, 0, 0));
 	pFace->SetVertex(0, CVertex(0.0f, 0.0f, -fz));
 	pFace->SetVertex(1, CVertex(-x1, -y1, +fz));
 	pFace->SetVertex(2, CVertex(-x1, -y1, -fz));
 	SetPolygon(i++, pFace);
 
-	pFace = new CPolygon(3);
+	pFace = new CPolygon(3, RGB(0, 0, 0));
 	pFace->SetVertex(0, CVertex(-x1, -y1, -fz));
 	pFace->SetVertex(1, CVertex(-x1, -y1, +fz));
 	pFace->SetVertex(2, CVertex(-fx, -y3, +fz));
 	SetPolygon(i++, pFace);
 
-	pFace = new CPolygon(3);
+	pFace = new CPolygon(3, RGB(0, 0, 0));
 	pFace->SetVertex(0, CVertex(-x1, -y1, -fz));
 	pFace->SetVertex(1, CVertex(-fx, -y3, +fz));
 	pFace->SetVertex(2, CVertex(-fx, -y3, -fz));
@@ -467,17 +471,17 @@ CAxisMesh::CAxisMesh(float fWidth, float fHeight, float fDepth) : CMesh(3)
 	float fHalfHeight = fHeight * 0.5f;
 	float fHalfDepth = fDepth * 0.5f;
 
-	CPolygon* pxAxis = new CPolygon(2);
+	CPolygon* pxAxis = new CPolygon(2, RGB(0, 0, 0));
 	pxAxis->SetVertex(0, CVertex(-fHalfWidth, 0.0f, 0.0f));
 	pxAxis->SetVertex(1, CVertex(+fHalfWidth, 0.0f, 0.0f));
 	SetPolygon(0, pxAxis);
 
-	CPolygon* pyAxis = new CPolygon(2);
+	CPolygon* pyAxis = new CPolygon(2, RGB(0, 0, 0));
 	pyAxis->SetVertex(0, CVertex(0.0f, -fHalfWidth, 0.0f));
 	pyAxis->SetVertex(1, CVertex(0.0f, +fHalfWidth, 0.0f));
 	SetPolygon(1, pyAxis);
 
-	CPolygon* pzAxis = new CPolygon(2);
+	CPolygon* pzAxis = new CPolygon(2, RGB(0, 0, 0));
 	pzAxis->SetVertex(0, CVertex(0.0f, 0.0f, -fHalfWidth));
 	pzAxis->SetVertex(1, CVertex(0.0f, 0.0f, +fHalfWidth));
 	SetPolygon(2, pzAxis);
@@ -518,44 +522,42 @@ CLandMesh::CLandMesh(float fWidth, float fHeight, float fDepth, std::array<COLOR
 	float fHalfHeight = fHeight * 0.5f;
 	float fHalfDepth = fDepth * 0.5f;
 
-	meshColor = color;
-
-	CPolygon* pFrontFace = new CPolygon(4);
+	CPolygon* pFrontFace = new CPolygon(4, RGB(0, 0, 0));
 	pFrontFace->SetVertex(0, CVertex(-fHalfWidth, +fHalfHeight, -fHalfDepth));
 	pFrontFace->SetVertex(1, CVertex(+fHalfWidth, +fHalfHeight, -fHalfDepth));
 	pFrontFace->SetVertex(2, CVertex(+fHalfWidth, -fHalfHeight, -fHalfDepth));
 	pFrontFace->SetVertex(3, CVertex(-fHalfWidth, -fHalfHeight, -fHalfDepth));
 	SetPolygon(0, pFrontFace);
 
-	CPolygon* pTopFace = new CPolygon(4);
+	CPolygon* pTopFace = new CPolygon(4, RGB(0, 0, 0));
 	pTopFace->SetVertex(0, CVertex(-fHalfWidth, +fHalfHeight, +fHalfDepth));
 	pTopFace->SetVertex(1, CVertex(+fHalfWidth, +fHalfHeight, +fHalfDepth));
 	pTopFace->SetVertex(2, CVertex(+fHalfWidth, +fHalfHeight, -fHalfDepth));
 	pTopFace->SetVertex(3, CVertex(-fHalfWidth, +fHalfHeight, -fHalfDepth));
 	SetPolygon(1, pTopFace);
 
-	CPolygon* pBackFace = new CPolygon(4);
+	CPolygon* pBackFace = new CPolygon(4, RGB(0, 0, 0));
 	pBackFace->SetVertex(0, CVertex(-fHalfWidth, -fHalfHeight, +fHalfDepth));
 	pBackFace->SetVertex(1, CVertex(+fHalfWidth, -fHalfHeight, +fHalfDepth));
 	pBackFace->SetVertex(2, CVertex(+fHalfWidth, +fHalfHeight, +fHalfDepth));
 	pBackFace->SetVertex(3, CVertex(-fHalfWidth, +fHalfHeight, +fHalfDepth));
 	SetPolygon(2, pBackFace);
 
-	CPolygon* pBottomFace = new CPolygon(4);
+	CPolygon* pBottomFace = new CPolygon(4, RGB(0, 0, 0));
 	pBottomFace->SetVertex(0, CVertex(-fHalfWidth, -fHalfHeight, -fHalfDepth));
 	pBottomFace->SetVertex(1, CVertex(+fHalfWidth, -fHalfHeight, -fHalfDepth));
 	pBottomFace->SetVertex(2, CVertex(+fHalfWidth, -fHalfHeight, +fHalfDepth));
 	pBottomFace->SetVertex(3, CVertex(-fHalfWidth, -fHalfHeight, +fHalfDepth));
 	SetPolygon(3, pBottomFace);
 
-	CPolygon* pLeftFace = new CPolygon(4);
+	CPolygon* pLeftFace = new CPolygon(4, RGB(0, 0, 0));
 	pLeftFace->SetVertex(0, CVertex(-fHalfWidth, +fHalfHeight, +fHalfDepth));
 	pLeftFace->SetVertex(1, CVertex(-fHalfWidth, +fHalfHeight, -fHalfDepth));
 	pLeftFace->SetVertex(2, CVertex(-fHalfWidth, -fHalfHeight, -fHalfDepth));
 	pLeftFace->SetVertex(3, CVertex(-fHalfWidth, -fHalfHeight, +fHalfDepth));
 	SetPolygon(4, pLeftFace);
 
-	CPolygon* pRightFace = new CPolygon(4);
+	CPolygon* pRightFace = new CPolygon(4, RGB(0, 0, 0));
 	pRightFace->SetVertex(0, CVertex(+fHalfWidth, +fHalfHeight, -fHalfDepth));
 	pRightFace->SetVertex(1, CVertex(+fHalfWidth, +fHalfHeight, +fHalfDepth));
 	pRightFace->SetVertex(2, CVertex(+fHalfWidth, -fHalfHeight, +fHalfDepth));
@@ -564,3 +566,122 @@ CLandMesh::CLandMesh(float fWidth, float fHeight, float fDepth, std::array<COLOR
 
 	m_xmOOBB = BoundingOrientedBox(XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(fHalfWidth, fHalfHeight, fHalfDepth), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
 }
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+CCartMesh::CCartMesh() : CMesh(19)
+{
+	int i = 0;
+
+	// [1] 본체 (중앙 직육면체)
+	float bw = 2.0f, bh = 0.5f, bd = 1.0f;
+	float l = -bw, r = +bw;
+	float b = 0.0f, t = bh * 2;
+	float f = -bd, bk = +bd;
+
+	// 본체 6면
+	CPolygon* tp = new CPolygon(4, RGB(0, 0, 0));
+	tp->SetVertex(0, CVertex({ l,t,f })); 
+	tp->SetVertex(1, CVertex({ r,t,f })); 
+	tp->SetVertex(2, CVertex({ r,t,bk })); 
+	tp->SetVertex(3, CVertex({ l,t,bk })); 
+	SetPolygon(i++, tp);
+	
+	CPolygon* bp = new CPolygon(4, RGB(0, 0, 0));
+	bp->SetVertex(0, CVertex({ l,b,bk }));
+	bp->SetVertex(1, CVertex({ r,b,bk }));
+	bp->SetVertex(2, CVertex({ r,b,f }));
+	bp->SetVertex(3, CVertex({ l,b,f }));
+	SetPolygon(i++, bp);
+	
+	CPolygon* bkp = new CPolygon(4, RGB(0, 0, 0));
+	bkp->SetVertex(0, CVertex({ l,t,bk }));
+	bkp->SetVertex(1, CVertex({ r,t,bk }));
+	bkp->SetVertex(2, CVertex({ r,b,bk }));
+	bkp->SetVertex(3, CVertex({ l,b,bk }));
+	SetPolygon(i++, bkp);
+	
+	CPolygon* fp = new CPolygon(4, RGB(0, 0, 0));
+	fp->SetVertex(0, CVertex({ l,b,f }));
+	fp->SetVertex(1, CVertex({ r,b,f }));
+	fp->SetVertex(2, CVertex({ r,t,f }));
+	fp->SetVertex(3, CVertex({ l,t,f }));
+	SetPolygon(i++, fp);
+	
+	CPolygon* lp = new CPolygon(4, RGB(0, 0, 0));
+	lp->SetVertex(0, CVertex({ l,t,f })); 
+	lp->SetVertex(1, CVertex({ l,t,bk })); 
+	lp->SetVertex(2, CVertex({ l,b,bk })); 
+	lp->SetVertex(3, CVertex({ l,b,f })); 
+	SetPolygon(i++, lp);
+	
+	CPolygon* rp = new CPolygon(4, RGB(0, 0, 0));
+	rp->SetVertex(0, CVertex({ r,t,bk })); 
+	rp->SetVertex(1, CVertex({ r,t,f })); 
+	rp->SetVertex(2, CVertex({ r,b,f })); 
+	rp->SetVertex(3, CVertex({ r,b,bk })); 
+	SetPolygon(i++, rp);
+
+	// [2] 좌석 3개 (간단한 큐브, 앞부분에만)
+	float sw = 0.6f, sh = 0.6f, sz = 0.6f, sy = t + sh * 0.5f;
+	float seatX[] = { -1.2f, 0.0f, 1.2f };
+	for (int s = 0; s < 3; ++s) {
+		float cx = seatX[s], cy = sy, cz = 0.4f;
+		float lx = cx - sw / 2, rx = cx + sw / 2;
+		float ty = cy + sh / 2, by = cy - sh / 2;
+		float fz = cz - sz / 2, bz = cz + sz / 2;
+
+		CPolygon* stp = new CPolygon(4, RGB(0, 0, 0));
+		stp->SetVertex(0, CVertex({ lx,ty,fz })); 
+		stp->SetVertex(1, CVertex({ rx,ty,fz })); 
+		stp->SetVertex(2, CVertex({ rx,ty,bz })); 
+		stp->SetVertex(3, CVertex({ lx,ty,bz })); 
+		SetPolygon(i++, stp); // Top
+
+		CPolygon* sbp = new CPolygon(4, RGB(0, 0, 0));
+		sbp->SetVertex(0, CVertex({ lx,by,bz })); 
+		sbp->SetVertex(1, CVertex({ rx,by,bz })); 
+		sbp->SetVertex(2, CVertex({ rx,by,fz })); 
+		sbp->SetVertex(3, CVertex({ lx,by,fz })); 
+		SetPolygon(i++, sbp); // Bottom
+
+		CPolygon* sfp = new CPolygon(4, RGB(0, 0, 0));
+		sfp->SetVertex(0, CVertex({ lx,ty,bz })); 
+		sfp->SetVertex(1, CVertex({ rx,ty,bz })); 
+		sfp->SetVertex(2, CVertex({ rx,by,bz })); 
+		sfp->SetVertex(3, CVertex({ lx,by,bz })); 
+		SetPolygon(i++, sfp); // Front
+
+		CPolygon* rsp = new CPolygon(4, RGB(0, 0, 0));
+		rsp->SetVertex(0, CVertex({ rx,ty,fz })); 
+		rsp->SetVertex(1, CVertex({ rx,ty,bz })); 
+		rsp->SetVertex(2, CVertex({ rx,by,bz })); 
+		rsp->SetVertex(3, CVertex({ rx,by,fz })); 
+		SetPolygon(i++, rsp); // Right
+	}
+
+	// [3] 바퀴 4개 (낮은 큐브)
+	float wx = 1.5f, wy = 0.15f, wz = 0.9f;
+	float wh = 0.3f, wr = 0.2f;
+	float wheelX[] = { -wx, +wx };
+	float wheelZ[] = { -wz, +wz };
+	for (int xi = 0; xi < 2; ++xi) {
+		for (int zi = 0; zi < 2; ++zi) {
+			float cx = wheelX[xi], cy = b + wh / 2, cz = wheelZ[zi];
+			float lx = cx - wr, rx = cx + wr;
+			float ty = cy + wh / 2, by = cy - wh / 2;
+			float fz = cz - wr, bz = cz + wr;
+
+			CPolygon* p = new CPolygon(4, RGB(0, 0, 0));
+			p->SetVertex(0, CVertex({ lx,ty,fz })); 
+			p->SetVertex(1, CVertex({ rx,ty,fz })); 
+			p->SetVertex(2, CVertex({ rx,ty,bz })); 
+			p->SetVertex(3, CVertex({ lx,ty,bz })); 
+			SetPolygon(i++, p);
+		}
+	}
+
+	m_xmOOBB = BoundingOrientedBox(XMFLOAT3(0.0f, bh, 0.0f), XMFLOAT3(bw, bh + 0.8f, bd), XMFLOAT4(0, 0, 0, 1));
+	//CreateRasterizerState();
+}
+
+CCartMesh::~CCartMesh() {}

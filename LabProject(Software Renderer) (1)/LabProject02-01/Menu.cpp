@@ -18,13 +18,12 @@ void Menu::BuildObjects()
 	CExplosiveObject::PrepareExplosion();
 
 	std::array<CMesh*, 5> pMenuMesh; 
-	std::array<COLORREF, 3> color{ 0, 0, 0 };
 
-	pMenuMesh[0] = new CTextMesh(1.0f, 1.0f, 1.0f, 1, color, tutorialText, LocationX, LocationY);
-	pMenuMesh[1] = new CTextMesh(1.0f, 1.0f, 1.0f, 2, color, level1Text, LocationX, LocationY);
-	pMenuMesh[2] = new CTextMesh(1.0f, 1.0f, 1.0f, 3, color, level2Text, LocationX, LocationY);
-	pMenuMesh[3] = new CTextMesh(1.0f, 1.0f, 1.0f, 2, color, startText, LocationX, LocationY);
-	pMenuMesh[4] = new CTextMesh(1.0f, 1.0f, 1.0f, 1, color, endText, LocationX, LocationY);
+	pMenuMesh[0] = new CTextMesh(1.0f, 1.0f, 1.0f, 1, RGB(0, 0, 0), tutorialText, LocationX, LocationY);
+	pMenuMesh[1] = new CTextMesh(1.0f, 1.0f, 1.0f, 2, RGB(0, 155, 0), level1Text, LocationX, LocationY);
+	pMenuMesh[2] = new CTextMesh(1.0f, 1.0f, 1.0f, 3, RGB(0, 155, 0), level2Text, LocationX, LocationY);
+	pMenuMesh[3] = new CTextMesh(1.0f, 1.0f, 1.0f, 2, RGB(0, 0, 155), startText, LocationX, LocationY);
+	pMenuMesh[4] = new CTextMesh(1.0f, 1.0f, 1.0f, 1, RGB(0, 0, 155), endText, LocationX, LocationY);
 
 	m_nObjects = 5;
 

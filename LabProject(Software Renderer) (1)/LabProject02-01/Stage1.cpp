@@ -16,38 +16,36 @@ void Stage1::BuildObjects()
 {
 	CExplosiveObject::PrepareExplosion();
 
-	CLandMesh* pLandMesh = new CLandMesh();
+	CCartMesh* pCartMesh = new CCartMesh();
 
 	m_nObjects = 2;
 	m_ppObjects = new CGameObject * [m_nObjects];
 
 	m_ppObjects[0] = new CExplosiveObject();
-	m_ppObjects[0]->SetMesh(pLandMesh);
+	m_ppObjects[0]->SetMesh(pCartMesh);
 
 	m_ppObjects[0]->SetColor(RGB(0, 0, 0));
 
-	m_ppObjects[0]->SetPosition(0.0f, -10.0f, 150.f);
+	m_ppObjects[0]->SetPosition(0.0f, 0.0f, 50.f);
 
 	m_ppObjects[0]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
-	m_ppObjects[0]->SetRotationSpeed(0.0f);
+	m_ppObjects[0]->SetRotationSpeed(90.0f);
 	m_ppObjects[0]->SetMovingDirection(XMFLOAT3(0.0f, 0.0f, 0.0f));
 	m_ppObjects[0]->SetMovingSpeed(0.0f);
 
-	//pLandMesh->Release();
-
 	m_ppObjects[1] = new CExplosiveObject();
-	m_ppObjects[1]->SetMesh(pLandMesh);
+	m_ppObjects[1]->SetMesh(pCartMesh);
 
 	m_ppObjects[1]->SetColor(RGB(0, 0, 0));
 
-	m_ppObjects[1]->SetPosition(0.0f, -10.0f, 50.0f);
+	m_ppObjects[1]->SetPosition(0.0f, 10.0f, 50.0f);
 
 	m_ppObjects[1]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
-	m_ppObjects[1]->SetRotationSpeed(0.0f);
+	m_ppObjects[1]->SetRotationSpeed(90.0f);
 	m_ppObjects[1]->SetMovingDirection(XMFLOAT3(0.0f, 0.0f, 0.0f));
 	m_ppObjects[1]->SetMovingSpeed(0.0f);
 
-	pLandMesh->Release();
+	pCartMesh->Release();
 
 #ifdef _WITH_DRAW_AXIS
 	m_pWorldAxis = new CGameObject();

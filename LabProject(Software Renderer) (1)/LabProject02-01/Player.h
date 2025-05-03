@@ -78,3 +78,17 @@ public:
 	virtual void Animate(float fElapsedTime);
 	virtual void Render(HDC hDCFrameBuffer, CCamera* pCamera);
 };
+
+class CCart : public CPlayer
+{
+public:
+	CCart();
+	virtual ~CCart();
+
+	void SetTrackPoints(const std::vector<XMFLOAT3>& points);
+	void AnimateOnTrack(float fElapsedTime);
+
+private:
+	std::vector<XMFLOAT3> m_vTrackPoints; 
+	float m_fTrackTime = 0.0f; 
+};

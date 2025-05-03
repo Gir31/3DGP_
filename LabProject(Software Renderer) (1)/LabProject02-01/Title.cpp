@@ -17,10 +17,8 @@ void Title::BuildObjects()
 {
 	CExplosiveObject::PrepareExplosion();
 
-	std::array<COLORREF, 3> color{0, 0, 0};
-
-	CTextMesh* pTitleMesh = new CTextMesh(1.0f, 1.0f, 1.0f, 0, color, title, titleLocationX, titleLocationY);
-	CTextMesh* pNameMesh = new CTextMesh(1.0f, 1.0f, 1.0f, 1, color, name, nameLocationX, nameLocationY);
+	CTextMesh* pTitleMesh = new CTextMesh(1.0f, 1.0f, 1.0f, 0, RGB(0, 0, 0), title, titleLocationX, titleLocationY);
+	CTextMesh* pNameMesh = new CTextMesh(1.0f, 1.0f, 1.0f, 1, RGB(0, 0, 0), name, nameLocationX, nameLocationY);
 
 	m_nObjects = 2;
 	m_ppObjects = new CGameObject * [m_nObjects];

@@ -233,3 +233,41 @@ void CAirplanePlayer::FireBullet(CGameObject* pLockedObject)
 		}
 	}
 }
+/////////////////////////////////////////////////////////////////////////////////////////////
+//
+CCart::CCart() {
+	// 초기화
+}
+
+CCart::~CCart() {
+}
+
+void CCart::SetTrackPoints(const std::vector<XMFLOAT3>& points) {
+	m_vTrackPoints = points;
+}
+
+void CCart::AnimateOnTrack(float fElapsedTime) {
+	if (m_vTrackPoints.size() < 4) return;
+
+	m_fTrackTime += fElapsedTime * 0.2f; // 속도
+	if (m_fTrackTime > 1.0f) m_fTrackTime = 0.0f;
+
+	// 보간: Catmull-Rom (0.0f ~ 1.0f 기준)
+	int p0 = 0, p1 = 1, p2 = 2, p3 = 3; // 임시, 실제는 m_fTrackTime 기준으로 바뀜
+	float t = m_fTrackTime; // 0 ~ 1 사이
+
+	// Catmull-Rom 공식 (XMFLOAT3 버전 필요하면 구현해줌)
+	XMVECTOR P0 = XMLoadFloat3(&m_vTrackPoints[p0]);
+	XMVECTOR P1 = XMLoadFloat3(&m_vTrackPoints[p1]);
+	XMVECTOR P2 = XMLoadFloat3(&m_vTrackPoints[p2]);
+	XMVECTOR P3 = XMLoadFloat3(&m_vTrackPoints[p3]);
+
+	XMVECTOR pos = 0.5f * ((2 * P1) +
+		(-P0 + P2) * t +
+		(2 * P0 - 5 * P1 + 4 * P2 - P3) * (t * t) +
+		(-P0 + 3 * P1 - 3 * P2 + P3) * (t * t * t));
+
+	XMFLOAT3 newPos;
+	XMStoreFloat3(&newPos, pos);
+	SetPosition(newPos.x, newPos.y, newPos.z);
+}

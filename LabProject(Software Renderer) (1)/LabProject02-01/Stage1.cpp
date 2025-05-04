@@ -33,6 +33,7 @@ void Stage1::BuildObjects()
 	m_ppObjects[0]->SetMovingDirection(XMFLOAT3(0.0f, 0.0f, 0.0f));
 	m_ppObjects[0]->SetMovingSpeed(0.0f);
 
+
 	m_ppObjects[1] = new CExplosiveObject();
 	m_ppObjects[1]->SetMesh(pCartMesh);
 
@@ -45,7 +46,6 @@ void Stage1::BuildObjects()
 	m_ppObjects[1]->SetMovingDirection(XMFLOAT3(0.0f, 0.0f, 0.0f));
 	m_ppObjects[1]->SetMovingSpeed(0.0f);
 
-	pCartMesh->Release();
 
 #ifdef _WITH_DRAW_AXIS
 	m_pWorldAxis = new CGameObject();

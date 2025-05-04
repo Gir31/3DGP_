@@ -71,16 +71,16 @@ void CGameFramework::BuildObjects()
 
 	pCamera->GenerateOrthographicProjectionMatrix(1.01f, 50.0f, FRAMEBUFFER_WIDTH, FRAMEBUFFER_HEIGHT);
 
-	CAirplaneMesh* pAirplaneMesh = new CAirplaneMesh(6.0f, 6.0f, 1.0f);
+	CCartMesh* pCartMesh = new CCartMesh();
 
-	m_pPlayer = new CAirplanePlayer();
+	m_pPlayer = new CCart();
 	m_pPlayer->SetPosition(0.0f, 0.0f, 0.0f);
-	m_pPlayer->SetMesh(pAirplaneMesh);
+	m_pPlayer->SetMesh(pCartMesh);
 	m_pPlayer->SetColor(RGB(0, 0, 255));
 	m_pPlayer->SetCamera(pCamera);
 	m_pPlayer->SetCameraOffset(XMFLOAT3(0.0f, 5.0f, -15.0f));
 
-	manager = new StageManager(new Title(m_pPlayer), new Menu(m_pPlayer), new Stage1(m_pPlayer), new Stage2(m_pPlayer));
+	manager = new StageManager(new Stage1(m_pPlayer), new Stage1(m_pPlayer), new Stage1(m_pPlayer), new Stage1(m_pPlayer));
 	manager->buildStage();
 }
 

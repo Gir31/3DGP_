@@ -179,3 +179,8 @@ void CCamera::Update(CPlayer* pPlayer, XMFLOAT3& xmf3LookAt, float fTimeElapsed)
 	}
 	//==========================
 }
+
+void CCamera::SetPosition(XMFLOAT3 position)
+{
+	m_xmf3Position = position;
+}

@@ -42,7 +42,7 @@ private:
 	XMFLOAT4X4					m_xmf4x4InverseView = Matrix4x4::Identity();
 
 	float m_fYawAngle = 0.0f;
-	float m_fPitchAngle = 15.0f; // 아래에서 위로 약간 내려다보는 각도
+	float m_fPitchAngle = 60.0f; // 아래에서 위로 약간 내려다보는 각도
 
 
 public:

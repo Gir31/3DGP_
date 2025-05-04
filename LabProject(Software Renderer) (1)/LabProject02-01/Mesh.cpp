@@ -85,7 +85,6 @@ void CMesh::Render(HDC hDCFrameBuffer)
 		}
 		if (((0.0f <= f3InitialProject.z) && (f3InitialProject.z <= 1.0f)) && ((bInitialInside || bPreviousInside))) ::Draw2DLine(hDCFrameBuffer, f3PreviousProject, f3InitialProject);
 	}*/
-
 	for (int j = 0; j < m_nPolygons; j++) {
 		int nVertices = m_ppPolygons[j]->m_nVertices;
 		CVertex* pVertices = m_ppPolygons[j]->m_pVertices;
@@ -98,19 +97,18 @@ void CMesh::Render(HDC hDCFrameBuffer)
 			points[i] = { (LONG)proj.x, (LONG)proj.y };
 		}
 
-		// 펜: 선 색깔 (예: 검정)
-		HPEN hPen = CreatePen(PS_SOLID, 1, m_ppPolygons[j]->polygonColor); // 선 색
+		// 펜: 선 색깔 지정
+		HPEN hPen = CreatePen(PS_SOLID, 1, m_ppPolygons[j]->polygonColor);
 		HPEN hOldPen = (HPEN)SelectObject(hDCFrameBuffer, hPen);
 
-		// 브러시: 면 색깔
-		HBRUSH hBrush = CreateSolidBrush(m_ppPolygons[j]->polygonColor);
-		HBRUSH hOldBrush = (HBRUSH)SelectObject(hDCFrameBuffer, hBrush);
+		// 브러시: NULL로 설정하여 내부를 채우지 않음
+		HBRUSH hOldBrush = (HBRUSH)SelectObject(hDCFrameBuffer, GetStockObject(NULL_BRUSH));
 
-		Polygon(hDCFrameBuffer, points, nVertices); // 면 + 선 그리기
+		// 다각형 외곽선만 그리기
+		Polygon(hDCFrameBuffer, points, nVertices);
 
 		// 복원 및 정리
 		SelectObject(hDCFrameBuffer, hOldBrush);
-		DeleteObject(hBrush);
 		SelectObject(hDCFrameBuffer, hOldPen);
 		DeleteObject(hPen);
 	}
@@ -568,120 +566,672 @@ CLandMesh::CLandMesh(float fWidth, float fHeight, float fDepth, std::array<COLOR
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-CCartMesh::CCartMesh() : CMesh(19)
+// CCartMesh.cpp
+
+CCartMesh::CCartMesh() : CMesh(71)
 {
 	int i = 0;
 
-	// [1] 본체 (중앙 직육면체)
-	float bw = 2.0f, bh = 0.5f, bd = 1.0f;
-	float l = -bw, r = +bw;
-	float b = 0.0f, t = bh * 2;
-	float f = -bd, bk = +bd;
+	COLORREF bodyColor		= RGB(0, 100, 0);
+	COLORREF innerColor		= RGB(166, 73, 53);
+	COLORREF seatColor		= RGB(211, 178, 129);
+	COLORREF barColor		= RGB(50, 50, 50);
+	COLORREF frameColor		= RGB(100, 100, 100);
 
-	// 본체 6면
-	CPolygon* tp = new CPolygon(4, RGB(0, 0, 0));
-	tp->SetVertex(0, CVertex({ l,t,f })); 
-	tp->SetVertex(1, CVertex({ r,t,f })); 
-	tp->SetVertex(2, CVertex({ r,t,bk })); 
-	tp->SetVertex(3, CVertex({ l,t,bk })); 
-	SetPolygon(i++, tp);
-	
-	CPolygon* bp = new CPolygon(4, RGB(0, 0, 0));
-	bp->SetVertex(0, CVertex({ l,b,bk }));
-	bp->SetVertex(1, CVertex({ r,b,bk }));
-	bp->SetVertex(2, CVertex({ r,b,f }));
-	bp->SetVertex(3, CVertex({ l,b,f }));
-	SetPolygon(i++, bp);
-	
-	CPolygon* bkp = new CPolygon(4, RGB(0, 0, 0));
-	bkp->SetVertex(0, CVertex({ l,t,bk }));
-	bkp->SetVertex(1, CVertex({ r,t,bk }));
-	bkp->SetVertex(2, CVertex({ r,b,bk }));
-	bkp->SetVertex(3, CVertex({ l,b,bk }));
-	SetPolygon(i++, bkp);
-	
-	CPolygon* fp = new CPolygon(4, RGB(0, 0, 0));
-	fp->SetVertex(0, CVertex({ l,b,f }));
-	fp->SetVertex(1, CVertex({ r,b,f }));
-	fp->SetVertex(2, CVertex({ r,t,f }));
-	fp->SetVertex(3, CVertex({ l,t,f }));
-	SetPolygon(i++, fp);
-	
-	CPolygon* lp = new CPolygon(4, RGB(0, 0, 0));
-	lp->SetVertex(0, CVertex({ l,t,f })); 
-	lp->SetVertex(1, CVertex({ l,t,bk })); 
-	lp->SetVertex(2, CVertex({ l,b,bk })); 
-	lp->SetVertex(3, CVertex({ l,b,f })); 
-	SetPolygon(i++, lp);
-	
-	CPolygon* rp = new CPolygon(4, RGB(0, 0, 0));
-	rp->SetVertex(0, CVertex({ r,t,bk })); 
-	rp->SetVertex(1, CVertex({ r,t,f })); 
-	rp->SetVertex(2, CVertex({ r,b,f })); 
-	rp->SetVertex(3, CVertex({ r,b,bk })); 
-	SetPolygon(i++, rp);
+	// Cart 바닥				| 사용 Mesh : 6
+	{
+		float x1 = -4.0f;	float x2 = 4.0f;
+		float y1 = 10.0f;	float y2 = -10.0f;  // 앞뒤 (Y축)
+		float z1 = 3.0f;	float z2 = 2.0f;  // 아래위 (Z축)
+		COLORREF color = RGB(0, 0, 0);
 
-	// [2] 좌석 3개 (간단한 큐브, 앞부분에만)
-	float sw = 0.6f, sh = 0.6f, sz = 0.6f, sy = t + sh * 0.5f;
-	float seatX[] = { -1.2f, 0.0f, 1.2f };
-	for (int s = 0; s < 3; ++s) {
-		float cx = seatX[s], cy = sy, cz = 0.4f;
-		float lx = cx - sw / 2, rx = cx + sw / 2;
-		float ty = cy + sh / 2, by = cy - sh / 2;
-		float fz = cz - sz / 2, bz = cz + sz / 2;
+		// 윗면 (z2)
+		CPolygon* top = new CPolygon(4, color);
+		top->SetVertex(0, CVertex({ x1, y1, z2 }));
+		top->SetVertex(1, CVertex({ x2, y1, z2 }));
+		top->SetVertex(2, CVertex({ x2, y2, z2 }));
+		top->SetVertex(3, CVertex({ x1, y2, z2 }));
+		SetPolygon(i++, top);
 
-		CPolygon* stp = new CPolygon(4, RGB(0, 0, 0));
-		stp->SetVertex(0, CVertex({ lx,ty,fz })); 
-		stp->SetVertex(1, CVertex({ rx,ty,fz })); 
-		stp->SetVertex(2, CVertex({ rx,ty,bz })); 
-		stp->SetVertex(3, CVertex({ lx,ty,bz })); 
-		SetPolygon(i++, stp); // Top
+		// 아랫면 (z1)
+		CPolygon* bottom = new CPolygon(4, color);
+		bottom->SetVertex(0, CVertex({ x2, y1, z1 }));
+		bottom->SetVertex(1, CVertex({ x1, y1, z1 }));
+		bottom->SetVertex(2, CVertex({ x1, y2, z1 }));
+		bottom->SetVertex(3, CVertex({ x2, y2, z1 }));
+		SetPolygon(i++, bottom);
 
-		CPolygon* sbp = new CPolygon(4, RGB(0, 0, 0));
-		sbp->SetVertex(0, CVertex({ lx,by,bz })); 
-		sbp->SetVertex(1, CVertex({ rx,by,bz })); 
-		sbp->SetVertex(2, CVertex({ rx,by,fz })); 
-		sbp->SetVertex(3, CVertex({ lx,by,fz })); 
-		SetPolygon(i++, sbp); // Bottom
+		// 앞면 (+Y)
+		CPolygon* front = new CPolygon(4, color);
+		front->SetVertex(0, CVertex({ x2, y1, z2 }));
+		front->SetVertex(1, CVertex({ x1, y1, z2 }));
+		front->SetVertex(2, CVertex({ x1, y1, z1 }));
+		front->SetVertex(3, CVertex({ x2, y1, z1 }));
+		SetPolygon(i++, front);
 
-		CPolygon* sfp = new CPolygon(4, RGB(0, 0, 0));
-		sfp->SetVertex(0, CVertex({ lx,ty,bz })); 
-		sfp->SetVertex(1, CVertex({ rx,ty,bz })); 
-		sfp->SetVertex(2, CVertex({ rx,by,bz })); 
-		sfp->SetVertex(3, CVertex({ lx,by,bz })); 
-		SetPolygon(i++, sfp); // Front
+		// 뒷면 (+Y)
+		CPolygon* back = new CPolygon(4, color);
+		back->SetVertex(0, CVertex({ x1, y2, z2 }));
+		back->SetVertex(1, CVertex({ x2, y2, z2 }));
+		back->SetVertex(2, CVertex({ x2, y2, z1 }));
+		back->SetVertex(3, CVertex({ x1, y2, z1 }));
+		SetPolygon(i++, back);
 
-		CPolygon* rsp = new CPolygon(4, RGB(0, 0, 0));
-		rsp->SetVertex(0, CVertex({ rx,ty,fz })); 
-		rsp->SetVertex(1, CVertex({ rx,ty,bz })); 
-		rsp->SetVertex(2, CVertex({ rx,by,bz })); 
-		rsp->SetVertex(3, CVertex({ rx,by,fz })); 
-		SetPolygon(i++, rsp); // Right
+		// 왼쪽 (-X)
+		CPolygon* left = new CPolygon(4, color);
+		left->SetVertex(0, CVertex({ x1, y1, z2 }));
+		left->SetVertex(1, CVertex({ x1, y2, z2 }));
+		left->SetVertex(2, CVertex({ x1, y2, z1 }));
+		left->SetVertex(3, CVertex({ x1, y1, z1 }));
+		SetPolygon(i++, left);
+
+		// 오른쪽 (+X)
+		CPolygon* right = new CPolygon(4, color);
+		right->SetVertex(0, CVertex({ x2, y1, z2 }));
+		right->SetVertex(1, CVertex({ x2, y1, z1 }));
+		right->SetVertex(2, CVertex({ x2, y2, z1 }));
+		right->SetVertex(3, CVertex({ x2, y2, z2 }));
+		SetPolygon(i++, right);
+	}
+	// Cart 뒤쪽 벽				| 사용 Mesh : 5
+	{
+		float x1 = -3.8f;	float x2 = 3.8f;
+		float y1 = -8.8f;	float y2 = -9.8f;  // 앞뒤 (Y축)
+		float z1 = 2.0f;	float z2 = -2.0f;  // 아래위 (Z축)
+
+		// 윗면 (z2)
+		CPolygon* top = new CPolygon(4, frameColor);
+		top->SetVertex(0, CVertex({ x1, y1, z2 }));
+		top->SetVertex(1, CVertex({ x2, y1, z2 }));
+		top->SetVertex(2, CVertex({ x2, y2, z2 }));
+		top->SetVertex(3, CVertex({ x1, y2, z2 }));
+		SetPolygon(i++, top);
+
+		// 앞면 (+Y)
+		CPolygon* front = new CPolygon(4, innerColor);
+		front->SetVertex(0, CVertex({ x2, y1, z2 }));
+		front->SetVertex(1, CVertex({ x1, y1, z2 }));
+		front->SetVertex(2, CVertex({ x1, y1, z1 }));
+		front->SetVertex(3, CVertex({ x2, y1, z1 }));
+		SetPolygon(i++, front);
+
+		// 뒷면 (+Y)
+		CPolygon* back = new CPolygon(4, bodyColor);
+		back->SetVertex(0, CVertex({ x1, y2, z2 }));
+		back->SetVertex(1, CVertex({ x2, y2, z2 }));
+		back->SetVertex(2, CVertex({ x2, y2, z1 }));
+		back->SetVertex(3, CVertex({ x1, y2, z1 }));
+		SetPolygon(i++, back);
+
+		// 왼쪽 (-X)
+		CPolygon* left = new CPolygon(4, bodyColor);
+		left->SetVertex(0, CVertex({ x1, y1, z2 }));
+		left->SetVertex(1, CVertex({ x1, y2, z2 }));
+		left->SetVertex(2, CVertex({ x1, y2, z1 }));
+		left->SetVertex(3, CVertex({ x1, y1, z1 }));
+		SetPolygon(i++, left);
+
+		// 오른쪽 (+X)
+		CPolygon* right = new CPolygon(4, bodyColor);
+		right->SetVertex(0, CVertex({ x2, y1, z2 }));
+		right->SetVertex(1, CVertex({ x2, y1, z1 }));
+		right->SetVertex(2, CVertex({ x2, y2, z1 }));
+		right->SetVertex(3, CVertex({ x2, y2, z2 }));
+		SetPolygon(i++, right);
+	}
+	// Cart 오른쪽 벽			| 사용 Mesh : 5
+	{
+		float x1 = 2.8f;	float x2 = 3.8f;
+		float y1 = 9.8f;	float y2 = -9.8f;  // 앞뒤 (Y축)
+		float z1 = 2.0f;	float z2 = 0.0f;  // 아래위 (Z축)
+
+		// 윗면 (z2)
+		CPolygon* top = new CPolygon(4, frameColor);
+		top->SetVertex(0, CVertex({ x1, y1, z2 }));
+		top->SetVertex(1, CVertex({ x2, y1, z2 }));
+		top->SetVertex(2, CVertex({ x2, y2, z2 }));
+		top->SetVertex(3, CVertex({ x1, y2, z2 }));
+		SetPolygon(i++, top);
+
+		// 앞면 (+Y)
+		CPolygon* front = new CPolygon(4, bodyColor);
+		front->SetVertex(0, CVertex({ x2, y1, z2 }));
+		front->SetVertex(1, CVertex({ x1, y1, z2 }));
+		front->SetVertex(2, CVertex({ x1, y1, z1 }));
+		front->SetVertex(3, CVertex({ x2, y1, z1 }));
+		SetPolygon(i++, front);
+
+		// 뒷면 (+Y)
+		CPolygon* back = new CPolygon(4, bodyColor);
+		back->SetVertex(0, CVertex({ x1, y2, z2 }));
+		back->SetVertex(1, CVertex({ x2, y2, z2 }));
+		back->SetVertex(2, CVertex({ x2, y2, z1 }));
+		back->SetVertex(3, CVertex({ x1, y2, z1 }));
+		SetPolygon(i++, back);
+
+		// 왼쪽 (-X)
+		CPolygon* left = new CPolygon(4, innerColor);
+		left->SetVertex(0, CVertex({ x1, y1, z2 }));
+		left->SetVertex(1, CVertex({ x1, y2, z2 }));
+		left->SetVertex(2, CVertex({ x1, y2, z1 }));
+		left->SetVertex(3, CVertex({ x1, y1, z1 }));
+		SetPolygon(i++, left);
+
+		// 오른쪽 (+X)
+		CPolygon* right = new CPolygon(4, bodyColor);
+		right->SetVertex(0, CVertex({ x2, y1, z2 }));
+		right->SetVertex(1, CVertex({ x2, y1, z1 }));
+		right->SetVertex(2, CVertex({ x2, y2, z1 }));
+		right->SetVertex(3, CVertex({ x2, y2, z2 }));
+		SetPolygon(i++, right);
+	}
+	// Cart 왼쪽 벽				| 사용 Mesh : 5
+	{
+		float x1 = -3.8f;	float x2 = -2.8f;
+		float y1 = 9.8f;	float y2 = -9.8f;  // 앞뒤 (Y축)
+		float z1 = 2.0f;	float z2 = 0.0f;  // 아래위 (Z축)
+		
+		// 윗면 (z2)
+		CPolygon* top = new CPolygon(4, frameColor);
+		top->SetVertex(0, CVertex({ x1, y1, z2 }));
+		top->SetVertex(1, CVertex({ x2, y1, z2 }));
+		top->SetVertex(2, CVertex({ x2, y2, z2 }));
+		top->SetVertex(3, CVertex({ x1, y2, z2 }));
+		SetPolygon(i++, top);
+
+		// 앞면 (+Y)
+		CPolygon* front = new CPolygon(4, bodyColor);
+		front->SetVertex(0, CVertex({ x2, y1, z2 }));
+		front->SetVertex(1, CVertex({ x1, y1, z2 }));
+		front->SetVertex(2, CVertex({ x1, y1, z1 }));
+		front->SetVertex(3, CVertex({ x2, y1, z1 }));
+		SetPolygon(i++, front);
+
+		// 뒷면 (+Y)
+		CPolygon* back = new CPolygon(4, bodyColor);
+		back->SetVertex(0, CVertex({ x1, y2, z2 }));
+		back->SetVertex(1, CVertex({ x2, y2, z2 }));
+		back->SetVertex(2, CVertex({ x2, y2, z1 }));
+		back->SetVertex(3, CVertex({ x1, y2, z1 }));
+		SetPolygon(i++, back);
+
+		// 왼쪽 (-X)
+		CPolygon* left = new CPolygon(4, bodyColor);
+		left->SetVertex(0, CVertex({ x1, y1, z2 }));
+		left->SetVertex(1, CVertex({ x1, y2, z2 }));
+		left->SetVertex(2, CVertex({ x1, y2, z1 }));
+		left->SetVertex(3, CVertex({ x1, y1, z1 }));
+		SetPolygon(i++, left);
+
+		// 오른쪽 (+X)
+		CPolygon* right = new CPolygon(4, innerColor);
+		right->SetVertex(0, CVertex({ x2, y1, z2 }));
+		right->SetVertex(1, CVertex({ x2, y1, z1 }));
+		right->SetVertex(2, CVertex({ x2, y2, z1 }));
+		right->SetVertex(3, CVertex({ x2, y2, z2 }));
+		SetPolygon(i++, right);
+	}
+	// Cart 앞쪽 벽				| 사용 Mesh : 5
+	{
+		float x1 = -3.8f;	float x2 = 3.8f;
+		float y1 = 9.8f;	float y2 = 8.8f;  // 앞뒤 (Y축)
+		float z1 = 2.0f;	float z2 = 0.0f;  // 아래위 (Z축)
+
+		// 윗면 (z2)
+		CPolygon* top = new CPolygon(4, frameColor);
+		top->SetVertex(0, CVertex({ x1, y1, z2 }));
+		top->SetVertex(1, CVertex({ x2, y1, z2 }));
+		top->SetVertex(2, CVertex({ x2, y2, z2 }));
+		top->SetVertex(3, CVertex({ x1, y2, z2 }));
+		SetPolygon(i++, top);
+
+		// 앞면 (+Y)
+		CPolygon* front = new CPolygon(4, bodyColor);
+		front->SetVertex(0, CVertex({ x2, y1, z2 }));
+		front->SetVertex(1, CVertex({ x1, y1, z2 }));
+		front->SetVertex(2, CVertex({ x1, y1, z1 }));
+		front->SetVertex(3, CVertex({ x2, y1, z1 }));
+		SetPolygon(i++, front);
+
+		// 뒷면 (+Y)
+		CPolygon* back = new CPolygon(4, bodyColor);
+		back->SetVertex(0, CVertex({ x1, y2, z2 }));
+		back->SetVertex(1, CVertex({ x2, y2, z2 }));
+		back->SetVertex(2, CVertex({ x2, y2, z1 }));
+		back->SetVertex(3, CVertex({ x1, y2, z1 }));
+		SetPolygon(i++, back);
+
+		// 왼쪽 (-X)
+		CPolygon* left = new CPolygon(4, bodyColor);
+		left->SetVertex(0, CVertex({ x1, y1, z2 }));
+		left->SetVertex(1, CVertex({ x1, y2, z2 }));
+		left->SetVertex(2, CVertex({ x1, y2, z1 }));
+		left->SetVertex(3, CVertex({ x1, y1, z1 }));
+		SetPolygon(i++, left);
+
+		// 오른쪽 (+X)
+		CPolygon* right = new CPolygon(4, bodyColor);
+		right->SetVertex(0, CVertex({ x2, y1, z2 }));
+		right->SetVertex(1, CVertex({ x2, y1, z1 }));
+		right->SetVertex(2, CVertex({ x2, y2, z1 }));
+		right->SetVertex(3, CVertex({ x2, y2, z2 }));
+		SetPolygon(i++, right);
+	}
+	// Cart 본넷				| 사용 Mesh : 5
+	{
+		float x1 = -3.8f;	float x2 = 3.8f;
+		float y1 = 9.8f;	float y2 = 3.8f;  // 앞뒤 (Y축)
+		float z1 = 0.0f;	float z2 = -1.0f;  // 아래위 (Z축)
+
+		// 아래면
+		CPolygon* bottom = new CPolygon(4, bodyColor);
+		bottom->SetVertex(0, CVertex({ x1, y1, z1 }));
+		bottom->SetVertex(1, CVertex({ x2, y1, z1 }));
+		bottom->SetVertex(2, CVertex({ x2, y2, z1 }));
+		bottom->SetVertex(3, CVertex({ x1, y2, z1 }));
+		SetPolygon(i++, bottom);
+
+		// 뒷면
+		CPolygon* back = new CPolygon(4, bodyColor);
+		back->SetVertex(0, CVertex({ x1, y2, z1 }));
+		back->SetVertex(1, CVertex({ x2, y2, z1 }));
+		back->SetVertex(2, CVertex({ x2, y2, z2 }));
+		back->SetVertex(3, CVertex({ x1, y2, z2 }));
+		SetPolygon(i++, back);
+
+		// 윗면
+		CPolygon* top = new CPolygon(4, bodyColor);
+		top->SetVertex(0, CVertex({ x1, y1, z1 }));
+		top->SetVertex(1, CVertex({ x2, y1, z1 }));
+		top->SetVertex(2, CVertex({ x2, y2, z2 }));
+		top->SetVertex(3, CVertex({ x1, y2, z2 }));
+		SetPolygon(i++, top);
+
+		// 오른쪽
+		CPolygon* right = new CPolygon(3, bodyColor);
+		right->SetVertex(0, CVertex({ x2, y2, z2 }));
+		right->SetVertex(1, CVertex({ x2, y1, z1 }));
+		right->SetVertex(2, CVertex({ x2, y2, z1 }));
+		SetPolygon(i++, right);
+
+		// 왼쪽
+		CPolygon* left = new CPolygon(3, bodyColor);
+		left->SetVertex(0, CVertex({ x1, y2, z2 }));
+		left->SetVertex(1, CVertex({ x1, y2, z1 }));
+		left->SetVertex(2, CVertex({ x1, y1, z1 }));
+		SetPolygon(i++, left);
+	}
+	// 앞쪽 좌석
+	{
+		float x1 = -2.8f;	float x2 = 2.8f;
+		float y1 = -2.0f;	float y2 = -3.0f;  // 앞뒤 (Y축)
+		float z1 = 2.0f;	float z2 = -1.0f;  // 아래위 (Z축)
+
+		// 윗면 (z2)
+		CPolygon* top = new CPolygon(4, seatColor);
+		top->SetVertex(0, CVertex({ x1, y1, z2 }));
+		top->SetVertex(1, CVertex({ x2, y1, z2 }));
+		top->SetVertex(2, CVertex({ x2, y2, z2 }));
+		top->SetVertex(3, CVertex({ x1, y2, z2 }));
+		SetPolygon(i++, top);
+
+		// 앞면 (+Y)
+		CPolygon* front = new CPolygon(4, seatColor);
+		front->SetVertex(0, CVertex({ x2, y1, z2 }));
+		front->SetVertex(1, CVertex({ x1, y1, z2 }));
+		front->SetVertex(2, CVertex({ x1, y1, z1 }));
+		front->SetVertex(3, CVertex({ x2, y1, z1 }));
+		SetPolygon(i++, front);
+
+		// 뒷면 (+Y)
+		CPolygon* back = new CPolygon(4, seatColor);
+		back->SetVertex(0, CVertex({ x1, y2, z2 }));
+		back->SetVertex(1, CVertex({ x2, y2, z2 }));
+		back->SetVertex(2, CVertex({ x2, y2, z1 }));
+		back->SetVertex(3, CVertex({ x1, y2, z1 }));
+		SetPolygon(i++, back);
+
+		// 왼쪽 (-X)
+		CPolygon* left = new CPolygon(4, seatColor);
+		left->SetVertex(0, CVertex({ x1, y1, z2 }));
+		left->SetVertex(1, CVertex({ x1, y2, z2 }));
+		left->SetVertex(2, CVertex({ x1, y2, z1 }));
+		left->SetVertex(3, CVertex({ x1, y1, z1 }));
+		SetPolygon(i++, left);
+
+		// 오른쪽 (+X)
+		CPolygon* right = new CPolygon(4, seatColor);
+		right->SetVertex(0, CVertex({ x2, y1, z2 }));
+		right->SetVertex(1, CVertex({ x2, y1, z1 }));
+		right->SetVertex(2, CVertex({ x2, y2, z1 }));
+		right->SetVertex(3, CVertex({ x2, y2, z2 }));
+		SetPolygon(i++, right);
+	}
+	// 앞쪽 좌석 머리 1
+	{
+		float x1 = -1.9f;	float x2 = -0.9f;
+		float y1 = -2.2f;	float y2 = -2.8f;  // 앞뒤 (Y축)
+		float z1 = -1.0f;	float z2 = -1.75f;  // 아래위 (Z축)
+
+		// 윗면 (z2)
+		CPolygon* top = new CPolygon(4, seatColor);
+		top->SetVertex(0, CVertex({ x1, y1, z2 }));
+		top->SetVertex(1, CVertex({ x2, y1, z2 }));
+		top->SetVertex(2, CVertex({ x2, y2, z2 }));
+		top->SetVertex(3, CVertex({ x1, y2, z2 }));
+		SetPolygon(i++, top);
+
+		// 앞면 (+Y)
+		CPolygon* front = new CPolygon(4, seatColor);
+		front->SetVertex(0, CVertex({ x2, y1, z2 }));
+		front->SetVertex(1, CVertex({ x1, y1, z2 }));
+		front->SetVertex(2, CVertex({ x1, y1, z1 }));
+		front->SetVertex(3, CVertex({ x2, y1, z1 }));
+		SetPolygon(i++, front);
+
+		// 뒷면 (+Y)
+		CPolygon* back = new CPolygon(4, seatColor);
+		back->SetVertex(0, CVertex({ x1, y2, z2 }));
+		back->SetVertex(1, CVertex({ x2, y2, z2 }));
+		back->SetVertex(2, CVertex({ x2, y2, z1 }));
+		back->SetVertex(3, CVertex({ x1, y2, z1 }));
+		SetPolygon(i++, back);
+
+		// 왼쪽 (-X)
+		CPolygon* left = new CPolygon(4, seatColor);
+		left->SetVertex(0, CVertex({ x1, y1, z2 }));
+		left->SetVertex(1, CVertex({ x1, y2, z2 }));
+		left->SetVertex(2, CVertex({ x1, y2, z1 }));
+		left->SetVertex(3, CVertex({ x1, y1, z1 }));
+		SetPolygon(i++, left);
+
+		// 오른쪽 (+X)
+		CPolygon* right = new CPolygon(4, seatColor);
+		right->SetVertex(0, CVertex({ x2, y1, z2 }));
+		right->SetVertex(1, CVertex({ x2, y1, z1 }));
+		right->SetVertex(2, CVertex({ x2, y2, z1 }));
+		right->SetVertex(3, CVertex({ x2, y2, z2 }));
+		SetPolygon(i++, right);
+	}
+	// 앞쪽 좌석 머리 2
+	{
+		float x1 = 0.9f;	float x2 = 1.9f;
+		float y1 = -2.2f;	float y2 = -2.8f;  // 앞뒤 (Y축)
+		float z1 = -1.0f;	float z2 = -1.75f;  // 아래위 (Z축)
+
+		// 윗면 (z2)
+		CPolygon* top = new CPolygon(4, seatColor);
+		top->SetVertex(0, CVertex({ x1, y1, z2 }));
+		top->SetVertex(1, CVertex({ x2, y1, z2 }));
+		top->SetVertex(2, CVertex({ x2, y2, z2 }));
+		top->SetVertex(3, CVertex({ x1, y2, z2 }));
+		SetPolygon(i++, top);
+
+		// 앞면 (+Y)
+		CPolygon* front = new CPolygon(4, seatColor);
+		front->SetVertex(0, CVertex({ x2, y1, z2 }));
+		front->SetVertex(1, CVertex({ x1, y1, z2 }));
+		front->SetVertex(2, CVertex({ x1, y1, z1 }));
+		front->SetVertex(3, CVertex({ x2, y1, z1 }));
+		SetPolygon(i++, front);
+
+		// 뒷면 (+Y)
+		CPolygon* back = new CPolygon(4, seatColor);
+		back->SetVertex(0, CVertex({ x1, y2, z2 }));
+		back->SetVertex(1, CVertex({ x2, y2, z2 }));
+		back->SetVertex(2, CVertex({ x2, y2, z1 }));
+		back->SetVertex(3, CVertex({ x1, y2, z1 }));
+		SetPolygon(i++, back);
+
+		// 왼쪽 (-X)
+		CPolygon* left = new CPolygon(4, seatColor);
+		left->SetVertex(0, CVertex({ x1, y1, z2 }));
+		left->SetVertex(1, CVertex({ x1, y2, z2 }));
+		left->SetVertex(2, CVertex({ x1, y2, z1 }));
+		left->SetVertex(3, CVertex({ x1, y1, z1 }));
+		SetPolygon(i++, left);
+
+		// 오른쪽 (+X)
+		CPolygon* right = new CPolygon(4, seatColor);
+		right->SetVertex(0, CVertex({ x2, y1, z2 }));
+		right->SetVertex(1, CVertex({ x2, y1, z1 }));
+		right->SetVertex(2, CVertex({ x2, y2, z1 }));
+		right->SetVertex(3, CVertex({ x2, y2, z2 }));
+		SetPolygon(i++, right);
+	}
+	// 앞쪽 안전 바
+	{
+		float x1 = -3.8f;	float x2 = 3.8f;
+		float y1 = 1.0f;	float y2 = 0.5f;  // 앞뒤 (Y축)
+		float z1 = 0.0f;	float z2 = -0.5f;  // 아래위 (Z축)
+
+		// 윗면 (z2)
+		CPolygon* top = new CPolygon(4, barColor);
+		top->SetVertex(0, CVertex({ x1, y1, z2 }));
+		top->SetVertex(1, CVertex({ x2, y1, z2 }));
+		top->SetVertex(2, CVertex({ x2, y2, z2 }));
+		top->SetVertex(3, CVertex({ x1, y2, z2 }));
+		SetPolygon(i++, top);
+
+		// 앞면 (+Y)
+		CPolygon* front = new CPolygon(4, barColor);
+		front->SetVertex(0, CVertex({ x2, y1, z2 }));
+		front->SetVertex(1, CVertex({ x1, y1, z2 }));
+		front->SetVertex(2, CVertex({ x1, y1, z1 }));
+		front->SetVertex(3, CVertex({ x2, y1, z1 }));
+		SetPolygon(i++, front);
+
+		// 뒷면 (+Y)
+		CPolygon* back = new CPolygon(4, barColor);
+		back->SetVertex(0, CVertex({ x1, y2, z2 }));
+		back->SetVertex(1, CVertex({ x2, y2, z2 }));
+		back->SetVertex(2, CVertex({ x2, y2, z1 }));
+		back->SetVertex(3, CVertex({ x1, y2, z1 }));
+		SetPolygon(i++, back);
+
+		// 왼쪽 (-X)
+		CPolygon* left = new CPolygon(4, barColor);
+		left->SetVertex(0, CVertex({ x1, y1, z2 }));
+		left->SetVertex(1, CVertex({ x1, y2, z2 }));
+		left->SetVertex(2, CVertex({ x1, y2, z1 }));
+		left->SetVertex(3, CVertex({ x1, y1, z1 }));
+		SetPolygon(i++, left);
+
+		// 오른쪽 (+X)
+		CPolygon* right = new CPolygon(4, barColor);
+		right->SetVertex(0, CVertex({ x2, y1, z2 }));
+		right->SetVertex(1, CVertex({ x2, y1, z1 }));
+		right->SetVertex(2, CVertex({ x2, y2, z1 }));
+		right->SetVertex(3, CVertex({ x2, y2, z2 }));
+		SetPolygon(i++, right);
+	}
+	// 뒤쪽 좌석
+	{
+		float x1 = -2.8f;	float x2 = 2.8f;
+		float y1 = -7.8f;	float y2 = -8.8f;  // 앞뒤 (Y축)
+		float z1 = 2.0f;	float z2 = -1.0f;  // 아래위 (Z축)
+
+		// 윗면 (z2)
+		CPolygon* top = new CPolygon(4, seatColor);
+		top->SetVertex(0, CVertex({ x1, y1, z2 }));
+		top->SetVertex(1, CVertex({ x2, y1, z2 }));
+		top->SetVertex(2, CVertex({ x2, y2, z2 }));
+		top->SetVertex(3, CVertex({ x1, y2, z2 }));
+		SetPolygon(i++, top);
+
+		// 앞면 (+Y)
+		CPolygon* front = new CPolygon(4, seatColor);
+		front->SetVertex(0, CVertex({ x2, y1, z2 }));
+		front->SetVertex(1, CVertex({ x1, y1, z2 }));
+		front->SetVertex(2, CVertex({ x1, y1, z1 }));
+		front->SetVertex(3, CVertex({ x2, y1, z1 }));
+		SetPolygon(i++, front);
+
+		// 뒷면 (+Y)
+		CPolygon* back = new CPolygon(4, seatColor);
+		back->SetVertex(0, CVertex({ x1, y2, z2 }));
+		back->SetVertex(1, CVertex({ x2, y2, z2 }));
+		back->SetVertex(2, CVertex({ x2, y2, z1 }));
+		back->SetVertex(3, CVertex({ x1, y2, z1 }));
+		SetPolygon(i++, back);
+
+		// 왼쪽 (-X)
+		CPolygon* left = new CPolygon(4, seatColor);
+		left->SetVertex(0, CVertex({ x1, y1, z2 }));
+		left->SetVertex(1, CVertex({ x1, y2, z2 }));
+		left->SetVertex(2, CVertex({ x1, y2, z1 }));
+		left->SetVertex(3, CVertex({ x1, y1, z1 }));
+		SetPolygon(i++, left);
+
+		// 오른쪽 (+X)
+		CPolygon* right = new CPolygon(4, seatColor);
+		right->SetVertex(0, CVertex({ x2, y1, z2 }));
+		right->SetVertex(1, CVertex({ x2, y1, z1 }));
+		right->SetVertex(2, CVertex({ x2, y2, z1 }));
+		right->SetVertex(3, CVertex({ x2, y2, z2 }));
+		SetPolygon(i++, right);
+	}
+	// 뒤쪽 좌석 머리 1
+	{
+		float x1 = -1.9f;	float x2 = -0.9f;
+		float y1 = -8.0f;	float y2 = -8.6f;  // 앞뒤 (Y축)
+		float z1 = -1.0f;	float z2 = -1.75f;  // 아래위 (Z축)
+
+		// 윗면 (z2)
+		CPolygon* top = new CPolygon(4, seatColor);
+		top->SetVertex(0, CVertex({ x1, y1, z2 }));
+		top->SetVertex(1, CVertex({ x2, y1, z2 }));
+		top->SetVertex(2, CVertex({ x2, y2, z2 }));
+		top->SetVertex(3, CVertex({ x1, y2, z2 }));
+		SetPolygon(i++, top);
+
+		// 앞면 (+Y)
+		CPolygon* front = new CPolygon(4, seatColor);
+		front->SetVertex(0, CVertex({ x2, y1, z2 }));
+		front->SetVertex(1, CVertex({ x1, y1, z2 }));
+		front->SetVertex(2, CVertex({ x1, y1, z1 }));
+		front->SetVertex(3, CVertex({ x2, y1, z1 }));
+		SetPolygon(i++, front);
+
+		// 뒷면 (+Y)
+		CPolygon* back = new CPolygon(4, seatColor);
+		back->SetVertex(0, CVertex({ x1, y2, z2 }));
+		back->SetVertex(1, CVertex({ x2, y2, z2 }));
+		back->SetVertex(2, CVertex({ x2, y2, z1 }));
+		back->SetVertex(3, CVertex({ x1, y2, z1 }));
+		SetPolygon(i++, back);
+
+		// 왼쪽 (-X)
+		CPolygon* left = new CPolygon(4, seatColor);
+		left->SetVertex(0, CVertex({ x1, y1, z2 }));
+		left->SetVertex(1, CVertex({ x1, y2, z2 }));
+		left->SetVertex(2, CVertex({ x1, y2, z1 }));
+		left->SetVertex(3, CVertex({ x1, y1, z1 }));
+		SetPolygon(i++, left);
+
+		// 오른쪽 (+X)
+		CPolygon* right = new CPolygon(4, seatColor);
+		right->SetVertex(0, CVertex({ x2, y1, z2 }));
+		right->SetVertex(1, CVertex({ x2, y1, z1 }));
+		right->SetVertex(2, CVertex({ x2, y2, z1 }));
+		right->SetVertex(3, CVertex({ x2, y2, z2 }));
+		SetPolygon(i++, right);
+	}
+	// 뒤쪽 좌석 머리 2
+	{
+		float x1 = 0.9f;	float x2 = 1.9f;
+		float y1 = -8.0f;	float y2 = -8.6f;  // 앞뒤 (Y축)
+		float z1 = -1.0f;	float z2 = -1.75f;  // 아래위 (Z축)
+
+		// 윗면 (z2)
+		CPolygon* top = new CPolygon(4, seatColor);
+		top->SetVertex(0, CVertex({ x1, y1, z2 }));
+		top->SetVertex(1, CVertex({ x2, y1, z2 }));
+		top->SetVertex(2, CVertex({ x2, y2, z2 }));
+		top->SetVertex(3, CVertex({ x1, y2, z2 }));
+		SetPolygon(i++, top);
+
+		// 앞면 (+Y)
+		CPolygon* front = new CPolygon(4, seatColor);
+		front->SetVertex(0, CVertex({ x2, y1, z2 }));
+		front->SetVertex(1, CVertex({ x1, y1, z2 }));
+		front->SetVertex(2, CVertex({ x1, y1, z1 }));
+		front->SetVertex(3, CVertex({ x2, y1, z1 }));
+		SetPolygon(i++, front);
+
+		// 뒷면 (+Y)
+		CPolygon* back = new CPolygon(4, seatColor);
+		back->SetVertex(0, CVertex({ x1, y2, z2 }));
+		back->SetVertex(1, CVertex({ x2, y2, z2 }));
+		back->SetVertex(2, CVertex({ x2, y2, z1 }));
+		back->SetVertex(3, CVertex({ x1, y2, z1 }));
+		SetPolygon(i++, back);
+
+		// 왼쪽 (-X)
+		CPolygon* left = new CPolygon(4, seatColor);
+		left->SetVertex(0, CVertex({ x1, y1, z2 }));
+		left->SetVertex(1, CVertex({ x1, y2, z2 }));
+		left->SetVertex(2, CVertex({ x1, y2, z1 }));
+		left->SetVertex(3, CVertex({ x1, y1, z1 }));
+		SetPolygon(i++, left);
+
+		// 오른쪽 (+X)
+		CPolygon* right = new CPolygon(4, seatColor);
+		right->SetVertex(0, CVertex({ x2, y1, z2 }));
+		right->SetVertex(1, CVertex({ x2, y1, z1 }));
+		right->SetVertex(2, CVertex({ x2, y2, z1 }));
+		right->SetVertex(3, CVertex({ x2, y2, z2 }));
+		SetPolygon(i++, right);
+	}
+	// 뒤쪽 안전 바
+	{
+		float x1 = -3.8f;	float x2 = 3.8f;
+		float y1 = -4.8f;	float y2 = -5.3f;  // 앞뒤 (Y축)
+		float z1 = 0.0f;	float z2 = -0.5f;  // 아래위 (Z축)
+
+		// 윗면 (z2)
+		CPolygon* top = new CPolygon(4, barColor);
+		top->SetVertex(0, CVertex({ x1, y1, z2 }));
+		top->SetVertex(1, CVertex({ x2, y1, z2 }));
+		top->SetVertex(2, CVertex({ x2, y2, z2 }));
+		top->SetVertex(3, CVertex({ x1, y2, z2 }));
+		SetPolygon(i++, top);
+
+		// 앞면 (+Y)
+		CPolygon* front = new CPolygon(4, barColor);
+		front->SetVertex(0, CVertex({ x2, y1, z2 }));
+		front->SetVertex(1, CVertex({ x1, y1, z2 }));
+		front->SetVertex(2, CVertex({ x1, y1, z1 }));
+		front->SetVertex(3, CVertex({ x2, y1, z1 }));
+		SetPolygon(i++, front);
+
+		// 뒷면 (+Y)
+		CPolygon* back = new CPolygon(4, barColor);
+		back->SetVertex(0, CVertex({ x1, y2, z2 }));
+		back->SetVertex(1, CVertex({ x2, y2, z2 }));
+		back->SetVertex(2, CVertex({ x2, y2, z1 }));
+		back->SetVertex(3, CVertex({ x1, y2, z1 }));
+		SetPolygon(i++, back);
+
+		// 왼쪽 (-X)
+		CPolygon* left = new CPolygon(4, barColor);
+		left->SetVertex(0, CVertex({ x1, y1, z2 }));
+		left->SetVertex(1, CVertex({ x1, y2, z2 }));
+		left->SetVertex(2, CVertex({ x1, y2, z1 }));
+		left->SetVertex(3, CVertex({ x1, y1, z1 }));
+		SetPolygon(i++, left);
+
+		// 오른쪽 (+X)
+		CPolygon* right = new CPolygon(4, barColor);
+		right->SetVertex(0, CVertex({ x2, y1, z2 }));
+		right->SetVertex(1, CVertex({ x2, y1, z1 }));
+		right->SetVertex(2, CVertex({ x2, y2, z1 }));
+		right->SetVertex(3, CVertex({ x2, y2, z2 }));
+		SetPolygon(i++, right);
 	}
 
-	// [3] 바퀴 4개 (낮은 큐브)
-	float wx = 1.5f, wy = 0.15f, wz = 0.9f;
-	float wh = 0.3f, wr = 0.2f;
-	float wheelX[] = { -wx, +wx };
-	float wheelZ[] = { -wz, +wz };
-	for (int xi = 0; xi < 2; ++xi) {
-		for (int zi = 0; zi < 2; ++zi) {
-			float cx = wheelX[xi], cy = b + wh / 2, cz = wheelZ[zi];
-			float lx = cx - wr, rx = cx + wr;
-			float ty = cy + wh / 2, by = cy - wh / 2;
-			float fz = cz - wr, bz = cz + wr;
-
-			CPolygon* p = new CPolygon(4, RGB(0, 0, 0));
-			p->SetVertex(0, CVertex({ lx,ty,fz })); 
-			p->SetVertex(1, CVertex({ rx,ty,fz })); 
-			p->SetVertex(2, CVertex({ rx,ty,bz })); 
-			p->SetVertex(3, CVertex({ lx,ty,bz })); 
-			SetPolygon(i++, p);
-		}
-	}
-
-	m_xmOOBB = BoundingOrientedBox(XMFLOAT3(0.0f, bh, 0.0f), XMFLOAT3(bw, bh + 0.8f, bd), XMFLOAT4(0, 0, 0, 1));
-	//CreateRasterizerState();
+	// [마무리] 바운딩 박스 설정
+	m_xmOOBB = BoundingOrientedBox(XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0, 0, 0), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
 }
 
 CCartMesh::~CCartMesh() {}

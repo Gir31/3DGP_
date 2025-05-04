@@ -20,7 +20,7 @@ public:
 
 	float						m_fFriction = 125.0f;
 
-	float           			m_fPitch = 15.0f;  // 살짝 위에서 내려다보게
+	float           			m_fPitch = 30.0f;  // 살짝 위에서 내려다보게
 	float           			m_fYaw = 0.0f;
 	float           			m_fRoll = 0.0f;
 
@@ -30,7 +30,7 @@ public:
 	float m_fCameraYaw = 0.0f;     // 카메라가 플레이어를 중심으로 도는 yaw 각
 	float m_fCameraPitch = 30.0f;  // 카메라의 pitch 각도 (위/아래 보기)
 
-	float m_fCameraDistance = 20.0f; // 플레이어와 카메라 사이 거리
+	float m_fCameraDistance = 40.0f; // 플레이어와 카메라 사이 거리
 	bool m_bOrbitMode = false;     // 토글 여부: false = TPS, true = 자유 카메라
 
 	float m_fSavedYaw = 0.0f;
@@ -81,14 +81,16 @@ public:
 
 class CCart : public CPlayer
 {
+private:
+	float m_fPathTime = 0.0f; // 0.0f ~ 1.0f 구간
+	int m_iPathIndex = 0;
 public:
 	CCart();
 	virtual ~CCart();
 
-	void SetTrackPoints(const std::vector<XMFLOAT3>& points);
-	void AnimateOnTrack(float fElapsedTime);
+	XMFLOAT3 CatmullRom(const XMFLOAT3& p0, const XMFLOAT3& p1, const XMFLOAT3& p2, const XMFLOAT3& p3, float t);
 
-private:
-	std::vector<XMFLOAT3> m_vTrackPoints; 
-	float m_fTrackTime = 0.0f; 
+	virtual void OnUpdateTransform();
+	virtual void Animate(float fElapsedTime);
+	virtual void Render(HDC hDCFrameBuffer, CCamera* pCamera);
 };

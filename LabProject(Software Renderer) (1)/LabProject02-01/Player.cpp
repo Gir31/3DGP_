@@ -242,32 +242,69 @@ CCart::CCart() {
 CCart::~CCart() {
 }
 
-void CCart::SetTrackPoints(const std::vector<XMFLOAT3>& points) {
-	m_vTrackPoints = points;
+std::array< XMFLOAT3, 10> curvePoints{
+	XMFLOAT3{0.0f, 0.0f, 0.0f},
+	XMFLOAT3{0.0f, 30.0f, 40.0f},
+	XMFLOAT3{0.0f, -30.0f, 80.0f},
+	XMFLOAT3{0.0f, -30.0f, 120.0f},
+	XMFLOAT3{0.0f, 30.0f, 160.0f},
+	XMFLOAT3{0.0f, 20.0f, 200.0f},
+	XMFLOAT3{0.0f, 10.0f, 240.0f},
+	XMFLOAT3{0.0f, 0.0f, 280.0f},
+	XMFLOAT3{0.0f, 10.0f, 320.0f},
+	XMFLOAT3{0.0f, 20.0f, 360.0f}
+};
+
+void CCart::Animate(float fElapsedTime)
+{
+	m_fPathTime += fElapsedTime;
+
+	XMFLOAT3 currPos = CatmullRom(curvePoints[m_iPathIndex], curvePoints[m_iPathIndex + 1],
+		curvePoints[m_iPathIndex + 2], curvePoints[m_iPathIndex + 3]
+		, m_fPathTime);
+
+	if (m_fPathTime > 1.f) {
+		m_fPathTime = 0.f;
+		++m_iPathIndex;
+		if (m_iPathIndex > curvePoints.size() - 5) m_iPathIndex = 0;
+	}
+
+	SetPosition(currPos.x, currPos.y, currPos.z);
+
+	CPlayer::Animate(fElapsedTime);
 }
 
-void CCart::AnimateOnTrack(float fElapsedTime) {
-	if (m_vTrackPoints.size() < 4) return;
+void CCart::OnUpdateTransform()
+{
+	CPlayer::OnUpdateTransform();
 
-	m_fTrackTime += fElapsedTime * 0.2f; // 속도
-	if (m_fTrackTime > 1.0f) m_fTrackTime = 0.0f;
+	m_xmf4x4World = Matrix4x4::Multiply(XMMatrixRotationRollPitchYaw(XMConvertToRadians(90.0f), 0.0f, 0.0f), m_xmf4x4World);
+}
 
-	// 보간: Catmull-Rom (0.0f ~ 1.0f 기준)
-	int p0 = 0, p1 = 1, p2 = 2, p3 = 3; // 임시, 실제는 m_fTrackTime 기준으로 바뀜
-	float t = m_fTrackTime; // 0 ~ 1 사이
+void CCart::Render(HDC hDCFrameBuffer, CCamera* pCamera)
+{
+	CPlayer::Render(hDCFrameBuffer, pCamera);
+}
 
-	// Catmull-Rom 공식 (XMFLOAT3 버전 필요하면 구현해줌)
-	XMVECTOR P0 = XMLoadFloat3(&m_vTrackPoints[p0]);
-	XMVECTOR P1 = XMLoadFloat3(&m_vTrackPoints[p1]);
-	XMVECTOR P2 = XMLoadFloat3(&m_vTrackPoints[p2]);
-	XMVECTOR P3 = XMLoadFloat3(&m_vTrackPoints[p3]);
+XMFLOAT3 CCart::CatmullRom(const XMFLOAT3& p0, const XMFLOAT3& p1, const XMFLOAT3& p2, const XMFLOAT3& p3, float t)
+{
+	XMVECTOR v0 = XMLoadFloat3(&p0);
+	XMVECTOR v1 = XMLoadFloat3(&p1);
+	XMVECTOR v2 = XMLoadFloat3(&p2);
+	XMVECTOR v3 = XMLoadFloat3(&p3);
 
-	XMVECTOR pos = 0.5f * ((2 * P1) +
-		(-P0 + P2) * t +
-		(2 * P0 - 5 * P1 + 4 * P2 - P3) * (t * t) +
-		(-P0 + 3 * P1 - 3 * P2 + P3) * (t * t * t));
+	float t2 = t * t;
+	float t3 = t2 * t;
 
-	XMFLOAT3 newPos;
-	XMStoreFloat3(&newPos, pos);
-	SetPosition(newPos.x, newPos.y, newPos.z);
+	XMVECTOR result =
+		0.5f * (
+			(2.0f * v1) +
+			(-v0 + v2) * t +
+			(2.0f * v0 - 5.0f * v1 + 4.0f * v2 - v3) * t2 +
+			(-v0 + 3.0f * v1 - 3.0f * v2 + v3) * t3
+			);
+
+	XMFLOAT3 final;
+	XMStoreFloat3(&final, result);
+	return final;
 }

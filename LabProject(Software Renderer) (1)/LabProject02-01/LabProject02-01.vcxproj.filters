@@ -72,6 +72,9 @@
     <ClInclude Include="Stage2.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="3DGP_variableStage1.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LabProject02-01.cpp">
@@ -118,9 +121,6 @@
     </ClCompile>
     <ClCompile Include="Stage2.cpp">
       <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="3DGP_variableStage1Land.cpp">
-      <Filter>헤더 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

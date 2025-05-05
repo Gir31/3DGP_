@@ -15,12 +15,14 @@ void StageManager::setReady(bool rflag)
 {
 	ready = rflag;
 }
-
+void StageManager::setChange(bool cflag)
+{
+	change = cflag;
+}
 void StageManager::setNextLevel(int level)
 {
 	nextLevel = level;
 }
-
 bool StageManager::getReady()
 {
 	return ready;
@@ -30,6 +32,12 @@ int StageManager::getCurrLevel()
 {
 	return currLevel;
 }
+
+CPlayer* StageManager::getPlayer(int stage)
+{
+	return playerArr[stage];
+}
+
 
 void StageManager::buildStage()
 { 
@@ -48,6 +56,7 @@ void StageManager::changeStage(int level)
 		currLevel = level;
 
 		stageArr[currLevel]->BuildObjects();
+		change = false;
 	}
 }
 

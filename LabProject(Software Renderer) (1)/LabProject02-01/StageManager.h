@@ -5,6 +5,7 @@ class StageManager
 {
 private:
 	std::array<CScene*, 4> stageArr{};
+	std::array<CPlayer*, 4> playerArr{};
 
 	int currLevel = 0;
 	int nextLevel = 0;
@@ -19,9 +20,11 @@ public:
 	~StageManager();
 
 	void setReady(bool rflag);
+	void setChange(bool cflag);
 	void setNextLevel(int level);
 	bool getReady();
 	int getCurrLevel();
+	CPlayer* getPlayer(int stage);
 	 
 	void buildStage();
 	void releaseStage();

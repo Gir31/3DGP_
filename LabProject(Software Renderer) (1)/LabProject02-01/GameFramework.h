@@ -27,7 +27,7 @@ private:
     HBITMAP						m_hBitmapFrameBuffer = NULL;
     HBITMAP						m_hBitmapSelect = NULL;
 
-	CPlayer*					m_pPlayer = NULL;
+	std::array<CPlayer*, 4>		m_pPlayer;
 	CPlayer*					m_mCursor = NULL;
 	//CScene*						m_pScene = NULL;
 	CGameObject*				m_pLockedObject = NULL;

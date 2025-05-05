@@ -235,41 +235,99 @@ void CAirplanePlayer::FireBullet(CGameObject* pLockedObject)
 }
 /////////////////////////////////////////////////////////////////////////////////////////////
 //
-CCart::CCart() {
+CCart::CCart() 
+{
 	// 초기화
 }
 
-CCart::~CCart() {
+CCart::~CCart() 
+{
 }
 
-std::array< XMFLOAT3, 10> curvePoints{
+std::array<XMFLOAT3, 41> curvePoints = {
 	XMFLOAT3{0.0f, 0.0f, 0.0f},
-	XMFLOAT3{0.0f, 30.0f, 40.0f},
-	XMFLOAT3{0.0f, -30.0f, 80.0f},
-	XMFLOAT3{0.0f, -30.0f, 120.0f},
-	XMFLOAT3{0.0f, 30.0f, 160.0f},
-	XMFLOAT3{0.0f, 20.0f, 200.0f},
-	XMFLOAT3{0.0f, 10.0f, 240.0f},
-	XMFLOAT3{0.0f, 0.0f, 280.0f},
-	XMFLOAT3{0.0f, 10.0f, 320.0f},
-	XMFLOAT3{0.0f, 20.0f, 360.0f}
+	XMFLOAT3{10.0f, 50.0f, 30.0f},
+	XMFLOAT3{20.0f, -50.0f, 60.0f},
+	XMFLOAT3{10.0f, 70.0f, 90.0f},
+	XMFLOAT3{-10.0f, -30.0f, 120.0f},
+	XMFLOAT3{-30.0f, 50.0f, 150.0f},
+	XMFLOAT3{-10.0f, -10.0f, 180.0f},
+	XMFLOAT3{0.0f, 30.0f, 210.0f},
+	XMFLOAT3{20.0f, 50.0f, 240.0f},
+	XMFLOAT3{40.0f, 50.0f, 270.0f},
+	XMFLOAT3{50.0f, -50.0f, 300.0f},
+	XMFLOAT3{55.0f, -20.0f, 330.0f},
+	XMFLOAT3{40.0f, -30.0f, 360.0f},
+	XMFLOAT3{30.0f, 10.0f, 390.0f},
+	XMFLOAT3{20.0f, -50.0f, 420.0f},
+	XMFLOAT3{10.0f, -20.0f, 450.0f},
+	XMFLOAT3{0.0f, -40.0f, 480.0f},
+	XMFLOAT3{10.0f, -70.0f, 510.0f},
+	XMFLOAT3{0.0f, -100.0f, 540.0f},
+	XMFLOAT3{-20.0f, -50.0f, 570.0f},
+	XMFLOAT3{-20.0f, -30.0f, 600.0f},
+	XMFLOAT3{-10.0f, 0.0f, 630.0f},
+	XMFLOAT3{10.0f, 50.0f, 660.0f},
+	XMFLOAT3{20.0f, 70.0f, 690.0f},
+	XMFLOAT3{30.0f, 80.0f, 720.0f},
+	XMFLOAT3{20.0f, 50.0f, 750.0f},
+	XMFLOAT3{30.0f, 30.0f, 780.0f},
+	XMFLOAT3{20.0f, 50.0f, 810.0f},
+	XMFLOAT3{-10.0f, 20.0f, 840.0f},
+	XMFLOAT3{0.0f, 0.0f, 870.0f},
+	XMFLOAT3{10.0f, -50.0f, 900.0f},
+	XMFLOAT3{30.0f, 50.0f, 930.0f},
+	XMFLOAT3{20.0f, -10.0f, 960.0f},
+	XMFLOAT3{40.0f, 20.0f, 990.0f},
+	XMFLOAT3{50.0f, 50.0f, 1020.0f},
+	XMFLOAT3{60.0f, 70.0f, 1050.0f},
+	XMFLOAT3{70.0f, 80.0f, 1080.0f},
+	XMFLOAT3{50.0f, 50.0f, 1110.0f},
+	XMFLOAT3{40.0f, 0.0f, 1140.0f},
+	XMFLOAT3{30.0f, 0.0f, 1170.0f},
+	XMFLOAT3{20.0f, 0.0f, 1200.0f},
 };
+
 
 void CCart::Animate(float fElapsedTime)
 {
 	m_fPathTime += fElapsedTime;
-
-	XMFLOAT3 currPos = CatmullRom(curvePoints[m_iPathIndex], curvePoints[m_iPathIndex + 1],
-		curvePoints[m_iPathIndex + 2], curvePoints[m_iPathIndex + 3]
-		, m_fPathTime);
-
-	if (m_fPathTime > 1.f) {
-		m_fPathTime = 0.f;
-		++m_iPathIndex;
-		if (m_iPathIndex > curvePoints.size() - 5) m_iPathIndex = 0;
+	if (m_fPathTime >= 1.0f)
+	{
+		m_fPathTime = 0.0f;
+		m_iPathIndex++;
+		
+			
 	}
 
-	SetPosition(currPos.x, currPos.y, currPos.z);
+	if (m_iPathIndex <= curvePoints.size() - 4) {
+		// 경로 포인트 배열에서 Catmull-Rom 보간
+		int count = static_cast<int>(curvePoints.size());
+		if (count < 4) return;
+
+		int i0 = m_iPathIndex % count;
+		int i1 = (m_iPathIndex + 1) % count;
+		int i2 = (m_iPathIndex + 2) % count;
+		int i3 = (m_iPathIndex + 3) % count;
+
+		XMFLOAT3 currPos = CatmullRom(curvePoints[i0], curvePoints[i1], curvePoints[i2], curvePoints[i3], m_fPathTime);
+		float nextT = min(m_fPathTime + 0.01f, 1.0f);
+		XMFLOAT3 nextPos = CatmullRom(curvePoints[i0], curvePoints[i1], curvePoints[i2], curvePoints[i3], nextT);
+
+		// 방향 벡터 계산
+		XMFLOAT3 forward = Vector3::Normalize(Vector3::Subtract(nextPos, currPos));
+		XMFLOAT3 right = Vector3::Normalize(Vector3::CrossProduct(XMFLOAT3(0, 1, 0), forward)); // 오른쪽
+		XMFLOAT3 up = Vector3::CrossProduct(forward, right); // 위쪽 (pitch 반영됨)
+
+		m_xmf3Look = forward;
+		m_xmf3Right = right;
+		m_xmf3Up = up;
+
+		SetPosition(currPos.x, currPos.y, currPos.z);
+		OnUpdateTransform(); // 회전 행렬 반영
+
+		SetPosition(currPos.x, currPos.y, currPos.z);
+	}
 
 	CPlayer::Animate(fElapsedTime);
 }
@@ -307,4 +365,30 @@ XMFLOAT3 CCart::CatmullRom(const XMFLOAT3& p0, const XMFLOAT3& p1, const XMFLOAT
 	XMFLOAT3 final;
 	XMStoreFloat3(&final, result);
 	return final;
+}
+/////////////////////////////////////////////////////////////////////////////////////////////
+//
+CTank::CTank()
+{
+}
+
+CTank::~CTank()
+{
+}
+
+void CTank::Animate(float fElapsedTime)
+{
+	CPlayer::Animate(fElapsedTime);
+}
+
+void CTank::OnUpdateTransform()
+{
+	CPlayer::OnUpdateTransform();
+
+	m_xmf4x4World = Matrix4x4::Multiply(XMMatrixRotationRollPitchYaw(XMConvertToRadians(90.0f), 0.0f, 0.0f), m_xmf4x4World);
+}
+
+void CTank::Render(HDC hDCFrameBuffer, CCamera* pCamera)
+{
+	CPlayer::Render(hDCFrameBuffer, pCamera);
 }

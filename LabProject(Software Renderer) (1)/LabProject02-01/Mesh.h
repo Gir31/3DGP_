@@ -169,17 +169,23 @@ public:
 	virtual ~CTextMesh() { }
 };
 
-class CLandMesh : public CMesh
-{
-public:
-	CLandMesh(float fWidth = 100.f, float fHeight = 1.f, float fDepth = 100.f, std::array<COLORREF, 3> color = {55, 200, 55});
-
-	virtual ~CLandMesh() {}
-};
-
 class CCartMesh : public CMesh
 {
 public:
 	CCartMesh();
-	virtual ~CCartMesh();
+	virtual ~CCartMesh() {}
+};
+
+class CRailMesh : public CMesh
+{
+public:
+	CRailMesh(float width = 0.3f, float height = 0.3f, float depth = 1.0f);
+	virtual ~CRailMesh() {}
+};
+
+class CTankMesh : public CMesh
+{
+public:
+	CTankMesh();
+	virtual ~CTankMesh() {}
 };
